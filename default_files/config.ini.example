@@ -8,3 +8,6 @@ STATS_DB=poracleStats
 ## Paths ##
 PATH_TO_poracleSTATS=/home/dkmur/progs/poracleStats/		# Do not forget the trailing /
 PATH_TO_PoraclJS=/home/dkmur/progs/PoracleJS/			# Do not forget the trailing /
+
+## Grafana ##
+DataSource_stats=poracle					# enter name for created Grafana datasource

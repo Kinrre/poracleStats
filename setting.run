@@ -17,5 +17,15 @@ cp $PATH_TO_poracleSTATS/default_files/crontab.txt.default $PATH_TO_poracleSTATS
 PATH_TO_STATS2=$(sed 's@/@\\/@g' <<< $PATH_TO_poracleSTATS)
 cd $PATH_TO_poracleSTATS && sed -i "s/pathToStats/$PATH_TO_STATS2/g" *.txt
 
+echo "Creating Grafana templates"
+echo ""
+DS_STATS="${DataSource_stats^^}"
+mkdir -p $PATH_TO_poracleSTATS/grafana
+cd $PATH_TO_poracleSTATS/grafana/ && rm -f *.json && rm -f *.default
+cp $PATH_TO_poracleSTATS/default_files/41_poracle_messages.json.default $PATH_TO_poracleSTATS/grafana/41_poracle_messages.json
+
+cd $PATH_TO_poracleSTATS/grafana/ && sed -i "s/Poracle/$DataSource_stats/g" *.json
+cd $PATH_TO_poracleSTATS/grafana/ && sed -i "s/PORACLE/$DS_STATS/g" *.json
+
 
 echo "All done"
