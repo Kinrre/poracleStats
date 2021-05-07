@@ -17,13 +17,13 @@ grep "$interval" $PATH_TO_PoraclJS/logs/general-$process_date.log > $folder/tmp/
 
 
 ## Get controller data
-Umons="$(grep :user $folder/tmp/controller.log | grep monster | grep Creating | wc -l)"
+Umon="$(grep :user $folder/tmp/controller.log | grep monster | grep Creating | wc -l)"
 Uraid="$(grep :user $folder/tmp/controller.log | grep raid | grep Creating | wc -l)"
 Uegg="$(grep :user $folder/tmp/controller.log | grep egg | grep Creating | wc -l)"
 Uquest="$(grep :user $folder/tmp/controller.log | grep quest | grep Creating | wc -l)"
 Uinvasion="$(grep :user $folder/tmp/controller.log | grep quest | grep Creating | wc -l)"
 
-Cmons="$(grep :channel $folder/tmp/controller.log | grep monster | grep Creating | wc -l)"
+Cmon="$(grep :channel $folder/tmp/controller.log | grep monster | grep Creating | wc -l)"
 Craid="$(grep :channel $folder/tmp/controller.log | grep raid | grep Creating | wc -l)"
 Cegg="$(grep :channel $folder/tmp/controller.log | grep egg | grep Creating | wc -l)"
 Cquest="$(grep :channel $folder/tmp/controller.log | grep quest | grep Creating | wc -l)"
