@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS `messages` (
   `Datetime` datetime NOT NULL,
+  `RPL` smallint(6) NOT NULL,
   `Umon` smallint(10) DEFAULT NULL,
   `Uegg` smallint(10) DEFAULT NULL,
   `Uraid` smallint(10) DEFAULT NULL,
@@ -26,6 +27,7 @@ CREATE TABLE IF NOT EXISTS `version` (
 
 
 ALTER TABLE `messages`
+ADD COLUMN IF NOT EXISTS  `RPL` smallint(6) NOT NULL AFTER `Datetime`,
 ADD COLUMN IF NOT EXISTS `minMsgT` decimal(10,2) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS `maxMsgT` decimal(10,2) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS `avgMsgT` decimal(10,2) DEFAULT NULL,
@@ -34,4 +36,4 @@ ADD COLUMN IF NOT EXISTS `rateLimit` smallint(10) DEFAULT NULL
 
 -- update version
 INSERT IGNORE INTO version values ('stats',1);
-UPDATE version set version = 3;
+UPDATE version set version = 4;
