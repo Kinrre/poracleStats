@@ -21,7 +21,7 @@ Umon="$(grep :user $folder/tmp/controller.log | grep monster | grep Creating | w
 Uraid="$(grep :user $folder/tmp/controller.log | grep raid | grep Creating | wc -l)"
 Uegg="$(grep :user $folder/tmp/controller.log | grep egg | grep Creating | wc -l)"
 Uquest="$(grep :user $folder/tmp/controller.log | grep quest | grep Creating | wc -l)"
-Uinvasion="$(grep :user $folder/tmp/controller.log | grep quest | grep Creating | wc -l)"
+Uinvasion="$(grep :user $folder/tmp/controller.log | grep invasion | grep Creating | wc -l)"
 
 Cmon="$(grep :channel $folder/tmp/controller.log | grep monster | grep Creating | wc -l)"
 Craid="$(grep :channel $folder/tmp/controller.log | grep raid | grep Creating | wc -l)"
