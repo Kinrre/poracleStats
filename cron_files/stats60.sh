@@ -29,13 +29,17 @@ Cegg="$(grep :channel $folder/tmp/controller.log | grep egg | grep Creating | wc
 Cquest="$(grep :channel $folder/tmp/controller.log | grep quest | grep Creating | wc -l)"
 Cinvasion="$(grep :channel $folder/tmp/controller.log | grep invasion | grep Creating | wc -l)"
 
+minMsgT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s min"
+maxMsgT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s max"
+avgMsgT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s add/length)"
+
 echo "Insert into DB"
 echo ""
 if [ -z "$SQL_password" ]
 then
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO messages (Datetime,Umon,Uegg,Uraid,Uquest,Uinvasion,Cmon,Cegg,Craid,Cquest,Cinvasion) VALUES ('$process_hour','$Umon','$Uegg','$Uraid','$Uquest','$Uinvasion','$Cmon','$Cegg','$Craid','$Cquest','$Cinvasion');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO messages (Datetime,Umon,Uegg,Uraid,Uquest,Uinvasion,Cmon,Cegg,Craid,Cquest,Cinvasion,minMsgT,maxMsgT,avgMsgT) VALUES ('$process_hour','$Umon','$Uegg','$Uraid','$Uquest','$Uinvasion','$Cmon','$Cegg','$Craid','$Cquest','$Cinvasion','$minMsgT','$maxMsgT','$avgMsgT');"
 else
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO messages (Datetime,Umon,Uegg,Uraid,Uquest,Uinvasion,Cmon,Cegg,Craid,Cquest,Cinvasion) VALUES ('$process_hour','$Umon','$Uegg','$Uraid','$Uquest','$Uinvasion','$Cmon','$Cegg','$Craid','$Cquest','$Cinvasion');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO messages (Datetime,Umon,Uegg,Uraid,Uquest,Uinvasion,Cmon,Cegg,Craid,Cquest,Cinvasion,minMsgT,maxMsgT,avgMsgT) VALUES ('$process_hour','$Umon','$Uegg','$Uraid','$Uquest','$Uinvasion','$Cmon','$Cegg','$Craid','$Cquest','$Cinvasion','$minMsgT','$maxMsgT','$avgMsgT');"
 fi
 
 
@@ -70,20 +74,12 @@ echo 'Created quest channel messages'
 echo $Cquest
 echo ''
 
-
-
-
-
-
-
-#echo "LAST FULL HOUR REPORTS"
-
-#echo 'Worker stats WebhookQueue'
-#grep "$interval" $poracleGeneral | grep 'Worker STATS' | awk '{print $1,$2,$10}'
-
-#echo ''
-#echo 'Controller log, max message time (ms)'
-#grep '"$interval"\|ms)' $poracleController | awk '{print substr($(NF-1),2)}' | sort -nr | head -1
-#echo ''
-#echo 'Controller log, monster messages created'
-#grep '"$interval"\|Creating monster alert' $poracleController | wc -l
+echo 'minMsgT'
+echo $minMsgT
+echo ''
+echo 'maxMsgT'
+echo $maxMsgT
+echo ''
+echo 'avgMsgT'
+echo $avgMsgT
+echo ''
