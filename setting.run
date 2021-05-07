@@ -1,0 +1,21 @@
+#!/bin/bash
+
+source config.ini
+
+echo "Create tables"
+echo ""
+if [ -z "$SQL_password" ]
+then
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB < $PATH_TO_poracleSTATS/default_files/tables.sql
+else
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB < $PATH_TO_poracleSTATS/default_files/tables.sql
+fi
+
+echo "Create crontab file"
+echo ""
+cp $PATH_TO_poracleSTATS/default_files/crontab.txt.default $PATH_TO_poracleSTATS/crontab.txt
+PATH_TO_STATS2=$(sed 's@/@\\/@g' <<< $PATH_TO_poracleSTATS)
+cd $PATH_TO_poracleSTATS && sed -i "s/pathToStats/$PATH_TO_STATS2/g" *.txt
+
+
+echo "All done"

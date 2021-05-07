@@ -1,0 +1,2 @@
+## poracleStats ##
+1 * * * * cd pathToStatscron_files && ./stats60.sh

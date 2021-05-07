@@ -1,0 +1,10 @@
+## Database settings ##
+SQL_user=dkmur
+SQL_password=dkmur123
+DB_IP=127.0.0.1
+DB_PORT=3306
+STATS_DB=poracleStats
+
+## Paths ##
+PATH_TO_poracleSTATS=/home/dkmur/progs/poracleStats/		# Do not forget the trailing /
+PATH_TO_PoraclJS=/home/dkmur/progs/PoracleJS/			# Do not forget the trailing /
