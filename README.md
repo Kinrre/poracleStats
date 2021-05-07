@@ -14,7 +14,7 @@ flush privileges;
 - Edit crontab ``crontab -e`` and insert content of ``crontab.txt`` located in poracleStats home.
 
 ##  Meaning of columns
-### Table messages:
+### Table messages (from controller.log):
 Umon  = number of user messages created for monster<BR>
 Uegg  = number of user messages created for eggs<BR>
 Uraid  = number of user messages created for raids<BR>
