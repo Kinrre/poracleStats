@@ -29,17 +29,19 @@ Cegg="$(grep :channel $folder/tmp/controller.log | grep egg | grep Creating | wc
 Cquest="$(grep :channel $folder/tmp/controller.log | grep quest | grep Creating | wc -l)"
 Cinvasion="$(grep :channel $folder/tmp/controller.log | grep invasion | grep Creating | wc -l)"
 
-minMsgT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s min"
-maxMsgT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s max"
+minMsgT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s min)"
+maxMsgT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s max)"
 avgMsgT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s add/length)"
+
+rateLimit="$(grep 'Rate limit' $folder/tmp/controller.log | wc -l)"
 
 echo "Insert into DB"
 echo ""
 if [ -z "$SQL_password" ]
 then
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO messages (Datetime,Umon,Uegg,Uraid,Uquest,Uinvasion,Cmon,Cegg,Craid,Cquest,Cinvasion,minMsgT,maxMsgT,avgMsgT) VALUES ('$process_hour','$Umon','$Uegg','$Uraid','$Uquest','$Uinvasion','$Cmon','$Cegg','$Craid','$Cquest','$Cinvasion','$minMsgT','$maxMsgT','$avgMsgT');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO messages (Datetime,Umon,Uegg,Uraid,Uquest,Uinvasion,Cmon,Cegg,Craid,Cquest,Cinvasion,minMsgT,maxMsgT,avgMsgT,rateLimit) VALUES ('$process_hour','$Umon','$Uegg','$Uraid','$Uquest','$Uinvasion','$Cmon','$Cegg','$Craid','$Cquest','$Cinvasion','$minMsgT','$maxMsgT','$avgMsgT','$rateLimit');"
 else
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO messages (Datetime,Umon,Uegg,Uraid,Uquest,Uinvasion,Cmon,Cegg,Craid,Cquest,Cinvasion,minMsgT,maxMsgT,avgMsgT) VALUES ('$process_hour','$Umon','$Uegg','$Uraid','$Uquest','$Uinvasion','$Cmon','$Cegg','$Craid','$Cquest','$Cinvasion','$minMsgT','$maxMsgT','$avgMsgT');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO messages (Datetime,Umon,Uegg,Uraid,Uquest,Uinvasion,Cmon,Cegg,Craid,Cquest,Cinvasion,minMsgT,maxMsgT,avgMsgT,rateLimit) VALUES ('$process_hour','$Umon','$Uegg','$Uraid','$Uquest','$Uinvasion','$Cmon','$Cegg','$Craid','$Cquest','$Cinvasion','$minMsgT','$maxMsgT','$avgMsgT','$rateLimit');"
 fi
 
 
@@ -83,3 +85,6 @@ echo ''
 echo 'avgMsgT'
 echo $avgMsgT
 echo ''
+
+echo 'rate limit'
+echo $rateLimit

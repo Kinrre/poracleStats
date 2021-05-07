@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `minMsgT` decimal(10,2) DEFAULT NULL,
   `maxMsgT` decimal(10,2) DEFAULT NULL,
   `avgMsgT` decimal(10,2) DEFAULT NULL,
+  `rateLimit` smallint(10) DEFAULT NULL,
   PRIMARY KEY (`Datetime`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -27,9 +28,10 @@ CREATE TABLE IF NOT EXISTS `version` (
 ALTER TABLE `messages`
 ADD COLUMN IF NOT EXISTS `minMsgT` decimal(10,2) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS `maxMsgT` decimal(10,2) DEFAULT NULL,
-ADD COLUMN IF NOT EXISTS `avgMsgT` decimal(10,2) DEFAULT NULL
+ADD COLUMN IF NOT EXISTS `avgMsgT` decimal(10,2) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `rateLimit` smallint(10) DEFAULT NULL
 ;
 
 -- update version
 INSERT IGNORE INTO version values ('stats',1);
-UPDATE version set version = 2;
+UPDATE version set version = 3;
