@@ -43,6 +43,15 @@ CREATE TABLE IF NOT EXISTS `discord` (
   PRIMARY KEY (`Datetime`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `users` (
+  `Datetime` datetime NOT NULL,
+  `RPL` smallint(6) NOT NULL,
+  `id` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `msgSend` smallint(10) DEFAULT NULL,
+  PRIMARY KEY (`Datetime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `version` (
   `key` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `version` smallint(6) NOT NULL,
