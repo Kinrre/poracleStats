@@ -1,4 +1,4 @@
 ## poracleStats ##
 1 * * * * cd pathToStatscron_files && ./stats60.sh
-#2 0 * * * cd pathToStatscron_files && ./stats1440.sh
+2 0 * * * cd pathToStatscron_files && ./stats1440.sh
 #5 0 * * 1 cd pathToStatscron_files && ./stats10080.sh
