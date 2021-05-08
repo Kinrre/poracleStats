@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   `msgSend` smallint(10) DEFAULT NULL,
-  PRIMARY KEY (`Datetime`)
+  KEY (`Datetime`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `version` (
