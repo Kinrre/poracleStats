@@ -5,8 +5,8 @@
 - Clone poracleStats and copy config file: <br>``git clone https://github.com/dkmur/poracleStats.git && cd poracleStats/ && cp default_files/config.ini.example config.ini``
 - Create stats database and grant privileges to user (make sure not to use ``$`` in password and, no, not going to escape it). i.e.:  
 ```
-create database ##STATS_DB##;
-grant all privileges on ##STATS_DB##.* to ##MYSELF##@localhost;
+create database ##poracleSTATS_DB##;
+grant all privileges on ##poracleSTATS_DB##.* to ##MYSELF##@localhost;
 flush privileges;
 ```  
 - Edit settings in ``config.ini``
