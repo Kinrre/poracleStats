@@ -10,6 +10,7 @@ interval=$(date -d '1 hour ago' +%Y"-"%m"-"%d" "%H)
 
 ## Get all logs
 echo "Get all logs"
+echo ""
 mkdir -p $folder/tmp
 grep "$interval" $PATH_TO_PoraclJS/logs/controller-$process_date.log > $folder/tmp/controller.log
 grep "$interval" $PATH_TO_PoraclJS/logs/discord-$process_date.log > $folder/tmp/discord.log
@@ -18,7 +19,8 @@ grep "$interval" $PATH_TO_PoraclJS/logs/general-$process_date.log > $folder/tmp/
 
 
 ## Get controller log data
-echo "grep controller log data""
+echo "grep controller log data"
+echo ""
 Umon="$(grep :user $folder/tmp/controller.log | grep monster | grep Creating | wc -l)"
 Uraid="$(grep :user $folder/tmp/controller.log | grep raid | grep Creating | wc -l)"
 Uegg="$(grep :user $folder/tmp/controller.log | grep egg | grep Creating | wc -l)"
@@ -41,7 +43,7 @@ avgMsgT0="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk 
 
 rateLimit="$(grep 'Rate limit' $folder/tmp/controller.log | wc -l)"
 
-echo "Insert controller data into DB"
+echo "Insert controller log data into DB"
 echo ""
 if [ -z "$SQL_password" ]
 then
@@ -51,9 +53,18 @@ else
 fi
 
 ## Get error log  data
-echo "grep error log data""
+echo "grep error log data"
+echo ""
 warn="$(grep 'MAIN warn' $folder/tmp/errors.log | wc -l)"
 warnMap="$(grep 'MAIN warn' $folder/tmp/errors.log | grep StaticMap | wc -l)"
-warnRateLimit="$(grep 'MAIN warn' $folder/tmp/errors.log | grep 'rate limit hit' | wc -l)"
+warnRL="$(grep 'MAIN warn' $folder/tmp/errors.log | grep 'rate limit hit' | wc -l)"
 error="$(grep 'MAIN error' $folder/tmp/errors.log | wc -l)"
 
+echo "Insert error log data into DB"
+echo ""
+if [ -z "$SQL_password" ]
+then
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO error (Datetime,RPL,warn,warnMap,warnRL) VALUES ('$process_hour','60','$warn','$warnMap','$warnRL','$error');"
+else
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO error (Datetime,RPL,RPL,warn,warnMap,warnRL) VALUES ('$process_hour','60','$warn','$warnMap','$warnRL','$error');"
+fi
