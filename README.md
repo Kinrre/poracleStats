@@ -33,12 +33,12 @@ minMsgT = for messages where at least 1 human cared, the lowest time to process 
 maxMsgT = for messages where at least 1 human cared, the highest time to process it (ms)<BR>
 avgsgT = for messages where at least 1 human cared, the average time to process them all (ms)<BR>
 <BR>
-rateLimit = #messages not created due to human being rate limited<BR>
+rateLimit = #messages not created due to user being rate limited<BR>
 <BR>
 xxxMsgT0 = like xxxMsgT but 0 humans cared<BR>
   
 ### Table discord
-warn = #warning<BR>
+warn = #warnings<BR>
 error = #errors<BR>
 errorBG = #errors on Bad Gateway<BR>
 errorUA = #errors on User Aborted requests<BR>
