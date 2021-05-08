@@ -17,6 +17,7 @@ flush privileges;
 - git pull
 - check for any changes in default_files/config.ini.example and adapt accordingly
 - execute ``./settings.run`` 
+- update grafana templates when changed
 
 ##  Meaning of columns
 ### Table controller:
