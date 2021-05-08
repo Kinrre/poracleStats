@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `messages` (
+CREATE TABLE IF NOT EXISTS `controller` (
   `Datetime` datetime NOT NULL,
   `RPL` smallint(6) NOT NULL,
   `Umon` smallint(10) DEFAULT NULL,
@@ -21,6 +21,15 @@ CREATE TABLE IF NOT EXISTS `messages` (
   PRIMARY KEY (`Datetime`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `error` (
+  `Datetime` datetime NOT NULL,
+  `RPL` smallint(6) NOT NULL,
+  `warn` smallint(10) DEFAULT NULL,
+  `warnMap` smallint(10) DEFAULT NULL,
+  `warnRL` smallint(10) DEFAULT NULL,
+  `error` smallint(10) DEFAULT NULL,
+  PRIMARY KEY (`Datetime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `version` (
   `key` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -28,8 +37,9 @@ CREATE TABLE IF NOT EXISTS `version` (
   PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+ALTER TABLE IF EXISTS messages RENAME TO controller;
 
-ALTER TABLE `messages`
+ALTER TABLE `controller`
 ADD COLUMN IF NOT EXISTS  `RPL` smallint(6) NOT NULL AFTER `Datetime`,
 ADD COLUMN IF NOT EXISTS `minMsgT` decimal(10,2) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS `maxMsgT` decimal(10,2) DEFAULT NULL,
@@ -42,4 +52,4 @@ ADD COLUMN IF NOT EXISTS `avgMsgT0` decimal(10,2) DEFAULT NULL
 
 -- update version
 INSERT IGNORE INTO version values ('stats',1);
-UPDATE version set version = 4;
+UPDATE version set version = 5;

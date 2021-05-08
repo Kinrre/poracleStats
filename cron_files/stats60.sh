@@ -8,7 +8,8 @@ process_date=$(date -d '1 hour ago' +%Y"-"%m"-"%d)
 process_hour=$(date -d '1 hour ago' +%Y"-"%m"-"%d" "%H":00:00")
 interval=$(date -d '1 hour ago' +%Y"-"%m"-"%d" "%H)
 
-## Get logs
+## Get all logs
+echo "Get all logs"
 mkdir -p $folder/tmp
 grep "$interval" $PATH_TO_PoraclJS/logs/controller-$process_date.log > $folder/tmp/controller.log
 grep "$interval" $PATH_TO_PoraclJS/logs/discord-$process_date.log > $folder/tmp/discord.log
@@ -16,7 +17,8 @@ grep "$interval" $PATH_TO_PoraclJS/logs/errors-$process_date.log > $folder/tmp/e
 grep "$interval" $PATH_TO_PoraclJS/logs/general-$process_date.log > $folder/tmp/general.log
 
 
-## Get controller data
+## Get controller log data
+echo "grep controller log data""
 Umon="$(grep :user $folder/tmp/controller.log | grep monster | grep Creating | wc -l)"
 Uraid="$(grep :user $folder/tmp/controller.log | grep raid | grep Creating | wc -l)"
 Uegg="$(grep :user $folder/tmp/controller.log | grep egg | grep Creating | wc -l)"
@@ -39,67 +41,19 @@ avgMsgT0="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk 
 
 rateLimit="$(grep 'Rate limit' $folder/tmp/controller.log | wc -l)"
 
-echo "Insert into DB"
+echo "Insert controller data into DB"
 echo ""
 if [ -z "$SQL_password" ]
 then
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO messages (Datetime,RPL,Umon,Uegg,Uraid,Uquest,Uinvasion,Cmon,Cegg,Craid,Cquest,Cinvasion,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsg0T) VALUES ('$process_hour','60','$Umon','$Uegg','$Uraid','$Uquest','$Uinvasion','$Cmon','$Cegg','$Craid','$Cquest','$Cinvasion','$minMsgT','$maxMsgT','$avgMsgT','$rateLimit','minMsgT0','$maxMsgT0','$avgMsgT0');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO controller (Datetime,RPL,Umon,Uegg,Uraid,Uquest,Uinvasion,Cmon,Cegg,Craid,Cquest,Cinvasion,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsg0T) VALUES ('$process_hour','60','$Umon','$Uegg','$Uraid','$Uquest','$Uinvasion','$Cmon','$Cegg','$Craid','$Cquest','$Cinvasion','$minMsgT','$maxMsgT','$avgMsgT','$rateLimit','minMsgT0','$maxMsgT0','$avgMsgT0');"
 else
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO messages (Datetime,RPL,Umon,Uegg,Uraid,Uquest,Uinvasion,Cmon,Cegg,Craid,Cquest,Cinvasion,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsgT0) VALUES ('$process_hour','60','$Umon','$Uegg','$Uraid','$Uquest','$Uinvasion','$Cmon','$Cegg','$Craid','$Cquest','$Cinvasion','$minMsgT','$maxMsgT','$avgMsgT','$rateLimit','$minMsgT0','$maxMsgT0','$avgMsgT0');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO controller (Datetime,RPL,Umon,Uegg,Uraid,Uquest,Uinvasion,Cmon,Cegg,Craid,Cquest,Cinvasion,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsgT0) VALUES ('$process_hour','60','$Umon','$Uegg','$Uraid','$Uquest','$Uinvasion','$Cmon','$Cegg','$Craid','$Cquest','$Cinvasion','$minMsgT','$maxMsgT','$avgMsgT','$rateLimit','$minMsgT0','$maxMsgT0','$avgMsgT0');"
 fi
 
+## Get error log  data
+echo "grep error log data""
+warn="$(grep 'MAIN warn' $folder/tmp/errors.log | wc -l)"
+warnMap="$(grep 'MAIN warn' $folder/tmp/errors.log | grep StaticMap | wc -l)"
+warnRateLimit="$(grep 'MAIN warn' $folder/tmp/errors.log | grep 'rate limit hit' | wc -l)"
+error="$(grep 'MAIN error' $folder/tmp/errors.log | wc -l)"
 
-echo 'Created monster user messages'
-echo $Umons
-echo ''
-echo 'Created raid user messages'
-echo $Uraid
-echo ''
-echo 'Created egg user messages'
-echo $Uegg
-echo ''
-echo 'Created invasion user messages'
-echo $Uinvasion
-echo ''
-echo 'Created quest user messages'
-echo $Uquest
-echo ''
-echo 'Created monster channel messages'
-echo $Cmons
-echo ''
-echo 'Created raid channel messages'
-echo $Craid
-echo ''
-echo 'Created egg channel messages'
-echo $Cegg
-echo ''
-echo 'Created invasion channel messages'
-echo $Cinvasion
-echo ''
-echo 'Created quest channel messages'
-echo $Cquest
-echo ''
-
-echo 'minMsgT'
-echo $minMsgT
-echo ''
-echo 'maxMsgT'
-echo $maxMsgT
-echo ''
-echo 'avgMsgT'
-echo $avgMsgT
-echo ''
-
-echo 'rate limit'
-echo $rateLimit
-
-
-echo 'minMsgT0'
-echo $minMsgT0
-echo ''
-echo 'maxMsgT0'
-echo $maxMsgT0
-echo ''
-echo 'avgMsgT0'
-echo $avgMsgT0
-echo ''
