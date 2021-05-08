@@ -13,19 +13,44 @@ flush privileges;
 - Execute ``./settings.run``, this will create required tables and crontab file
 - Edit crontab ``crontab -e`` and insert content of ``crontab.txt`` located in poracleStats home.
 
+## Updates
+- git pull
+- check for any changes in default_files/config.ini.example and adapt accordingly
+- execute ``./settings.run`` 
+
 ##  Meaning of columns
-### Table messages (from controller.log):
-Umon  = number of user messages created for monster<BR>
-Uegg  = number of user messages created for eggs<BR>
-Uraid  = number of user messages created for raids<BR>
-Uquest  = number of user messages created for quests<BR>
-Uinvasion  = number of user messages created for invasions<BR>
+### Table controller:
+Umon  = #User messages created for monster<BR>
+Uegg  = #User messages created for eggs<BR>
+Uraid  = #User messages created for raids<BR>
+Uquest  = #User messages created for quests<BR>
+Uinvasion  = #User messages created for invasions<BR>
 <BR>
 Cxxxx = same as User messages above but for Channels<BR>
 <BR>
-minMsgT = for messages where at least 1 human cared, the lowest time to process it<BR>
-maxMsgT = for messages where at least 1 human cared, the highest time to process it<BR>
-avgsgT = for messages where at least 1 human cared, the average time to process them all<BR>
+minMsgT = for messages where at least 1 human cared, the lowest time to process it (ms)<BR>
+maxMsgT = for messages where at least 1 human cared, the highest time to process it (ms)<BR>
+avgsgT = for messages where at least 1 human cared, the average time to process them all (ms)<BR>
 <BR>
-rateLimit = number of messages not created due to human being rate limited
+rateLimit = #messages not created due to human being rate limited<BR>
+<BR>
+xxxMsgT0 = like xxxMsgT but 0 humans cared<BR>
+  
+### Table discord
+warn = #warning<BR>
+error = #errors<BR>
+errorBG = #errors on Bad Gateway<BR>
+errorUA = #errors on User Aborted requests<BR>
+msgClean = #Clean messages<BR>
+msgSend = #Messages send<BR>
 
+### Table error
+warn = #warnings<BR>
+warnMap = #warnings related to StaticMap<BR>
+warnRL = #warning relate to Rate Limit<BR>
+error = #errors<BR>
+  
+### Table users
+id = id from PoracleJS<BR>
+type = user or channel from PoracleJS<BR>
+msgSend = #discord messages send, excl clean<BR>
