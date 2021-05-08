@@ -85,5 +85,5 @@ if [ -z "$SQL_password" ]
 then
   mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO discord (Datetime,RPL,warn,error,errorBG,errorUA,msgClean,msgSend) VALUES ('$process_hour','60','$warn2','$error2','$errorBG','$errorUA','$msgClean','$msgSend');"
 else
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO discord (Datetime,RPL,warn,error,errorBG,errorUA,msgClean,msgSend)) VALUES ('$process_hour','60','$warn2','$error2','$errorBG','$errorUA','$msgClean','$msgSend');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO discord (Datetime,RPL,warn,error,errorBG,errorUA,msgClean,msgSend) VALUES ('$process_hour','60','$warn2','$error2','$errorBG','$errorUA','$msgClean','$msgSend');"
 fi
