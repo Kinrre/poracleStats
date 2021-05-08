@@ -4,10 +4,15 @@ SQL_password=dkmur123
 DB_IP=127.0.0.1
 DB_PORT=3306
 STATS_DB=poracleStats
+PORACLE_DB=poracleV4						# required for option userStats, make sure SQL_user has privileges on it !!
 
 ## Paths ##
 PATH_TO_poracleSTATS=/home/dkmur/progs/poracleStats/		# Do not forget the trailing /
 PATH_TO_PoraclJS=/home/dkmur/progs/PoracleJS/			# Do not forget the trailing /
+
+## Settings ##
+userStats=false							# true/false: store daily messages send per user (admin_disable = 0)
+
 
 ## Grafana ##
 DataSource_stats=poracle					# enter name for created Grafana datasource
