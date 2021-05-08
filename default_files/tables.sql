@@ -31,6 +31,18 @@ CREATE TABLE IF NOT EXISTS `error` (
   PRIMARY KEY (`Datetime`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `discord` (
+  `Datetime` datetime NOT NULL,
+  `RPL` smallint(6) NOT NULL,
+  `warn` smallint(10) DEFAULT NULL,
+  `error` smallint(10) DEFAULT NULL,
+  `errorBG` smallint(10) DEFAULT NULL,
+  `errorUA` smallint(10) DEFAULT NULL,
+  `msgClean` smallint(10) DEFAULT NULL,
+  `msgSend` smallint(10) DEFAULT NULL,
+  PRIMARY KEY (`Datetime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `version` (
   `key` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `version` smallint(6) NOT NULL,

@@ -68,3 +68,22 @@ then
 else
   mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO error (Datetime,RPL,warn,warnMap,warnRL,error) VALUES ('$process_hour','60','$warn','$warnMap','$warnRL','$error');"
 fi
+
+## Get discord log  data
+echo "grep discord log  data"
+echo ""
+warn2="$(grep 'MAIN warn' $folder/tmp/discord.log | wc -l)"
+error2="$(grep 'MAIN error' $folder/tmp/discord.log | wc -l)"
+errorBG="$(grep 'MAIN error' $folder/tmp/discord.log | grep 'Bad Gateway' | wc -l)"
+errorUA="$(grep 'MAIN error' $folder/tmp/discord.log | grep 'The user aborted a request' | wc -l)"
+msgClean="$(grep 'Sending discord message' $folder/tmp/discord.log | grep 'clean' | wc -l)"
+msgSend="$(grep 'Sending discord message' $folder/tmp/discord.log | grep -v 'clean' | wc -l)"
+
+echo "Insert discord log data into DB"
+echo ""
+if [ -z "$SQL_password" ]
+then
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO discord (Datetime,RPL,warn,error,errorBG,errorUA,msgClean,msgSend) VALUES ('$process_hour','60','$warn2','$error2','$errorBG','$errorUA','$msgClean','$msgSend');"
+else
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO discord (Datetime,RPL,warn,error,errorBG,errorUA,msgClean,msgSend)) VALUES ('$process_hour','60','$warn2','$error2','$errorBG','$errorUA','$msgClean','$msgSend');"
+fi
