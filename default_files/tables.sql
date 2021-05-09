@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `controller` (
   `minMsgT0` decimal(10,2) DEFAULT NULL,
   `maxMsgT0` decimal(10,2) DEFAULT NULL,
   `avgMsgT0` decimal(10,2) DEFAULT NULL,
-  PRIMARY KEY (`Datetime`)
+  PRIMARY KEY (Datetime,RPL)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `error` (
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `error` (
   `warnMap` smallint(10) DEFAULT NULL,
   `warnRL` smallint(10) DEFAULT NULL,
   `error` smallint(10) DEFAULT NULL,
-  PRIMARY KEY (`Datetime`)
+  PRIMARY KEY (Datetime,RPL)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `discord` (
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `discord` (
   `errorUA` smallint(10) DEFAULT NULL,
   `msgClean` smallint(10) DEFAULT NULL,
   `msgSend` smallint(10) DEFAULT NULL,
-  PRIMARY KEY (`Datetime`)
+  PRIMARY KEY (Datetime,RPL)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `users` (
@@ -49,7 +49,12 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   `msgSend` smallint(10) DEFAULT NULL,
-  KEY (`Datetime`)
+  `mon` smallint(10) DEFAULT NULL,
+  `egg` smallint(10) DEFAULT NULL,
+  `raid` smallint(10) DEFAULT NULL,
+  `quest` smallint(10) DEFAULT NULL,
+  `invasion` smallint(10) DEFAULT NULL,
+  PRIMARY KEY (Datetime,id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `version` (
@@ -58,7 +63,6 @@ CREATE TABLE IF NOT EXISTS `version` (
   PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-ALTER TABLE IF EXISTS messages RENAME TO controller;
 
 ALTER TABLE `controller`
 ADD COLUMN IF NOT EXISTS  `RPL` smallint(6) NOT NULL AFTER `Datetime`,
@@ -68,9 +72,33 @@ ADD COLUMN IF NOT EXISTS `avgMsgT` decimal(10,2) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS `rateLimit` smallint(10) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS `minMsgT0` decimal(10,2) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS `maxMsgT0` decimal(10,2) DEFAULT NULL,
-ADD COLUMN IF NOT EXISTS `avgMsgT0` decimal(10,2) DEFAULT NULL
+ADD COLUMN IF NOT EXISTS `avgMsgT0` decimal(10,2) DEFAULT NULL,
+DROP PRIMARY KEY,
+ADD PRIMARY KEY (Datetime,RPL)
 ;
+
+
+ALTER TABLE `discord`
+DROP PRIMARY KEY,
+ADD PRIMARY KEY (Datetime,RPL)
+;
+
+ALTER TABLE `error`
+DROP PRIMARY KEY,
+ADD PRIMARY KEY (Datetime,RPL)
+;
+
+ALTER TABLE `users`
+ADD COLUMN IF NOT EXISTS `mon` smallint(10) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `egg` smallint(10) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `raid` smallint(10) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `quest` smallint(10) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `invasion` smallint(10) DEFAULT NULL,
+DROP KEY `Datetime`,
+ADD PRIMARY KEY (Datetime,id)
+;
+
 
 -- update version
 INSERT IGNORE INTO version values ('stats',1);
-UPDATE version set version = 5;
+UPDATE version set version = 6;
