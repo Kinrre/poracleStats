@@ -50,8 +50,23 @@ warn = #warnings<BR>
 warnMap = #warnings related to StaticMap<BR>
 warnRL = #warning relate to Rate Limit<BR>
 error = #errors<BR>
-  
+
+### Table general
+whQinMin = WebHook Queue inbound minimum <BR>
+whQinMax = WebHook Queue inbound maximum<BR>
+whQinAvg = WebHook Queue inbound average<BR>
+<BR>
+whQoutxxx = as above but outbound<BR>
+<BR>
+stopRL = user stops due to rate limit hit<BR>
+stopUR = users stopped due to too many rate limit hits, stopped until User Reactivation<BR>
+
 ### Table users
 id = id from PoracleJS<BR>
 type = user or channel from PoracleJS<BR>
 msgSend = #discord messages send, excl clean<BR>
+mon = #monster alerts send<BR>
+raid = #raid alerts send<BR>
+egg = #egg alerts send<BR>
+invasion = #invasion alerts send<BR>
+quest = #quest alerts send<BR>
