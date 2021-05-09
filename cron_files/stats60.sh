@@ -105,7 +105,7 @@ echo "Insert general log data into DB"
 echo ""
 if [ -z "$SQL_password" ]
 then
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO general (Datetime,RPL,whQinMin,whQinMax,whQinAvg,whQoutMin,whQoutMax,whQoutAvg,stopRL,stopUR) VALUES ('$process_hour','60',whQinMin='$whQinMin',whQinMax='$whQinMax',whQinAvg='$whQinAvg',whQoutMin='$whQoutMin',whQoutMax='$whQoutMax',whQoutAvg='$whQoutAvg',stopRL='$stopRL',stopUR='$stopUR');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO general (Datetime,RPL,whQinMin,whQinMax,whQinAvg,whQoutMin,whQoutMax,whQoutAvg,stopRL,stopUR) VALUES ('$process_hour','60','$whQinMin','$whQinMax','$whQinAvg','$whQoutMin','$whQoutMax','$whQoutAvg','$stopRL','$stopUR');"
 else
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO general (Datetime,RPL,whQinMin,whQinMax,whQinAvg,whQoutMin,whQoutMax,whQoutAvg,stopRL,stopUR) VALUES ('$process_hour','60',whQinMin='$whQinMin',whQinMax='$whQinMax',whQinAvg='$whQinAvg',whQoutMin='$whQoutMin',whQoutMax='$whQoutMax',whQoutAvg='$whQoutAvg',stopRL='$stopRL',stopUR='$stopUR');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO general (Datetime,RPL,whQinMin,whQinMax,whQinAvg,whQoutMin,whQoutMax,whQoutAvg,stopRL,stopUR) VALUES ('$process_hour','60','$whQinMin','$whQinMax','$whQinAvg','$whQoutMin','$whQoutMax','$whQoutAvg','$stopRL','$stopUR');"
 fi
