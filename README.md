@@ -1,5 +1,16 @@
 # poracleStats
 
+Process PoracleJS logs and store info into database.<BR>
+<BR>
+
+tdb:<BR>
+ - 1440 and 10080 aggregation
+ - add/update grafana templates
+ - process middleman logs to db
+ - create grafana performance overview dashboard
+ - add grafana installation to wiki
+ - add + update user name to table users and update daily from PoracleDB? 
+
 ##  Setting up
 
 - Clone poracleStats and copy config file: <br>``git clone https://github.com/dkmur/poracleStats.git && cd poracleStats/ && cp default_files/config.ini.example config.ini``
