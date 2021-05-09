@@ -87,3 +87,25 @@ then
 else
   mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO discord (Datetime,RPL,warn,error,errorBG,errorUA,msgClean,msgSend) VALUES ('$process_hour','60','$warn2','$error2','$errorBG','$errorUA','$msgClean','$msgSend');"
 fi
+
+
+## Get general log  data
+echo "grep general log  data"
+echo ""
+whQinMin="$(grep '$STATS info: Worker STATS: WebhookQueue is currently' $folder/tmp/general.log | awk '{print ($NF)}' | jq -s min)"
+whQinMax="$(grep '$STATS info: Worker STATS: WebhookQueue is currently' $folder/tmp/general.log | awk '{print ($NF)}' | jq -s max)"
+whQinAvg="$(grep '$STATS info: Worker STATS: WebhookQueue is currently' $folder/tmp/general.log | awk '{print ($NF)}' | jq -s add/length)"
+whQoutMin="$(grep 'Queues: WebhookQueue is currently' $folder/tmp/general.log | awk '{print ($NF)}' | jq -s min)"
+whQoutMax="$(grep 'Queues: WebhookQueue is currently' $folder/tmp/general.log | awk '{print ($NF)}' | jq -s max)"
+whQoutAvg="$(grep 'Queues: WebhookQueue is currently' $folder/tmp/general.log | awk '{print ($NF)}' | jq -s add/length)"
+stopRL="$(grep 'Stopping alerts (Rate limit)' $folder/tmp/general.log | grep -v 'clean' | wc -l)"
+stopUR="$(grep 'Stopping alerts [until restart]' $folder/tmp/general.log | grep -v 'clean' | wc -l)"
+
+echo "Insert general log data into DB"
+echo ""
+if [ -z "$SQL_password" ]
+then
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO controller (Datetime,RPL,whQinMin,whQinMax,whQinAvg,whQoutMin,whQoutMax,whQoutAvg,stopRL,stopUR) VALUES ('$process_hour','60',whQinMin='$whQinMin',whQinMax='$whQinMax',whQinAvg='$whQinAvg',whQoutMin='$whQoutMin',whQoutMax='$whQoutMax',whQoutAvg='$whQoutAvg',stopRL='$stopRL',stopUR='$stopUR');"
+else
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO controller (Datetime,RPL,whQinMin,whQinMax,whQinAvg,whQoutMin,whQoutMax,whQoutAvg,stopRL,stopUR) VALUES ('$process_hour','60',whQinMin='$whQinMin',whQinMax='$whQinMax',whQinAvg='$whQinAvg',whQoutMin='$whQoutMin',whQoutMax='$whQoutMax',whQoutAvg='$whQoutAvg',stopRL='$stopRL',stopUR='$stopUR');"
+fi

@@ -31,6 +31,20 @@ CREATE TABLE IF NOT EXISTS `error` (
   PRIMARY KEY (Datetime,RPL)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `general` (
+  `Datetime` datetime NOT NULL,
+  `RPL` smallint(6) NOT NULL,
+  `whQinMin` smallint(10) DEFAULT NULL,
+  `whQinMax` smallint(10) DEFAULT NULL,
+  `whQinAvg` smallint(10) DEFAULT NULL,
+  `whQoutMin` smallint(10) DEFAULT NULL,
+  `whQoutMax` smallint(10) DEFAULT NULL,
+  `whQoutAvg` smallint(10) DEFAULT NULL,
+  `stopRL` smallint(10) DEFAULT NULL,
+  `stopUR` smallint(10) DEFAULT NULL,
+  PRIMARY KEY (Datetime,RPL)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `discord` (
   `Datetime` datetime NOT NULL,
   `RPL` smallint(6) NOT NULL,
@@ -54,6 +68,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `raid` smallint(10) DEFAULT NULL,
   `quest` smallint(10) DEFAULT NULL,
   `invasion` smallint(10) DEFAULT NULL,
+  `stopRL` smallint(10) DEFAULT NULL,
+  `stopUR` smallint(10) DEFAULT NULL,
   PRIMARY KEY (Datetime,id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -63,42 +79,6 @@ CREATE TABLE IF NOT EXISTS `version` (
   PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
-ALTER TABLE `controller`
-ADD COLUMN IF NOT EXISTS  `RPL` smallint(6) NOT NULL AFTER `Datetime`,
-ADD COLUMN IF NOT EXISTS `minMsgT` decimal(10,2) DEFAULT NULL,
-ADD COLUMN IF NOT EXISTS `maxMsgT` decimal(10,2) DEFAULT NULL,
-ADD COLUMN IF NOT EXISTS `avgMsgT` decimal(10,2) DEFAULT NULL,
-ADD COLUMN IF NOT EXISTS `rateLimit` smallint(10) DEFAULT NULL,
-ADD COLUMN IF NOT EXISTS `minMsgT0` decimal(10,2) DEFAULT NULL,
-ADD COLUMN IF NOT EXISTS `maxMsgT0` decimal(10,2) DEFAULT NULL,
-ADD COLUMN IF NOT EXISTS `avgMsgT0` decimal(10,2) DEFAULT NULL,
-DROP PRIMARY KEY,
-ADD PRIMARY KEY (Datetime,RPL)
-;
-
-
-ALTER TABLE `discord`
-DROP PRIMARY KEY,
-ADD PRIMARY KEY (Datetime,RPL)
-;
-
-ALTER TABLE `error`
-DROP PRIMARY KEY,
-ADD PRIMARY KEY (Datetime,RPL)
-;
-
-ALTER TABLE `users`
-ADD COLUMN IF NOT EXISTS `mon` smallint(10) DEFAULT NULL,
-ADD COLUMN IF NOT EXISTS `egg` smallint(10) DEFAULT NULL,
-ADD COLUMN IF NOT EXISTS `raid` smallint(10) DEFAULT NULL,
-ADD COLUMN IF NOT EXISTS `quest` smallint(10) DEFAULT NULL,
-ADD COLUMN IF NOT EXISTS `invasion` smallint(10) DEFAULT NULL,
-DROP KEY `Datetime`,
-ADD PRIMARY KEY (Datetime,id)
-;
-
-
 -- update version
 INSERT IGNORE INTO version values ('stats',1);
-UPDATE version set version = 6;
+UPDATE version set version = 7;
