@@ -62,7 +62,7 @@ min(whQoutMin),
 max(whQoutMax),
 avg(whQoutAvg),
 sum(stopRL),
-sum(topUR)
+sum(stopUR)
 from poracleStats.general
 where Datetime >= date(curdate() - interval weekday(curdate()) + 7 day) and RPL = 1440
 ;
