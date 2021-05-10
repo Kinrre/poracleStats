@@ -9,7 +9,10 @@ PORACLE_DB=poracleV4						# required for option userStats, make sure SQL_user ha
 ## Paths ##
 PATH_TO_poracleSTATS=/home/dkmur/progs/poracleStats/		# Do not forget the trailing /
 PATH_TO_PoraclJS=/home/dkmur/progs/PoracleJS/			# Do not forget the trailing /
-PATH_TO_middleman_log=						# optionally set path to Malte's middleman log folder to process them as well
+
+## MiddleMan log file##
+middleman_log=							# optionally set Malte's middleman error log file to process them as well
+								# example, Im running it in pm2, set to: /home/dkmur/.pm2/logs/middleman-error.log
 
 ## Settings ##
 userStats=false							# true/false: store daily messages send per user (admin_disable = 0)

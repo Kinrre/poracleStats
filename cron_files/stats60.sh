@@ -115,7 +115,7 @@ then
   echo "No path entered, skipping"
 else
   echo "Get log data"
-  grep -a "$interval_middleman" $PATH_TO_middleman_log/middleman-error.log > $folder/tmp/middleman.log
+  grep -a "$interval_middleman" $middleman_log > $folder/tmp/middleman.log
   echo "grep middleman log data"
   total="$(grep 'POST /staticmap' $folder/tmp/middleman.log | wc -l)"
   mm200="$(grep 'POST /staticmap' $folder/tmp/middleman.log | grep '200' | wc -l)"

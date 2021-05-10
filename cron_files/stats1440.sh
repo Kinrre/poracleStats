@@ -8,6 +8,7 @@ process_hour=$(date -d '1 hour ago' +%Y"-"%m"-"%d" 00:00:00")
 #interval=$(date -d '1 hour ago' +%Y"-"%m"-"%d" "%H)
 
 ## Get user data
+echo "Get daily user data"
 if [ -z "$userStats" ]; then
         echo ""
         echo "Not generating daily user Stats"
@@ -41,6 +42,12 @@ else
 fi
 
 
-
-
-## TO BE DONE, aggregate to daily data
+# Aggregate hourly to daily data
+echo "Aggregate hourly to daily data"
+#echo ""
+#if [ -z "$SQL_password" ]
+#then
+#  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB < XX
+#else
+#  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB < XX
+#fi

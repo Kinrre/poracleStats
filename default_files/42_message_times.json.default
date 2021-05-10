@@ -14,7 +14,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "7.5.2"
+      "version": "7.5.5"
     },
     {
       "type": "panel",
@@ -46,11 +46,13 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1620403009703,
+  "iteration": 1620674072740,
   "links": [],
   "panels": [
     {
-      "aliasColors": {},
+      "aliasColors": {
+        "avg time, a human cared": "dark-blue"
+      },
       "bars": false,
       "dashLength": 10,
       "dashes": false,
@@ -85,7 +87,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -99,7 +101,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  avgMsgT as 'avg time, a human cared',\n  avgMsgT0 as 'avg time, no human cared'\nFROM messages\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
+          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  avgMsgT as 'avg time, a human cared',\n  avgMsgT0 as 'avg time, no human cared'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
           "refId": "A",
           "select": [
             [
@@ -163,7 +165,9 @@
       }
     },
     {
-      "aliasColors": {},
+      "aliasColors": {
+        "#messages not created": "dark-red"
+      },
       "bars": false,
       "dashLength": 10,
       "dashes": false,
@@ -198,7 +202,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -212,7 +216,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  rateLimit as '#messages not created'\nFROM messages\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
+          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  rateLimit as '#messages not created'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
           "refId": "A",
           "select": [
             [
@@ -276,7 +280,9 @@
       }
     },
     {
-      "aliasColors": {},
+      "aliasColors": {
+        "min time, a human cared": "dark-blue"
+      },
       "bars": false,
       "dashLength": 10,
       "dashes": false,
@@ -311,7 +317,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -325,7 +331,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  minMsgT as 'min time, a human cared',\n  minMsgT0 as 'min time, no human cared'\nFROM messages\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
+          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  minMsgT as 'min time, a human cared',\n  minMsgT0 as 'min time, no human cared'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
           "refId": "A",
           "select": [
             [
@@ -389,7 +395,9 @@
       }
     },
     {
-      "aliasColors": {},
+      "aliasColors": {
+        "max time, a human cared": "dark-blue"
+      },
       "bars": false,
       "dashLength": 10,
       "dashes": false,
@@ -424,7 +432,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -438,7 +446,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  minMsgT as 'min time, a human cared',\n  minMsgT0 as 'min time, no human cared'\nFROM messages\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
+          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  maxMsgT as 'max time, a human cared',\n  maxMsgT0 as 'max time, no human cared'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
           "refId": "A",
           "select": [
             [
@@ -464,7 +472,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Message create time, lowest (ms)",
+      "title": "Message create time, highest (ms)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -511,7 +519,7 @@
         "allValue": null,
         "current": {},
         "datasource": "${DS_PORACLE}",
-        "definition": "select distinct(RPL) from messages;",
+        "definition": "select distinct(RPL) from controller;",
         "description": null,
         "error": null,
         "hide": 0,
@@ -520,7 +528,7 @@
         "multi": false,
         "name": "RPL",
         "options": [],
-        "query": "select distinct(RPL) from messages;",
+        "query": "select distinct(RPL) from controller;",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -534,12 +542,12 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-7d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
-  "title": "42. Poracle message time",
+  "title": "42. Message time",
   "uid": "16Pe04jGz",
-  "version": 2
+  "version": 10
 }
