@@ -27,5 +27,34 @@ cp $PATH_TO_poracleSTATS/default_files/41_poracle_messages.json.default $PATH_TO
 cd $PATH_TO_poracleSTATS/grafana/ && sed -i "s/Poracle/$DataSource_stats/g" *.json
 cd $PATH_TO_poracleSTATS/grafana/ && sed -i "s/PORACLE/$DS_STATS/g" *.json
 
+#New install check
+if [ -z "$SQL_password" ]
+then
+  firstInstall=(mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -N -se "SELECT count(*) FROM controller;")
+else
+  firstInstall=(mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -N -se "SELECT count(*) FROM controller;")
+fi
+
+#firstInstall=0
+
+if [ $firstInstall = 0 ]
+then
+  echo ""
+  echo "First time installation, do you wish to process existing logs?"
+  read -p "Continue (y/n)?" choice
+  if [ $choice = "y" ] || [ $choice = "yes" ] || [ $choice = "Y" ] || [ $choice = "Yes" ]
+  then
+    hoursback=144
+    while test $hoursback != 1
+    do
+      echo "processing now - $hoursback hours"
+      cp $folder/cron_files/stats60.sh $folder/cron_files/stats60.sh.tmp
+      sed sed -i "s/1 hour ago/$hoursback hour ago/g" $folder/cron_files/stats60.sh.tmp
+      ./$folder/cron_files/stats60.sh.tmp
+      rm $folder/cron_files/stats60.sh.tmp
+      hoursback="$(( hoursback - 1 ))"
+    done
+  fi
+fi
 
 echo "All done"
