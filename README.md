@@ -8,7 +8,8 @@ tdb:<BR>
  - add/update grafana templates
  - create grafana performance overview dashboard
  - add grafana installation to wiki
- - add + update user name to table users and update daily from PoracleDB? 
+ - add + update user name to table users and update daily from PoracleDB?
+ - add cleanup of tables after Xdays 
 
 ## Setting up
 
@@ -82,5 +83,6 @@ invasion = #invasion alerts send<BR>
 quest = #quest alerts send<BR>
 
 ### Table middleman
+total = #POST_staticmap messages in log<BR>
 post200 = #POST_staticmap resulting in http 200<BR>
 post500 = #POST_staticmap resulting in http 500<BR>
