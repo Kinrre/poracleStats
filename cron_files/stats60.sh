@@ -55,9 +55,9 @@ fi
 
 ## Get error log  data
 echo "grep error log data"
-warn="$(grep 'MAIN warn' $folder/tmp/errors.log | wc -l)"
-warnMap="$(grep 'MAIN warn' $folder/tmp/errors.log | grep StaticMap | wc -l)"
-warnRL="$(grep 'MAIN warn' $folder/tmp/errors.log | grep 'rate limit hit' | wc -l)"
+warn="$(grep 'warn' $folder/tmp/errors.log | wc -l)"
+warnMap="$(grep 'warn' $folder/tmp/errors.log | grep StaticMap | wc -l)"
+warnRL="$(grep 'warn' $folder/tmp/errors.log | grep 'rate limit hit' | wc -l)"
 error="$(grep 'MAIN error' $folder/tmp/errors.log | wc -l)"
 
 echo "Insert error log data into DB"
