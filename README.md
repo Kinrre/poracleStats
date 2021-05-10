@@ -1,9 +1,13 @@
 # poracleStats
 
+Since nobody with an actual brain picked this up, this idiot gave it a go. <BR>
+<BR>
 Hourly process PoracleJS logs and store into database.<BR>
 <BR>
+Numbers are being added to DB, roughly un-verified, so feeback is appreciated. Bitch at it please :)
+<BR>
 
-tdb:<BR>
+tbd:<BR>
  - 1440 and 10080 aggregation
  - add/update grafana templates
  - create grafana performance overview dashboard
