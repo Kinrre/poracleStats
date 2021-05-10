@@ -23,7 +23,7 @@ cp $PATH_TO_poracleSTATS/default_files/crontab.txt.default $PATH_TO_poracleSTATS
 PATH_TO_STATS2=$(sed 's@/@\\/@g' <<< $PATH_TO_poracleSTATS)
 cd $PATH_TO_poracleSTATS && sed -i "s/pathToStats/$PATH_TO_STATS2/g" *.txt
 
-echo "Creating Grafana templates"
+echo "Create Grafana templates"
 echo ""
 DS_STATS="${DataSource_stats^^}"
 mkdir -p $PATH_TO_poracleSTATS/grafana
