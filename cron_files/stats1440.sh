@@ -44,10 +44,10 @@ fi
 
 # Aggregate hourly to daily data
 echo "Aggregate hourly to daily data"
-#echo ""
-#if [ -z "$SQL_password" ]
-#then
-#  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB < XX
-#else
-#  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB < XX
-#fi
+echo ""
+if [ -z "$SQL_password" ]
+then
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB < $folder/cron_files/stats1440.sql
+else
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB < $folder/cron_files/stats1440.sql
+fi

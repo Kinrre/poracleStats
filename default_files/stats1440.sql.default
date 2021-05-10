@@ -1,0 +1,79 @@
+select @Datetime := concat(date(now() - interval 1440 minute),' ', SEC_TO_TIME((TIME_TO_SEC(time(now() - interval 1440 minute)) DIV 86400) * 86400));
+
+INSERT INTO poracleStats.controller (Datetime,RPL,Umon,Uegg,Uraid,Uquest,Uinvasion,Cmon,Cegg,Craid,Cquest,Cinvasion,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsgT0)
+select
+@Datetime,
+'1440',
+sum(Umon),
+sum(Uegg),
+sum(Uraid),
+sum(Uquest),
+sum(Uinvasion),
+sum(Cmon),
+sum(Cegg),
+sum(Craid),
+sum(Cquest),
+sum(Cinvasion),
+min(minMsgT),
+max(maxMsgT),
+avg(avgMsgT),
+sum(rateLimit),
+min(minMsgT0),
+max(maxMsgT0),
+avg(avgMsgT0)
+from poracleStats.controller
+where Datetime like concat(left(@Datetime,10),'%') and RPL = 60
+;
+
+INSERT INTO poracleStats.discord (Datetime,RPL,warn,error,errorBG,errorUA,msgClean,msgSend)
+select
+@Datetime,
+'1440',
+sum(warn),
+sum(error),
+sum(errorBG),
+sum(errorUA),
+sum(msgClean),
+sum(msgSend)
+from poracleStats.discord
+where Datetime like concat(left(@Datetime,10),'%') and RPL = 60
+;
+
+INSERT INTO poracleStats.error (Datetime,RPL,warn,warnMap,warnRL,error)
+select
+@Datetime,
+'1440',
+sum(warn),
+sum(warnMap),
+sum(warnRL),
+sum(error)
+from poracleStats.error
+where Datetime like concat(left(@Datetime,10),'%') and RPL = 60
+;
+
+INSERT INTO poracleStats.general (Datetime,RPL,whQinMin,whQinMax,whQinAvg,whQoutMin,whQoutMax,whQoutAvg,stopRL,stopUR)
+select
+@Datetime,
+'1440',
+min(whQinMin),
+max(whQinMax),
+avg(whQinAvg),
+min(whQoutMin),
+max(whQoutMax),
+avg(whQoutAvg),
+sum(stopRL),
+ssum(topUR)
+from poracleStats.general
+where Datetime like concat(left(@Datetime,10),'%') and RPL = 60
+;
+
+INSERT INTO poracleStats.middleman (Datetime,RPL,total,post200,post500)
+select
+@Datetime,
+'1440',
+sum(total),
+sum(post200),
+sum(post500)
+from poracleStats.middleman
+where Datetime like concat(left(@Datetime,10),'%') and RPL = 60
+;

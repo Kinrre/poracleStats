@@ -8,12 +8,12 @@ Numbers are being added to DB, roughly un-verified, so feeback is appreciated. B
 <BR>
 
 tbd:<BR>
- - 1440 and 10080 aggregation
- - add/update grafana templates
- - create grafana performance overview dashboard
+ - 1440 and 10080 aggregation, added workin?
+ - add/update grafana templates, added working?
+ - create grafana performance overview dashboard, added working?
  - add grafana installation to wiki
  - add + update user name to table users and update daily from PoracleDB?
- - add cleanup of tables after Xdays 
+ - add cleanup of tables after Xdays? 
  - telegram??
 
 ## Setting up
@@ -28,6 +28,13 @@ flush privileges;
 - Edit settings in ``config.ini``
 - Execute ``./settings.run``, this will create required tables and crontab file
 - Edit crontab ``crontab -e`` and insert content of ``crontab.txt`` located in poracleStats home.
+<BR>
+Requires Poracle logging to be set to
+```
+    "logger": {
+        "consoleLogLevel": "verbose",
+        "logLevel": "verbose",
+```
 
 ## Updates
 - git pull

@@ -1,0 +1,97 @@
+select @Datetime := concat(date(curdate() - interval weekday(curdate()) + 7 day),' ','00:00:00');
+
+INSERT INTO poracleStats.controller (Datetime,RPL,Umon,Uegg,Uraid,Uquest,Uinvasion,Cmon,Cegg,Craid,Cquest,Cinvasion,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsgT0)
+select
+@Datetime,
+'10080',
+sum(Umon),
+sum(Uegg),
+sum(Uraid),
+sum(Uquest),
+sum(Uinvasion),
+sum(Cmon),
+sum(Cegg),
+sum(Craid),
+sum(Cquest),
+sum(Cinvasion),
+min(minMsgT),
+max(maxMsgT),
+avg(avgMsgT),
+sum(rateLimit),
+min(minMsgT0),
+max(maxMsgT0),
+avg(avgMsgT0)
+from poracleStats.controller
+where Datetime >= date(curdate() - interval weekday(curdate()) + 7 day) and RPL = 1440
+;
+
+INSERT INTO poracleStats.discord (Datetime,RPL,warn,error,errorBG,errorUA,msgClean,msgSend)
+select
+@Datetime,
+'10080',
+sum(warn),
+sum(error),
+sum(errorBG),
+sum(errorUA),
+sum(msgClean),
+sum(msgSend)
+from poracleStats.discord
+where Datetime >= date(curdate() - interval weekday(curdate()) + 7 day) and RPL = 1440
+;
+
+INSERT INTO poracleStats.error (Datetime,RPL,warn,warnMap,warnRL,error)
+select
+@Datetime,
+'10080',
+sum(warn),
+sum(warnMap),
+sum(warnRL),
+sum(error)
+from poracleStats.error
+where Datetime >= date(curdate() - interval weekday(curdate()) + 7 day) and RPL = 1440
+;
+
+INSERT INTO poracleStats.general (Datetime,RPL,whQinMin,whQinMax,whQinAvg,whQoutMin,whQoutMax,whQoutAvg,stopRL,stopUR)
+select
+@Datetime,
+'10080',
+min(whQinMin),
+max(whQinMax),
+avg(whQinAvg),
+min(whQoutMin),
+max(whQoutMax),
+avg(whQoutAvg),
+sum(stopRL),
+ssum(topUR)
+from poracleStats.general
+where Datetime >= date(curdate() - interval weekday(curdate()) + 7 day) and RPL = 1440
+;
+
+INSERT INTO poracleStats.middleman (Datetime,RPL,total,post200,post500)
+select
+@Datetime,
+'10080',
+sum(total),
+sum(post200),
+sum(post500)
+from poracleStats.middleman
+where Datetime >= date(curdate() - interval weekday(curdate()) + 7 day) and RPL = 1440
+;
+
+INSERT INTO poracleStats.users (Datetime,RPL,id,type,msgSend,mon,egg,raid,quest,invasion,stopRL,stopUR)
+select
+@Datetime,
+'10080',
+id,
+type,
+sum(msgSend),
+sum(mon,egg),
+sum(raid),
+sum(quest),
+sum(invasion),
+sum(stopRL),
+sum(stopUR)
+from poracleStats.users
+where Datetime >= date(curdate() - interval weekday(curdate()) + 7 day) and RPL = 1440
+group by id
+;
