@@ -10,6 +10,7 @@ tdb:<BR>
  - add grafana installation to wiki
  - add + update user name to table users and update daily from PoracleDB?
  - add cleanup of tables after Xdays 
+ - telegram??
 
 ## Setting up
 
