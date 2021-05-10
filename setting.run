@@ -48,10 +48,11 @@ then
     while test $hoursback != 1
     do
       echo "processing now - $hoursback hours"
-      cp $folder/cron_files/stats60.sh $folder/cron_files/stats60.sh.tmp
-      sed sed -i "s/1 hour ago/$hoursback hour ago/g" $folder/cron_files/stats60.sh.tmp
-      ./$folder/cron_files/stats60.sh.tmp
-      rm $folder/cron_files/stats60.sh.tmp
+      echo ""
+      cp $PATH_TO_poracleSTATS/cron_files/stats60.sh $PATH_TO_poracleSTATS/cron_files/stats60.sh.tmp
+      sed -i "s/1 hour ago/$hoursback hour ago/g" $PATH_TO_poracleSTATS/cron_files/stats60.sh.tmp
+      cd $PATH_TO_poracleSTATS/cron_files && ./stats60.sh.tmp
+      rm $PATH_TO_poracleSTATS/cron_files/stats60.sh.tmp
       hoursback="$(( hoursback - 1 ))"
     done
   fi
