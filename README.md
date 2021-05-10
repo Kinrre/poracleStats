@@ -8,7 +8,7 @@ Numbers are being added to DB, roughly un-verified, so feeback is appreciated. B
 <BR>
 
 tbd:<BR>
- - 1440 and 10080 aggregation, added workin?
+ - 1440 and 10080 aggregation, added working?
  - add/update grafana templates, added working?
  - create grafana performance overview dashboard, added working?
  - add grafana installation to wiki
