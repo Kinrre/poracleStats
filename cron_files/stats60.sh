@@ -117,8 +117,8 @@ else
   echo "Get log data"
   grep -a "$interval_middleman" $PATH_TO_middleman_log/middleman-error.log > $folder/tmp/middleman.log
   echo "grep middleman log data"
-  mm200="$(grep 'POST /staticmap' $folder/tmp/general.log | grep '200' | wc -l)"
-  mm500="$(grep 'POST /staticmap' $folder/tmp/general.log | grep '500' | wc -l)"
+  mm200="$(grep 'POST /staticmap' $folder/tmp/middleman.log | grep '200' | wc -l)"
+  mm500="$(grep 'POST /staticmap' $folder/tmp/middleman.log | grep '500' | wc -l)"
   echo "Insert middleman data into DB"
   if [ -z "$SQL_password" ]
   then
