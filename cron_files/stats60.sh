@@ -7,9 +7,11 @@ source $folder/config.ini
 process_date=$(date -d '1 hour ago' +%Y"-"%m"-"%d)
 process_hour=$(date -d '1 hour ago' +%Y"-"%m"-"%d" "%H":00:00")
 interval=$(date -d '1 hour ago' +%Y"-"%m"-"%d" "%H)
+interval_middleman=$(date -d '1 hour ago' +%d"/"%b"/"%Y" "%H)
 
-## Get all logs
-echo "Get all logs"
+## Get all poracle logs
+echo ""
+echo "Get all poracle logs"
 echo ""
 mkdir -p $folder/tmp
 grep "$interval" $PATH_TO_PoraclJS/logs/controller-$process_date.log > $folder/tmp/controller.log
@@ -20,7 +22,6 @@ grep "$interval" $PATH_TO_PoraclJS/logs/general-$process_date.log > $folder/tmp/
 
 ## Get controller log data
 echo "grep controller log data"
-echo ""
 Umon="$(grep :user $folder/tmp/controller.log | grep 'Creating monster alert' | wc -l)"
 Uraid="$(grep :user $folder/tmp/controller.log | grep 'Creating raid alert' | grep Creating | wc -l)"
 Uegg="$(grep :user $folder/tmp/controller.log | grep 'Creating egg alert' | grep Creating | wc -l)"
@@ -54,7 +55,6 @@ fi
 
 ## Get error log  data
 echo "grep error log data"
-echo ""
 warn="$(grep 'MAIN warn' $folder/tmp/errors.log | wc -l)"
 warnMap="$(grep 'MAIN warn' $folder/tmp/errors.log | grep StaticMap | wc -l)"
 warnRL="$(grep 'MAIN warn' $folder/tmp/errors.log | grep 'rate limit hit' | wc -l)"
@@ -71,7 +71,6 @@ fi
 
 ## Get discord log  data
 echo "grep discord log  data"
-echo ""
 warn2="$(grep 'MAIN warn' $folder/tmp/discord.log | wc -l)"
 error2="$(grep 'MAIN error' $folder/tmp/discord.log | wc -l)"
 errorBG="$(grep 'MAIN error' $folder/tmp/discord.log | grep 'Bad Gateway' | wc -l)"
@@ -91,7 +90,6 @@ fi
 
 ## Get general log  data
 echo "grep general log  data"
-echo ""
 whQinMin="$(grep '$STATS info: Worker STATS: WebhookQueue is currently' $folder/tmp/general.log | awk '{print ($NF)}' | jq -s min)"
 whQinMax="$(grep '$STATS info: Worker STATS: WebhookQueue is currently' $folder/tmp/general.log | awk '{print ($NF)}' | jq -s max)"
 whQinAvg="$(grep '$STATS info: Worker STATS: WebhookQueue is currently' $folder/tmp/general.log | awk '{print ($NF)}' | jq -s add/length)"
@@ -108,4 +106,24 @@ then
   mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO general (Datetime,RPL,whQinMin,whQinMax,whQinAvg,whQoutMin,whQoutMax,whQoutAvg,stopRL,stopUR) VALUES ('$process_hour','60','$whQinMin','$whQinMax','$whQinAvg','$whQoutMin','$whQoutMax','$whQoutAvg','$stopRL','$stopUR');"
 else
   mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO general (Datetime,RPL,whQinMin,whQinMax,whQinAvg,whQoutMin,whQoutMax,whQoutAvg,stopRL,stopUR) VALUES ('$process_hour','60','$whQinMin','$whQinMax','$whQinAvg','$whQoutMin','$whQoutMax','$whQoutAvg','$stopRL','$stopUR');"
+fi
+
+## Check for middleman path and process
+echo "Middleman data"
+if [ -z "$PATH_TO_middleman_log" ]
+then
+  echo "No path entered, skipping"
+else
+  echo "Get log data"
+  grep -a "$interval_middleman" $PATH_TO_middleman_log/middleman-error.log > $folder/tmp/middleman.log
+  echo "grep middleman log data"
+  mm200="$(grep 'POST /staticmap' $folder/tmp/middleman.log | grep '200' | wc -l)"
+  mm500="$(grep 'POST /staticmap' $folder/tmp/middleman.log | grep '500' | wc -l)"
+  echo "Insert middleman data into DB"
+  if [ -z "$SQL_password" ]
+  then
+    mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO middleman (Datetime,RPL,post200,post500) VALUES ('$process_hour','60','$mm200','$mm500');"
+  else
+    mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO middleman (Datetime,RPL,post200,post500) VALUES ('$process_hour','60','$mm200','$mm500');"
+  fi
 fi

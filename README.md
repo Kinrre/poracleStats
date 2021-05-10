@@ -1,17 +1,16 @@
 # poracleStats
 
-Process PoracleJS logs and store info into database.<BR>
+Hourly process PoracleJS logs and store into database.<BR>
 <BR>
 
 tdb:<BR>
  - 1440 and 10080 aggregation
  - add/update grafana templates
- - process middleman logs to db
  - create grafana performance overview dashboard
  - add grafana installation to wiki
  - add + update user name to table users and update daily from PoracleDB? 
 
-##  Setting up
+## Setting up
 
 - Clone poracleStats and copy config file: <br>``git clone https://github.com/dkmur/poracleStats.git && cd poracleStats/ && cp default_files/config.ini.example config.ini``
 - Create stats database and grant privileges to user (make sure not to use ``$`` in password and, no, not going to escape it). i.e.:  
@@ -81,3 +80,7 @@ raid = #raid alerts send<BR>
 egg = #egg alerts send<BR>
 invasion = #invasion alerts send<BR>
 quest = #quest alerts send<BR>
+
+### Table middleman
+post200 = #POST_staticmap resulting in http 200<BR>
+post500 = #POST_staticmap resulting in http 500<BR>

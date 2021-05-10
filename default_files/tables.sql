@@ -73,6 +73,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (Datetime,id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `middleman` (
+  `Datetime` datetime NOT NULL,
+  `RPL` smallint(6) NOT NULL,
+  `post200` smallint(10) DEFAULT NULL,
+  `post500` smallint(10) DEFAULT NULL,
+  PRIMARY KEY (Datetime,RPL)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS `version` (
   `key` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `version` smallint(6) NOT NULL,
@@ -81,4 +89,4 @@ CREATE TABLE IF NOT EXISTS `version` (
 
 -- update version
 INSERT IGNORE INTO version values ('stats',1);
-UPDATE version set version = 7;
+UPDATE version set version = 8;
