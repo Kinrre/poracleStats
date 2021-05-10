@@ -7,9 +7,10 @@ source $folder/config.ini
 process_date=$(date -d '1 hour ago' +%Y"-"%m"-"%d)
 process_hour=$(date -d '1 hour ago' +%Y"-"%m"-"%d" "%H":00:00")
 interval=$(date -d '1 hour ago' +%Y"-"%m"-"%d" "%H)
+interval_middleman=$(date -d '1 hour ago' +%d"/"%b"/"%Y" "%H)
 
-## Get all logs
-echo "Get all logs"
+## Get all poracle logs
+echo "Get all poracle logs"
 echo ""
 mkdir -p $folder/tmp
 grep "$interval" $PATH_TO_PoraclJS/logs/controller-$process_date.log > $folder/tmp/controller.log
@@ -108,4 +109,25 @@ then
   mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO general (Datetime,RPL,whQinMin,whQinMax,whQinAvg,whQoutMin,whQoutMax,whQoutAvg,stopRL,stopUR) VALUES ('$process_hour','60','$whQinMin','$whQinMax','$whQinAvg','$whQoutMin','$whQoutMax','$whQoutAvg','$stopRL','$stopUR');"
 else
   mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO general (Datetime,RPL,whQinMin,whQinMax,whQinAvg,whQoutMin,whQoutMax,whQoutAvg,stopRL,stopUR) VALUES ('$process_hour','60','$whQinMin','$whQinMax','$whQinAvg','$whQoutMin','$whQoutMax','$whQoutAvg','$stopRL','$stopUR');"
+fi
+
+## Check for middleman path and process
+echo "Middleman data"
+echo ""
+if [ -z "$PATH_To_middleman_log" ]
+then
+  echo "No path entered, skipping"
+else
+  echo "Get log data"
+  grep "$interval_middleman" $PATH_TO_middleman_log/middleman-error.log > $folder/tmp/middleman.log
+  echo "grep middleman log data"
+  mm200="$(grep 'POST /staticmap' $folder/tmp/general.log | grep '200' | wc -l)"
+  mm500="$(grep 'POST /staticmap' $folder/tmp/general.log | grep '500' | wc -l)"
+  echo "Insert middleman data into DB"
+  if [ -z "$SQL_password" ]
+  then
+    mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO middleman (Datetime,RPL,post200,post500) VALUES ('$process_hour','60','$mm200','$mm500');"
+  else
+    mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO middleman (Datetime,RPL,post200,post500) VALUES ('$process_hour','60','$mm200','$mm500');"
+  fi
 fi
