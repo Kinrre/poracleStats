@@ -62,7 +62,7 @@ min(whQoutMin),
 max(whQoutMax),
 avg(whQoutAvg),
 sum(stopRL),
-sum(topUR)
+sum(stopUR)
 from poracleStats.general
 where Datetime like concat(left(@Datetime,10),'%') and RPL = 60
 ;
