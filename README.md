@@ -16,6 +16,9 @@ tbd:<BR>
  - add cleanup of tables after Xdays? 
  - telegram??
 
+## Requirements
+PoracleJS logger in ``local.json`` for both ``consoleLogLevel`` and ``logLevel`` to be set to ``verbose``. Should this be default?
+
 ## Setting up
 
 - Clone poracleStats and copy config file: <br>``git clone https://github.com/dkmur/poracleStats.git && cd poracleStats/ && cp default_files/config.ini.example config.ini``
@@ -29,12 +32,6 @@ flush privileges;
 - Execute ``./settings.run``, this will create required tables and crontab file
 - Edit crontab ``crontab -e`` and insert content of ``crontab.txt`` located in poracleStats home.
 <BR>
-Requires Poracle logging to be set to
-```
-    "logger": {
-        "consoleLogLevel": "verbose",
-        "logLevel": "verbose",
-```
 
 ## Updates
 - git pull
