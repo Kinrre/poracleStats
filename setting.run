@@ -47,6 +47,8 @@ then
     hoursback=144
     while test $hoursback != 1
     do
+      echo ""
+      echo ""
       echo "processing now - $hoursback hours"
       echo ""
       cp $PATH_TO_poracleSTATS/cron_files/stats60.sh $PATH_TO_poracleSTATS/cron_files/stats60.sh.tmp
