@@ -110,7 +110,7 @@ fi
 
 ## Check for middleman path and process
 echo "Middleman data"
-if [ -z "$PATH_TO_middleman_log" ]
+if [ -z "$middleman_log" ]
 then
   echo "No path entered, skipping"
 else
