@@ -45,7 +45,7 @@ then
   if [ $choice = "y" ] || [ $choice = "yes" ] || [ $choice = "Y" ] || [ $choice = "Yes" ]
   then
     hoursback=144
-    while test $hoursback != 1
+    while test $hoursback != 0
     do
       echo ""
       echo ""
@@ -60,4 +60,5 @@ then
   fi
 fi
 
+echo ""
 echo "All done"
