@@ -98,5 +98,5 @@ ALTER TABLE `users`
 ADD COLUMN IF NOT EXISTS `name` varchar(255) DEFAULT NULL AFTER `id`;
 
 -- update version
-INSERT IGNORE INTO version values ('stats',1);
-UPDATE version set version = 10;
+INSERT IGNORE INTO version values ('poraclestats',1);
+UPDATE version set version = 10 where version.key = 'poraclestats';
