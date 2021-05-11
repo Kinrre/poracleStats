@@ -78,11 +78,12 @@ from poracleStats.middleman
 where Datetime >= date(curdate() - interval weekday(curdate()) + 7 day) and RPL = 1440
 ;
 
-INSERT IGNORE INTO poracleStats.users (Datetime,RPL,id,type,msgSend,mon,egg,raid,quest,invasion,stopRL,stopUR)
+INSERT IGNORE INTO poracleStats.users (Datetime,RPL,id,name,type,msgSend,mon,egg,raid,quest,invasion,stopRL,stopUR)
 select
 @Datetime,
 '10080',
 id,
+name,
 type,
 sum(msgSend),
 sum(mon,egg),

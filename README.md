@@ -12,7 +12,6 @@ tbd:<BR>
  - add/update grafana templates, added working?
  - create grafana performance overview dashboard, added working?
  - add grafana installation to wiki
- - add + update user name to table users and update daily from PoracleDB?
  - add cleanup of tables after Xdays? 
  - telegram??
 

@@ -46,7 +46,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1620676187636,
+  "iteration": 1620724815361,
   "links": [],
   "panels": [
     {
@@ -207,6 +207,18 @@
                 "value": 142
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 311
+              }
+            ]
           }
         ]
       },
@@ -233,7 +245,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  type as 'type',\n  id as 'id',\n  msgSend as '#msgSend',\n  mon as '#mons',\n  egg as '#eggs',\n  raid as '#raids',\n  invasion as '#invasions',\n  quest as '#quests',\n  stopRL as '#RateLimit',\n  stopUR as '#fullStop'\nFROM users\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\n-- GROUP BY 1\nORDER BY msgSend\n",
+          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  type as 'type',\n  id as 'id',\n  name as 'name',\n  msgSend as '#msgSend',\n  mon as '#mons',\n  egg as '#eggs',\n  raid as '#raids',\n  invasion as '#invasions',\n  quest as '#quests',\n  stopRL as '#RateLimit',\n  stopUR as '#fullStop'\nFROM users\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\n-- GROUP BY 1\nORDER BY msgSend\n",
           "refId": "A",
           "select": [
             [
@@ -348,5 +360,5 @@
   "timezone": "",
   "title": "44. User data",
   "uid": "16Pe04jGa",
-  "version": 4
+  "version": 5
 }
