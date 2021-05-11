@@ -46,9 +46,9 @@ echo "Allign user names with PoracleDB"
 echo ""
 if [ -z "$SQL_password" ]
 then
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -N -e "UPDATE $STATS_DB.users a INNER JOIN PORACLE_DB.humans b ON a.id = b.id SET a.name = b.name;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "UPDATE $STATS_DB.users a INNER JOIN $PORACLE_DB.humans b ON a.id = b.id COLLATE utf8mb4_unicode_ci SET a.name = b.name;"
 else
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB  -N -e "UPDATE $STATS_DB.users a INNER JOIN PORACLE_DB.humans b ON a.id = b.id SET a.name = b.name;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "UPDATE $STATS_DB.users a INNER JOIN $PORACLE_DB.humans b ON a.id = b.id COLLATE utf8mb4_unicode_ci SET a.name = b.name;"
 fi
 
 
