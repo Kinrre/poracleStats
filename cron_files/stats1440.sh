@@ -19,7 +19,7 @@ else
 	grep 'Stopping alerts' $PATH_TO_PoraclJS/logs/general-$process_date.log > $folder/tmp/general1440.log
         echo "Inserting all users"
         echo ""
-        mysql -u$SQL_user -p$SQL_password -h$DB_IP -P$DB_PORT $STATS_DB -N -e "insert ignore into users (Datetime,RPL,id,type) select '$process_hour', '1440', id, type from $PORACLE_DB.humans where admin_disable=0;"
+        mysql -u$SQL_user -p$SQL_password -h$DB_IP -P$DB_PORT $STATS_DB -N -e "insert ignore into users (Datetime,RPL,id,name,type) select '$process_hour', '1440', id, name, type from $PORACLE_DB.humans where admin_disable=0;"
         echo "Get user data"
 
         query(){
@@ -41,8 +41,18 @@ else
         done < <(query "select id FROM users where datetime = '$process_hour';")
 fi
 
+## Allign user names with PoracleDB
+echo "Allign user names with PoracleDB"
+echo ""
+if [ -z "$SQL_password" ]
+then
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -N -e "UPDATE $STATS_DB.users a INNER JOIN PORACLE_DB.humans b ON a.id = b.id SET a.name = b.name;"
+else
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB  -N -e "UPDATE $STATS_DB.users a INNER JOIN PORACLE_DB.humans b ON a.id = b.id SET a.name = b.name;"
+fi
 
-# Aggregate hourly to daily data
+
+## Aggregate hourly to daily data
 echo "Aggregate hourly to daily data"
 echo ""
 if [ -z "$SQL_password" ]

@@ -61,6 +61,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `Datetime` datetime NOT NULL,
   `RPL` smallint(6) NOT NULL,
   `id` varchar(255) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `type` varchar(255) NOT NULL,
   `msgSend` smallint(10) DEFAULT NULL,
   `mon` smallint(10) DEFAULT NULL,
@@ -88,9 +89,14 @@ CREATE TABLE IF NOT EXISTS `version` (
   PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+
+
 ALTER TABLE `middleman`
 ADD COLUMN IF NOT EXISTS `total` smallint(10) DEFAULT NULL AFTER `RPL`;
 
+ALTER TABLE `users`
+ADD COLUMN IF NOT EXISTS `name` varchar(255) DEFAULT NULL AFTER `id`;
+
 -- update version
 INSERT IGNORE INTO version values ('stats',1);
-UPDATE version set version = 9;
+UPDATE version set version = 10;
