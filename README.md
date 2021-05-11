@@ -82,8 +82,9 @@ stopRL = user stops due to rate limit hit<BR>
 stopUR = users stopped due to too many rate limit hits, stopped until User Reactivation<BR>
 
 ### Table users
-id = id from PoracleJS<BR>
-type = user or channel from PoracleJS<BR>
+id = id from PoracleJS humans table<BR>
+name = name from PoraleJS humans table<BR>
+type = user or channel from PoracleJS humans table<BR>
 msgSend = #discord messages send, excl clean<BR>
 mon = #monster alerts send<BR>
 raid = #raid alerts send<BR>
