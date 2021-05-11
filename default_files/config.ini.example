@@ -20,3 +20,12 @@ userStats=false							# true/false: store daily messages send per user (admin_di
 
 ## Grafana ##
 DataSource_stats=poracle					# enter name for created Grafana datasource
+
+
+## Stats table cleanup for different ReportPeriodLength in days ##
+statsRPL60=90							# remove hourly data from tables controller/error/discord/general/middleman older then X days
+statsRPL1440=365						# remove daily data from tables controller/error/discord/general/middleman older then X days
+statsRPL10080=9999						# remove weekly data from tables controller/error/discord/general/middleman older then X days
+
+userRPL1440=90							# remove daily data from table users older then X days
+userRPL10080=9999						# remove weekly data from table users older then X days

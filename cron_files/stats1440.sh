@@ -61,3 +61,46 @@ then
 else
   mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB < $folder/cron_files/stats1440.sql
 fi
+
+
+## Cleanup stats tables
+echo "Cleanup stats tables"
+echo ""
+if [ -z "$SQL_password" ]
+then
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "DELETE from controller where RPL = 60 and Datetime < now() - interval $statsRPL60 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "DELETE from discord where RPL = 60 and Datetime < now() - interval $statsRPL60 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "DELETE from error where RPL = 60 and Datetime < now() - interval $statsRPL60 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "DELETE from general where RPL = 60 and Datetime < now() - interval $statsRPL60 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "DELETE from middleman where RPL = 60 and Datetime < now() - interval $statsRPL60 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "DELETE from controller where RPL = 1440 and Datetime < now() - interval $statsRPL1440 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "DELETE from discord where RPL = 1440 and Datetime < now() - interval $statsRPL1440 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "DELETE from error where RPL = 1440 and Datetime < now() - interval $statsRPL1440 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "DELETE from general where RPL = 1440 and Datetime < now() - interval $statsRPL1440 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "DELETE from middleman where RPL = 1440 and Datetime < now() - interval $statsRPL1440 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "DELETE from controller where RPL = 10080 and Datetime < now() - interval $statsRPL10080 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "DELETE from discord where RPL = 10080 and Datetime < now() - interval $statsRPL10080 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "DELETE from error where RPL = 10080 and Datetime < now() - interval $statsRPL10080 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "DELETE from general where RPL = 10080 and Datetime < now() - interval $statsRPL10080 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "DELETE from middleman where RPL = 10080 and Datetime < now() - interval $statsRPL10080 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "DELETE from users where RPL = 1440 and Datetime < now() - interval $userRPL1440 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "DELETE from users where RPL = 10080 and Datetime < now() - interval $userRPL10080 day;"
+else
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "DELETE from controller where RPL = 60 and Datetime < now() - interval $statsRPL60 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "DELETE from discord where RPL = 60 and Datetime < now() - interval $statsRPL60 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "DELETE from error where RPL = 60 and Datetime < now() - interval $statsRPL60 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "DELETE from general where RPL = 60 and Datetime < now() - interval $statsRPL60 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "DELETE from middleman where RPL = 60 and Datetime < now() - interval $statsRPL60 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "DELETE from controller where RPL = 1440 and Datetime < now() - interval $statsRPL1440 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "DELETE from discord where RPL = 1440 and Datetime < now() - interval $statsRPL1440 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "DELETE from error where RPL = 1440 and Datetime < now() - interval $statsRPL1440 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "DELETE from general where RPL = 1440 and Datetime < now() - interval $statsRPL1440 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "DELETE from middleman where RPL = 1440 and Datetime < now() - interval $statsRPL1440 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "DELETE from controller where RPL = 10080 and Datetime < now() - interval $statsRPL10080 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "DELETE from discord where RPL = 10080 and Datetime < now() - interval $statsRPL10080 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "DELETE from error where RPL = 10080 and Datetime < now() - interval $statsRPL10080 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "DELETE from general where RPL = 10080 and Datetime < now() - interval $statsRPL10080 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "DELETE from middleman where RPL = 10080 and Datetime < now() - interval $statsRPL10080 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "DELETE from users where RPL = 1440 and Datetime < now() - interval $userRPL1440 day;"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "DELETE from users where RPL = 10080 and Datetime < now() - interval $userRPL10080 day;"
+fi
