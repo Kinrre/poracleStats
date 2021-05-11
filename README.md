@@ -8,15 +8,10 @@ Numbers are being added to DB, roughly un-verified, so feeback is appreciated. B
 <BR>
 
 tbd:<BR>
- - 1440 and 10080 aggregation, added working?
- - add/update grafana templates, added working?
- - create grafana performance overview dashboard, added working?
- - add grafana installation to wiki
- - add cleanup of tables after Xdays? 
  - telegram??
 
 ## Requirements
-PoracleJS logger in ``local.json`` for both ``consoleLogLevel`` and ``logLevel`` to be set to ``verbose``. Should this be default?
+PoracleJS logger settings in ``local.json`` for both ``consoleLogLevel`` and ``logLevel`` to be set to ``verbose``. Should this be default?
 
 ## Setting up
 
@@ -37,6 +32,12 @@ flush privileges;
 - check for any changes in default_files/config.ini.example and adapt accordingly
 - execute ``./settings.run`` 
 - update grafana templates when changed
+
+## Grafana
+- Install Grafana, more details can be found at https://grafana.com/docs/grafana/latest/installation/debian/#install-from-apt-repository or if you prefer to use docker <https://hub.docker.com/r/grafana/grafana>
+- Create datasource on STATS_DB
+- Add datasource name to config.ini
+- After executing settings.run, import the dashboards from /poracleStats/grafana by selecting ``+`` and then import.
 
 ##  Meaning of columns
 ### Table controller:
