@@ -1,6 +1,6 @@
 select @Datetime := concat(date(now() - interval 1440 minute),' ', SEC_TO_TIME((TIME_TO_SEC(time(now() - interval 1440 minute)) DIV 86400) * 86400));
 
-INSERT IGNORE INTO poracleStats.controller (Datetime,RPL,Umon,Uegg,Uraid,Uquest,Uinvasion,Cmon,Cegg,Craid,Cquest,Cinvasion,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsgT0)
+INSERT IGNORE INTO poracleStats.controller (Datetime,RPL,Umon,Uegg,Uraid,Uquest,Uinvasion,Cmon,Cegg,Craid,Cquest,Cinvasion,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsgT0,noSend)
 select
 @Datetime,
 '1440',
@@ -20,12 +20,13 @@ avg(avgMsgT),
 sum(rateLimit),
 min(minMsgT0),
 max(maxMsgT0),
-avg(avgMsgT0)
+avg(avgMsgT0),
+sum(noSend)
 from poracleStats.controller
 where Datetime like concat(left(@Datetime,10),'%') and RPL = 60
 ;
 
-INSERT IGNORE INTO poracleStats.discord (Datetime,RPL,warn,error,errorBG,errorUA,msgClean,msgSend)
+INSERT IGNORE INTO poracleStats.discord (Datetime,RPL,warn,error,errorBG,errorUA,msgClean,msgSend,UmsgSend,CmsgSend,WmsgSend)
 select
 @Datetime,
 '1440',
@@ -34,8 +35,25 @@ sum(error),
 sum(errorBG),
 sum(errorUA),
 sum(msgClean),
-sum(msgSend)
+sum(msgSend),
+sum(UmsgSend),
+sum(CmsgSend),
+sum(WmsgSend)
 from poracleStats.discord
+where Datetime like concat(left(@Datetime,10),'%') and RPL = 60
+;
+
+INSERT IGNORE INTO poracleStats.telegram (Datetime,RPL,stickerFail,msgClean,msgSend,UmsgSend,CmsgSend,GmsgSend)
+select
+@Datetime,
+'1440',
+sum(stickerFail),
+sum(msgClean),
+sum(msgSend),
+sum(UmsgSend),
+sum(CmsgSend),
+sum(GmsgSend)
+from poracleStats.telegram
 where Datetime like concat(left(@Datetime,10),'%') and RPL = 60
 ;
 

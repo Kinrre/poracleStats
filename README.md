@@ -5,10 +5,6 @@ Since nobody with an actual brain picked this up, this idiot gave it a go. <BR>
 Hourly process PoracleJS logs and store into database.<BR>
 <BR>
 Numbers are being added to DB, roughly un-verified, so feeback is appreciated. Bitch at it please :)
-<BR>
-
-tbd:<BR>
- - telegram??
 
 ## Requirements
 PoracleJS logger settings in ``local.json`` for both ``consoleLogLevel`` and ``logLevel`` to be set to ``verbose``. Should this be default?
@@ -56,7 +52,9 @@ avgsgT = for messages where at least 1 human cared, the average time to process 
 rateLimit = #messages not created due to user being rate limited<BR>
 <BR>
 xxxMsgT0 = like xxxMsgT but 0 humans cared<BR>
-  
+<BR>
+noSend = #messages not processed due to insufficient time left
+<BR>
 ### Table discord
 warn = #warnings<BR>
 error = #errors<BR>
@@ -64,15 +62,26 @@ errorBG = #errors on Bad Gateway<BR>
 errorUA = #errors on User Aborted requests<BR>
 msgClean = #Clean messages<BR>
 msgSend = #Messages send<BR>
-
+UmsgSend = #User messages send<BR>
+CmsgSend = #Channel messages send<BR>
+WmsgSend = #Webhook messages send<BR>
+<BR>
+### Table telegram
+stickerFail = #Sticker failures<BR>
+msgClean = #Clean messages<BR>
+msgSend = #Messages send<BR>
+UmsgSend = #User messages send<BR>
+CmsgSend = #Channel messages send<BR>
+GmsgSend = #Group messages send<BR>
+<BR>
 ### Table error
 warn = #warnings<BR>
 warnMap = #warnings related to StaticMap<BR>
 warnRL = #warning relate to Rate Limit<BR>
 error = #errors<BR>
-
+<BR>
 ### Table general
-whQinMin = WebHook Queue inbound minimum <BR>
+whQinMin = WebHook Queue inbound minimum<BR>
 whQinMax = WebHook Queue inbound maximum<BR>
 whQinAvg = WebHook Queue inbound average<BR>
 <BR>
@@ -80,7 +89,7 @@ whQoutxxx = as above but outbound<BR>
 <BR>
 stopRL = user stops due to rate limit hit<BR>
 stopUR = users stopped due to too many rate limit hits, stopped until User Reactivation<BR>
-
+<BR>
 ### Table users
 id = id from PoracleJS humans table<BR>
 name = name from PoraleJS humans table<BR>
@@ -91,8 +100,9 @@ raid = #raid alerts send<BR>
 egg = #egg alerts send<BR>
 invasion = #invasion alerts send<BR>
 quest = #quest alerts send<BR>
-
+<BR>
 ### Table middleman
 total = #POST_staticmap messages in log<BR>
 post200 = #POST_staticmap resulting in http 200<BR>
 post500 = #POST_staticmap resulting in http 500<BR>
+<BR>

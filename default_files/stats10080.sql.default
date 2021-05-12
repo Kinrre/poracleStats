@@ -1,6 +1,6 @@
 select @Datetime := concat(date(curdate() - interval weekday(curdate()) + 7 day),' ','00:00:00');
 
-INSERT IGNORE INTO poracleStats.controller (Datetime,RPL,Umon,Uegg,Uraid,Uquest,Uinvasion,Cmon,Cegg,Craid,Cquest,Cinvasion,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsgT0)
+INSERT IGNORE INTO poracleStats.controller (Datetime,RPL,Umon,Uegg,Uraid,Uquest,Uinvasion,Cmon,Cegg,Craid,Cquest,Cinvasion,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsgT0,noSend)
 select
 @Datetime,
 '10080',
@@ -20,12 +20,13 @@ avg(avgMsgT),
 sum(rateLimit),
 min(minMsgT0),
 max(maxMsgT0),
-avg(avgMsgT0)
+avg(avgMsgT0),
+sum(noSend)
 from poracleStats.controller
 where Datetime >= date(curdate() - interval weekday(curdate()) + 7 day) and RPL = 1440
 ;
 
-INSERT IGNORE INTO poracleStats.discord (Datetime,RPL,warn,error,errorBG,errorUA,msgClean,msgSend)
+INSERT IGNORE INTO poracleStats.discord (Datetime,RPL,warn,error,errorBG,errorUA,msgClean,msgSend,UmsgSend,CmsgSend,WmsgSend)
 select
 @Datetime,
 '10080',
@@ -34,8 +35,25 @@ sum(error),
 sum(errorBG),
 sum(errorUA),
 sum(msgClean),
-sum(msgSend)
+sum(msgSend),
+sum(UmsgSend),
+sum(CmsgSend),
+sum(WmsgSend)
 from poracleStats.discord
+where Datetime >= date(curdate() - interval weekday(curdate()) + 7 day) and RPL = 1440
+;
+
+NSERT IGNORE INTO poracleStats.telegram (Datetime,RPL,stickerFail,msgClean,msgSend,UmsgSend,CmsgSend,GmsgSend)
+select
+@Datetime,
+'10080',
+sum(stickerFail),
+sum(msgClean),
+sum(msgSend),
+sum(UmsgSend),
+sum(CmsgSend),
+sum(GmsgSend)
+from poracleStats.telegram
 where Datetime >= date(curdate() - interval weekday(curdate()) + 7 day) and RPL = 1440
 ;
 

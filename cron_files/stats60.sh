@@ -18,7 +18,7 @@ grep "$interval" $PATH_TO_PoraclJS/logs/controller-$process_date.log > $folder/t
 grep "$interval" $PATH_TO_PoraclJS/logs/discord-$process_date.log > $folder/tmp/discord.log
 grep "$interval" $PATH_TO_PoraclJS/logs/errors-$process_date.log > $folder/tmp/errors.log
 grep "$interval" $PATH_TO_PoraclJS/logs/general-$process_date.log > $folder/tmp/general.log
-
+grep "$interval" $PATH_TO_PoraclJS/logs/telegram-$process_date.log > $folder/tmp/telegram.log
 
 ## Get controller log data
 echo "grep controller log data"
@@ -44,16 +44,18 @@ avgMsgT0="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk 
 
 rateLimit="$(grep 'Rate limit' $folder/tmp/controller.log | wc -l)"
 
+noSend="$(grep 'already disappeared or is about to go away' $folder/tmp/controller.log | wc -l)"
+
 echo "Insert controller log data into DB"
 echo ""
 if [ -z "$SQL_password" ]
 then
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO controller (Datetime,RPL,Umon,Uegg,Uraid,Uquest,Uinvasion,Cmon,Cegg,Craid,Cquest,Cinvasion,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsg0T) VALUES ('$process_hour','60','$Umon','$Uegg','$Uraid','$Uquest','$Uinvasion','$Cmon','$Cegg','$Craid','$Cquest','$Cinvasion','$minMsgT','$maxMsgT','$avgMsgT','$rateLimit','minMsgT0','$maxMsgT0','$avgMsgT0');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO controller (Datetime,RPL,Umon,Uegg,Uraid,Uquest,Uinvasion,Cmon,Cegg,Craid,Cquest,Cinvasion,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsg0T,noSend) VALUES ('$process_hour','60','$Umon','$Uegg','$Uraid','$Uquest','$Uinvasion','$Cmon','$Cegg','$Craid','$Cquest','$Cinvasion','$minMsgT','$maxMsgT','$avgMsgT','$rateLimit','minMsgT0','$maxMsgT0','$avgMsgT0','$noSend');"
 else
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO controller (Datetime,RPL,Umon,Uegg,Uraid,Uquest,Uinvasion,Cmon,Cegg,Craid,Cquest,Cinvasion,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsgT0) VALUES ('$process_hour','60','$Umon','$Uegg','$Uraid','$Uquest','$Uinvasion','$Cmon','$Cegg','$Craid','$Cquest','$Cinvasion','$minMsgT','$maxMsgT','$avgMsgT','$rateLimit','$minMsgT0','$maxMsgT0','$avgMsgT0');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO controller (Datetime,RPL,Umon,Uegg,Uraid,Uquest,Uinvasion,Cmon,Cegg,Craid,Cquest,Cinvasion,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsgT0,noSend) VALUES ('$process_hour','60','$Umon','$Uegg','$Uraid','$Uquest','$Uinvasion','$Cmon','$Cegg','$Craid','$Cquest','$Cinvasion','$minMsgT','$maxMsgT','$avgMsgT','$rateLimit','$minMsgT0','$maxMsgT0','$avgMsgT0','$noSend');"
 fi
 
-## Get error log  data
+## Get error log data
 echo "grep error log data"
 warn="$(grep 'warn' $folder/tmp/errors.log | wc -l)"
 warnMap="$(grep 'warn' $folder/tmp/errors.log | grep StaticMap | wc -l)"
@@ -69,7 +71,7 @@ else
   mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO error (Datetime,RPL,warn,warnMap,warnRL,error) VALUES ('$process_hour','60','$warn','$warnMap','$warnRL','$error');"
 fi
 
-## Get discord log  data
+## Get discord log data
 echo "grep discord log  data"
 warn2="$(grep 'MAIN warn' $folder/tmp/discord.log | wc -l)"
 error2="$(grep 'MAIN error' $folder/tmp/discord.log | wc -l)"
@@ -77,18 +79,38 @@ errorBG="$(grep 'MAIN error' $folder/tmp/discord.log | grep 'Bad Gateway' | wc -
 errorUA="$(grep 'MAIN error' $folder/tmp/discord.log | grep 'The user aborted a request' | wc -l)"
 msgClean="$(grep 'Sending discord message' $folder/tmp/discord.log | grep 'clean' | wc -l)"
 msgSend="$(grep 'Sending discord message' $folder/tmp/discord.log | grep -v 'clean' | wc -l)"
+UmsgSend="$(grep 'USER Sending discord message' $folder/tmp/discord.log | grep -v 'clean' | wc -l)"
+CmsgSend="$(grep 'CHANNEL Sending discord message' $folder/tmp/discord.log | grep -v 'clean' | wc -l)"
+WmsgSend="$(grep 'WEBHOOK Sending discord message' $folder/tmp/discord.log | grep -v 'clean' | wc -l)"
 
 echo "Insert discord log data into DB"
 echo ""
 if [ -z "$SQL_password" ]
 then
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO discord (Datetime,RPL,warn,error,errorBG,errorUA,msgClean,msgSend) VALUES ('$process_hour','60','$warn2','$error2','$errorBG','$errorUA','$msgClean','$msgSend');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO discord (Datetime,RPL,warn,error,errorBG,errorUA,msgClean,msgSend,UmsgSend,CmsgSend,WmsgSend) VALUES ('$process_hour','60','$warn2','$error2','$errorBG','$errorUA','$msgClean','$msgSend','$UmsgSend','$CmsgSend','$WmsgSend');"
 else
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO discord (Datetime,RPL,warn,error,errorBG,errorUA,msgClean,msgSend) VALUES ('$process_hour','60','$warn2','$error2','$errorBG','$errorUA','$msgClean','$msgSend');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO discord (Datetime,RPL,warn,error,errorBG,errorUA,msgClean,msgSend,UmsgSend,CmsgSend,WmsgSend) VALUES ('$process_hour','60','$warn2','$error2','$errorBG','$errorUA','$msgClean','$msgSend','$UmsgSend','$CmsgSend','$WmsgSend');"
 fi
 
+## Get telegram log data
+echo "grep telegram log data"
+stickerFail="$(grep 'Failed to send Telegram sticker' $folder/tmp/telegram.log | wc -l)"
+msgClean="$(grep 'Sending telegram message' $folder/tmp/telegram.log | grep 'clean' | wc -l)"
+msgSend="$(grep 'Sending telegram message' $folder/tmp/telegram.log | grep -v 'clean' | wc -l)"
+UmsgSend="$(grep 'USER Sending telegram message' $folder/tmp/telegram.log | grep -v 'clean' | wc -l)"
+CmsgSend="$(grep 'CHANNEL Sending telegram message' $folder/tmp/telegram.log | grep -v 'clean' | wc -l)"
+GmsgSend="$(grep 'GROUP Sending telegram message' $folder/tmp/telegram.log | grep -v 'clean' | wc -l)"
 
-## Get general log  data
+echo "Insert discord log data into DB"
+echo ""
+if [ -z "$SQL_password" ]
+then
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO telegram (Datetime,RPL,stickerFail,msgClean,msgSend,UmsgSend,CmsgSend,GmsgSend) ('$process_hour','60','$stickerFail','$msgClean','$msgSend','$UmsgSend','$CmsgSend','$GmsgSend');"
+else
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO telegram (Datetime,RPL,stickerFail,msgClean,msgSend,UmsgSend,CmsgSend,GmsgSend) VALUES ('$process_hour','60',$stickerFail','$msgClean','$msgSend','$UmsgSend','$CmsgSend','$GmsgSend');"
+fi
+
+## Get general log data
 echo "grep general log  data"
 whQinMin="$(grep '$STATS info: Worker STATS: WebhookQueue is currently' $folder/tmp/general.log | awk '{print ($NF)}' | jq -s min)"
 whQinMax="$(grep '$STATS info: Worker STATS: WebhookQueue is currently' $folder/tmp/general.log | awk '{print ($NF)}' | jq -s max)"

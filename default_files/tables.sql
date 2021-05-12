@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS `controller` (
   `minMsgT0` decimal(10,2) DEFAULT NULL,
   `maxMsgT0` decimal(10,2) DEFAULT NULL,
   `avgMsgT0` decimal(10,2) DEFAULT NULL,
+  `noSend` smallint(10) DEFAULT NULL,
   PRIMARY KEY (Datetime,RPL)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -54,6 +55,21 @@ CREATE TABLE IF NOT EXISTS `discord` (
   `errorUA` smallint(10) DEFAULT NULL,
   `msgClean` smallint(10) DEFAULT NULL,
   `msgSend` smallint(10) DEFAULT NULL,
+  `UmsgSend` smallint(10) DEFAULT NULL,
+  `CmsgSend` smallint(10) DEFAULT NULL,
+  `WmsgSend` smallint(10) DEFAULT NULL,
+  PRIMARY KEY (Datetime,RPL)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `telegram` (
+  `Datetime` datetime NOT NULL,
+  `RPL` smallint(6) NOT NULL,
+  `stickerFail` smallint(10) DEFAULT NULL,
+  `msgClean` smallint(10) DEFAULT NULL,
+  `msgSend` smallint(10) DEFAULT NULL,
+  `UmsgSend` smallint(10) DEFAULT NULL,
+  `CmsgSend` smallint(10) DEFAULT NULL,
+  `GmsgSend` smallint(10) DEFAULT NULL,
   PRIMARY KEY (Datetime,RPL)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -90,13 +106,24 @@ CREATE TABLE IF NOT EXISTS `version` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
+ALTER TABLE `controller`
+ADD COLUMN IF NOT EXISTS `noSend` smallint(10) DEFAULT NULL
+;
+
+ALTER TABLE `discord`
+ADD COLUMN IF NOT EXISTS `UmsgSend` smallint(10) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `CmsgSend` smallint(10) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `WmsgSend` smallint(10) DEFAULT NULL
+;
 
 ALTER TABLE `middleman`
-ADD COLUMN IF NOT EXISTS `total` smallint(10) DEFAULT NULL AFTER `RPL`;
+ADD COLUMN IF NOT EXISTS `total` smallint(10) DEFAULT NULL AFTER `RPL`
+;
 
 ALTER TABLE `users`
-ADD COLUMN IF NOT EXISTS `name` varchar(255) DEFAULT NULL AFTER `id`;
+ADD COLUMN IF NOT EXISTS `name` varchar(255) DEFAULT NULL AFTER `id`
+;
 
 -- update version
 INSERT IGNORE INTO version values ('poraclestats',1);
-UPDATE version set version = 10 where version.key = 'poraclestats';
+UPDATE version set version = 11 where version.key = 'poraclestats';
