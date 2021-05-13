@@ -22,17 +22,48 @@ grep "$interval" $PATH_TO_PoraclJS/logs/telegram-$process_date.log > $folder/tmp
 
 ## Get controller log data
 echo "grep controller log data"
-Umon="$(grep :user $folder/tmp/controller.log | grep 'Creating monster alert' | wc -l)"
-Uraid="$(grep :user $folder/tmp/controller.log | grep 'Creating raid alert' | grep Creating | wc -l)"
-Uegg="$(grep :user $folder/tmp/controller.log | grep 'Creating egg alert' | grep Creating | wc -l)"
-Uquest="$(grep :user $folder/tmp/controller.log | grep 'Creating quest alert' | wc -l)"
-Uinvasion="$(grep :user $folder/tmp/controller.log | grep 'Creating invasion alert' | wc -l)"
 
-Cmon="$(grep :channel $folder/tmp/controller.log | grep 'Creating monster alert' | wc -l)"
-Craid="$(grep :channel $folder/tmp/controller.log | grep 'Creating raid alert' | grep Creating | wc -l)"
-Cegg="$(grep :channel $folder/tmp/controller.log | grep 'Creating egg alert' | grep Creating | wc -l)"
-Cquest="$(grep :channel $folder/tmp/controller.log | grep 'Creating quest alert' | wc -l)"
-Cinvasion="$(grep :channel $folder/tmp/controller.log | grep 'Creating invasion alert' | wc -l)"
+DUmon="$(grep 'Creating monster alert for discord:user' $folder/tmp/controller.log | wc -l)"
+DUraid="$(grep 'Creating raid alert for discord:user' $folder/tmp/controller.log | wc -l)"
+DUegg="$(grep 'Creating egg alert for discord:user' $folder/tmp/controller.log | wc -l)"
+DUquest="$(grep 'Creating quest alert for discord:user' $folder/tmp/controller.log | wc -l)"
+DUinvasion="$(grep 'Creating invasion alert for discord:user' $folder/tmp/controller.log | wc -l)"
+DUweather="$(grep 'Creating weather alert for discord:user' $folder/tmp/controller.log | wc -l)"
+
+DCmon="$(grep 'Creating monster alert for discord:channel' $folder/tmp/controller.log | wc -l)"
+DCraid="$(grep 'Creating raid alert for discord:channel' $folder/tmp/controller.log | wc -l)"
+DCegg="$(grep 'Creating egg alert for discord:channel' $folder/tmp/controller.log | wc -l)"
+DCquest="$(grep 'Creating quest alert for discord:channel' $folder/tmp/controller.log | wc -l)"
+DCinvasion="$(grep 'Creating invasion alert for discord:channel' $folder/tmp/controller.log | wc -l)"
+DCweather="$(grep 'Creating weather alert for discord:channel' $folder/tmp/controller.log | wc -l)"
+
+DWmon="$(grep 'Creating monster alert for webhook' $folder/tmp/controller.log | wc -l)"
+DWraid="$(grep 'Creating raid alert for webhook' $folder/tmp/controller.log | wc -l)"
+DWegg="$(grep 'Creating egg alert for webhook' $folder/tmp/controller.log | wc -l)"
+DWquest="$(grep 'Creating quest alert for webhook' $folder/tmp/controller.log | wc -l)"
+DWinvasion="$(grep 'Creating invasion alert for webhook' $folder/tmp/controller.log | wc -l)"
+DWweather="$(grep 'Creating weather alert for webhook' $folder/tmp/controller.log | wc -l)"
+
+TUmon="$(grep 'Creating monster alert for telegram:user' $folder/tmp/controller.log | wc -l)"
+TUraid="$(grep 'Creating raid alert for telegram:user' $folder/tmp/controller.log | wc -l)"
+TUegg="$(grep 'Creating egg alert for telegram:user' $folder/tmp/controller.log | wc -l)"
+TUquest="$(grep 'Creating quest alert for telegram:user' $folder/tmp/controller.log | wc -l)"
+TUinvasion="$(grep 'Creating invasion alert for telegram:user' $folder/tmp/controller.log | wc -l)"
+TUweather="$(grep 'Creating weather alert for telegram:user' $folder/tmp/controller.log | wc -l)"
+
+TCmon="$(grep 'Creating monster alert for telegram:channel' $folder/tmp/controller.log | wc -l)"
+TCraid="$(grep 'Creating raid alert for telegram:channel' $folder/tmp/controller.log | wc -l)"
+TCegg="$(grep 'Creating egg alert for telegram:channel' $folder/tmp/controller.log | wc -l)"
+TCquest="$(grep 'Creating quest alert for telegram:channel' $folder/tmp/controller.log | wc -l)"
+TCinvasion="$(grep 'Creating invasion alert for telegram:channel' $folder/tmp/controller.log | wc -l)"
+TCweather="$(grep 'Creating weather alert for telegram:channel' $folder/tmp/controller.log | wc -l)"
+
+TGmon="$(grep 'Creating monster alert for telegram:group' $folder/tmp/controller.log | wc -l)"
+TGraid="$(grep 'Creating raid alert for telegram:group' $folder/tmp/controller.log | wc -l)"
+TGegg="$(grep 'Creating egg alert for telegram:group' $folder/tmp/controller.log | wc -l)"
+TGquest="$(grep 'Creating quest alert for telegram:group' $folder/tmp/controller.log | wc -l)"
+TGinvasion="$(grep 'Creating invasion alert for telegram:group' $folder/tmp/controller.log | wc -l)"
+TGweather="$(grep 'Creating weather alert for telegram:group' $folder/tmp/controller.log | wc -l)"
 
 minMsgT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s min)"
 maxMsgT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s max)"
@@ -50,9 +81,9 @@ echo "Insert controller log data into DB"
 echo ""
 if [ -z "$SQL_password" ]
 then
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO controller (Datetime,RPL,Umon,Uegg,Uraid,Uquest,Uinvasion,Cmon,Cegg,Craid,Cquest,Cinvasion,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsg0T,noSend) VALUES ('$process_hour','60','$Umon','$Uegg','$Uraid','$Uquest','$Uinvasion','$Cmon','$Cegg','$Craid','$Cquest','$Cinvasion','$minMsgT','$maxMsgT','$avgMsgT','$rateLimit','minMsgT0','$maxMsgT0','$avgMsgT0','$noSend');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO controller (Datetime,RPL,DUmon,DUegg,DUraid,DUquest,DUinvasion,DUweather,DCmon,DCegg,DCraid,DCquest,DCinvasion,DCweather,DWmon,DWegg,DWraid,DWquest,DWinvasion,DWweather,TUmon,TUegg,TUraid,TUquest,TUinvasion,TUweather,TCmon,TCegg,TCraid,TCquest,TCinvasion,TCweather,TGmon,TGegg,TGraid,TGquest,TGinvasion,TGweather,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsg0T,noSend) VALUES ('$process_hour','60','$DUmon','$DUegg','$DUraid','$DUquest','$DUinvasion','$DUweather','$DCmon','$DCegg','$DCraid','$DCquest','$DCinvasion','$DCweather','$DWmon','$DWegg','$DWraid','$DWquest','$DWinvasion','$DWweather','$TUmon','$TUegg','$TUraid','$TUquest','$TUinvasion','$TUweather','$TCmon','$TCegg','$TCraid','$TCquest','$TCinvasion','$TCweather','$TGmon','$TGegg','$TGraid','$TGquest','$TGinvasion','$TGweather','$minMsgT','$maxMsgT','$avgMsgT','$rateLimit','minMsgT0','$maxMsgT0','$avgMsgT0','$noSend');"
 else
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO controller (Datetime,RPL,Umon,Uegg,Uraid,Uquest,Uinvasion,Cmon,Cegg,Craid,Cquest,Cinvasion,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsgT0,noSend) VALUES ('$process_hour','60','$Umon','$Uegg','$Uraid','$Uquest','$Uinvasion','$Cmon','$Cegg','$Craid','$Cquest','$Cinvasion','$minMsgT','$maxMsgT','$avgMsgT','$rateLimit','$minMsgT0','$maxMsgT0','$avgMsgT0','$noSend');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO controller (Datetime,RPL,DUmon,DUegg,DUraid,DUquest,DUinvasion,DUweather,DCmon,DCegg,DCraid,DCquest,DCinvasion,DCweather,DWmon,DWegg,DWraid,DWquest,DWinvasion,DWweather,TUmon,TUegg,TUraid,TUquest,TUinvasion,TUweather,TCmon,TCegg,TCraid,TCquest,TCinvasion,TCweather,TGmon,TGegg,TGraid,TGquest,TGinvasion,TGweather,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsg0T,noSend) VALUES ('$process_hour','60','$DUmon','$DUegg','$DUraid','$DUquest','$DUinvasion','$DUweather','$DCmon','$DCegg','$DCraid','$DCquest','$DCinvasion','$DCweather','$DWmon','$DWegg','$DWraid','$DWquest','$DWinvasion','$DWweather','$TUmon','$TUegg','$TUraid','$TUquest','$TUinvasion','$TUweather','$TCmon','$TCegg','$TCraid','$TCquest','$TCinvasion','$TCweather','$TGmon','$TGegg','$TGraid','$TGquest','$TGinvasion','$TGweather','$minMsgT','$maxMsgT','$avgMsgT','$rateLimit','minMsgT0','$maxMsgT0','$avgMsgT0','$noSend');"
 fi
 
 ## Get error log data

@@ -37,13 +37,14 @@ flush privileges;
 
 ##  Meaning of columns
 ### Table controller:
-Umon  = #User messages created for monster<BR>
-Uegg  = #User messages created for eggs<BR>
-Uraid  = #User messages created for raids<BR>
-Uquest  = #User messages created for quests<BR>
-Uinvasion  = #User messages created for invasions<BR>
+DUmon  = #Discord User messages created for monster<BR>
+DUegg  = #Disciord User messages created for eggs<BR>
+DUraid  = #Discord User messages created for raids<BR>
+DUquest  = #Discord User messages created for quests<BR>
+DUinvasion  = #Discord User messages created for invasions<BR>
+DUweather =  = #Discord User messages created for weather change<BR>
 <BR>
-Cxxxx = same as User messages above but for Channels<BR>
+next columns as above: DC=Discord Channel, DW=DiscordWebhook, TU=Telegram User, TC=Telegram Channel, TG=Telegram Group<BR>
 <BR>
 minMsgT = for messages where at least 1 human cared, the lowest time to process it (ms)<BR>
 maxMsgT = for messages where at least 1 human cared, the highest time to process it (ms)<BR>
