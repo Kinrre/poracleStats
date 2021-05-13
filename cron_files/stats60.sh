@@ -81,9 +81,9 @@ echo "Insert controller log data into DB"
 echo ""
 if [ -z "$SQL_password" ]
 then
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO controller (Datetime,RPL,DUmon,DUegg,DUraid,DUquest,DUinvasion,DUweather,DCmon,DCegg,DCraid,DCquest,DCinvasion,DCweather,DWmon,DWegg,DWraid,DWquest,DWinvasion,DWweather,TUmon,TUegg,TUraid,TUquest,TUinvasion,TUweather,TCmon,TCegg,TCraid,TCquest,TCinvasion,TCweather,TGmon,TGegg,TGraid,TGquest,TGinvasion,TGweather,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsg0T,noSend) VALUES ('$process_hour','60','$DUmon','$DUegg','$DUraid','$DUquest','$DUinvasion','$DUweather','$DCmon','$DCegg','$DCraid','$DCquest','$DCinvasion','$DCweather','$DWmon','$DWegg','$DWraid','$DWquest','$DWinvasion','$DWweather','$TUmon','$TUegg','$TUraid','$TUquest','$TUinvasion','$TUweather','$TCmon','$TCegg','$TCraid','$TCquest','$TCinvasion','$TCweather','$TGmon','$TGegg','$TGraid','$TGquest','$TGinvasion','$TGweather','$minMsgT','$maxMsgT','$avgMsgT','$rateLimit','minMsgT0','$maxMsgT0','$avgMsgT0','$noSend');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO controller (Datetime,RPL,DUmon,DUegg,DUraid,DUquest,DUinvasion,DUweather,DCmon,DCegg,DCraid,DCquest,DCinvasion,DCweather,DWmon,DWegg,DWraid,DWquest,DWinvasion,DWweather,TUmon,TUegg,TUraid,TUquest,TUinvasion,TUweather,TCmon,TCegg,TCraid,TCquest,TCinvasion,TCweather,TGmon,TGegg,TGraid,TGquest,TGinvasion,TGweather,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsgT0,noSend) VALUES ('$process_hour','60','$DUmon','$DUegg','$DUraid','$DUquest','$DUinvasion','$DUweather','$DCmon','$DCegg','$DCraid','$DCquest','$DCinvasion','$DCweather','$DWmon','$DWegg','$DWraid','$DWquest','$DWinvasion','$DWweather','$TUmon','$TUegg','$TUraid','$TUquest','$TUinvasion','$TUweather','$TCmon','$TCegg','$TCraid','$TCquest','$TCinvasion','$TCweather','$TGmon','$TGegg','$TGraid','$TGquest','$TGinvasion','$TGweather','$minMsgT','$maxMsgT','$avgMsgT','$rateLimit','minMsgT0','$maxMsgT0','$avgMsgT0','$noSend');"
 else
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO controller (Datetime,RPL,DUmon,DUegg,DUraid,DUquest,DUinvasion,DUweather,DCmon,DCegg,DCraid,DCquest,DCinvasion,DCweather,DWmon,DWegg,DWraid,DWquest,DWinvasion,DWweather,TUmon,TUegg,TUraid,TUquest,TUinvasion,TUweather,TCmon,TCegg,TCraid,TCquest,TCinvasion,TCweather,TGmon,TGegg,TGraid,TGquest,TGinvasion,TGweather,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsg0T,noSend) VALUES ('$process_hour','60','$DUmon','$DUegg','$DUraid','$DUquest','$DUinvasion','$DUweather','$DCmon','$DCegg','$DCraid','$DCquest','$DCinvasion','$DCweather','$DWmon','$DWegg','$DWraid','$DWquest','$DWinvasion','$DWweather','$TUmon','$TUegg','$TUraid','$TUquest','$TUinvasion','$TUweather','$TCmon','$TCegg','$TCraid','$TCquest','$TCinvasion','$TCweather','$TGmon','$TGegg','$TGraid','$TGquest','$TGinvasion','$TGweather','$minMsgT','$maxMsgT','$avgMsgT','$rateLimit','minMsgT0','$maxMsgT0','$avgMsgT0','$noSend');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO controller (Datetime,RPL,DUmon,DUegg,DUraid,DUquest,DUinvasion,DUweather,DCmon,DCegg,DCraid,DCquest,DCinvasion,DCweather,DWmon,DWegg,DWraid,DWquest,DWinvasion,DWweather,TUmon,TUegg,TUraid,TUquest,TUinvasion,TUweather,TCmon,TCegg,TCraid,TCquest,TCinvasion,TCweather,TGmon,TGegg,TGraid,TGquest,TGinvasion,TGweather,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsgT0,noSend) VALUES ('$process_hour','60','$DUmon','$DUegg','$DUraid','$DUquest','$DUinvasion','$DUweather','$DCmon','$DCegg','$DCraid','$DCquest','$DCinvasion','$DCweather','$DWmon','$DWegg','$DWraid','$DWquest','$DWinvasion','$DWweather','$TUmon','$TUegg','$TUraid','$TUquest','$TUinvasion','$TUweather','$TCmon','$TCegg','$TCraid','$TCquest','$TCinvasion','$TCweather','$TGmon','$TGegg','$TGraid','$TGquest','$TGinvasion','$TGweather','$minMsgT','$maxMsgT','$avgMsgT','$rateLimit','minMsgT0','$maxMsgT0','$avgMsgT0','$noSend');"
 fi
 
 ## Get error log data
@@ -132,13 +132,13 @@ UmsgSend="$(grep 'USER Sending telegram message' $folder/tmp/telegram.log | grep
 CmsgSend="$(grep 'CHANNEL Sending telegram message' $folder/tmp/telegram.log | grep -v 'clean' | wc -l)"
 GmsgSend="$(grep 'GROUP Sending telegram message' $folder/tmp/telegram.log | grep -v 'clean' | wc -l)"
 
-echo "Insert discord log data into DB"
+echo "Insert telegram log data into DB"
 echo ""
 if [ -z "$SQL_password" ]
 then
   mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO telegram (Datetime,RPL,stickerFail,msgClean,msgSend,UmsgSend,CmsgSend,GmsgSend) ('$process_hour','60','$stickerFail','$msgClean','$msgSend','$UmsgSend','$CmsgSend','$GmsgSend');"
 else
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO telegram (Datetime,RPL,stickerFail,msgClean,msgSend,UmsgSend,CmsgSend,GmsgSend) VALUES ('$process_hour','60',$stickerFail','$msgClean','$msgSend','$UmsgSend','$CmsgSend','$GmsgSend');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO telegram (Datetime,RPL,stickerFail,msgClean,msgSend,UmsgSend,CmsgSend,GmsgSend) VALUES ('$process_hour','60','$stickerFail','$msgClean','$msgSend','$UmsgSend','$CmsgSend','$GmsgSend');"
 fi
 
 ## Get general log data
