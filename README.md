@@ -100,6 +100,7 @@ raid = #raid alerts send<BR>
 egg = #egg alerts send<BR>
 invasion = #invasion alerts send<BR>
 quest = #quest alerts send<BR>
+mnc = Message Not Created due to rate limit<BR>
 <BR>
 ### Table middleman
 total = #POST_staticmap messages in log<BR>

@@ -87,6 +87,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `invasion` smallint(10) DEFAULT NULL,
   `stopRL` smallint(10) DEFAULT NULL,
   `stopUR` smallint(10) DEFAULT NULL,
+  `mnc` smallint(10) DEFAULT NULL,
   PRIMARY KEY (Datetime,id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -121,7 +122,8 @@ ADD COLUMN IF NOT EXISTS `total` smallint(10) DEFAULT NULL AFTER `RPL`
 ;
 
 ALTER TABLE `users`
-ADD COLUMN IF NOT EXISTS `name` varchar(255) DEFAULT NULL AFTER `id`
+ADD COLUMN IF NOT EXISTS `name` varchar(255) DEFAULT NULL AFTER `id`,
+ADD COLUMN IF NOT EXISTS `mnc` smallint(10) DEFAULT NULL
 ;
 
 -- update version
