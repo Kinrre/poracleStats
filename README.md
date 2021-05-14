@@ -8,7 +8,6 @@ Numbers are being added to DB, roughly un-verified, so feeback is appreciated. B
 
 ## Requirements
 PoracleJS logger settings in ``local.json`` for both ``consoleLogLevel`` and ``logLevel`` to be set to ``verbose``.<BR>
-Untested, but pretty sure setting loglevel to ``debug`` will mess things up, let me know if it does so I can adapt.<BR>
 
 ## Setting up
 

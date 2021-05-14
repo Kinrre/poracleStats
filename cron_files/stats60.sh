@@ -14,11 +14,11 @@ echo ""
 echo "Get all poracle logs"
 echo ""
 mkdir -p $folder/tmp
-grep "$interval" $PATH_TO_PoraclJS/logs/controller-$process_date.log > $folder/tmp/controller.log
-grep "$interval" $PATH_TO_PoraclJS/logs/discord-$process_date.log > $folder/tmp/discord.log
-grep "$interval" $PATH_TO_PoraclJS/logs/errors-$process_date.log > $folder/tmp/errors.log
-grep "$interval" $PATH_TO_PoraclJS/logs/general-$process_date.log > $folder/tmp/general.log
-grep "$interval" $PATH_TO_PoraclJS/logs/telegram-$process_date.log > $folder/tmp/telegram.log
+grep "$interval" $PATH_TO_PoraclJS/logs/controller-$process_date.log | grep -v 'debug' > $folder/tmp/controller.log
+grep "$interval" $PATH_TO_PoraclJS/logs/discord-$process_date.log | grep -v 'debug' > $folder/tmp/discord.log
+grep "$interval" $PATH_TO_PoraclJS/logs/errors-$process_date.log | grep -v 'debug' > $folder/tmp/errors.log
+grep "$interval" $PATH_TO_PoraclJS/logs/general-$process_date.log | grep -v 'debug' > $folder/tmp/general.log
+grep "$interval" $PATH_TO_PoraclJS/logs/telegram-$process_date.log | grep -v 'debug' > $folder/tmp/telegram.log
 
 ## Get controller log data
 echo "grep controller log data"
@@ -83,7 +83,7 @@ if [ -z "$SQL_password" ]
 then
   mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO controller (Datetime,RPL,DUmon,DUegg,DUraid,DUquest,DUinvasion,DUweather,DCmon,DCegg,DCraid,DCquest,DCinvasion,DCweather,DWmon,DWegg,DWraid,DWquest,DWinvasion,DWweather,TUmon,TUegg,TUraid,TUquest,TUinvasion,TUweather,TCmon,TCegg,TCraid,TCquest,TCinvasion,TCweather,TGmon,TGegg,TGraid,TGquest,TGinvasion,TGweather,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsgT0,noSend) VALUES ('$process_hour','60','$DUmon','$DUegg','$DUraid','$DUquest','$DUinvasion','$DUweather','$DCmon','$DCegg','$DCraid','$DCquest','$DCinvasion','$DCweather','$DWmon','$DWegg','$DWraid','$DWquest','$DWinvasion','$DWweather','$TUmon','$TUegg','$TUraid','$TUquest','$TUinvasion','$TUweather','$TCmon','$TCegg','$TCraid','$TCquest','$TCinvasion','$TCweather','$TGmon','$TGegg','$TGraid','$TGquest','$TGinvasion','$TGweather','$minMsgT','$maxMsgT','$avgMsgT','$rateLimit','minMsgT0','$maxMsgT0','$avgMsgT0','$noSend');"
 else
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO controller (Datetime,RPL,DUmon,DUegg,DUraid,DUquest,DUinvasion,DUweather,DCmon,DCegg,DCraid,DCquest,DCinvasion,DCweather,DWmon,DWegg,DWraid,DWquest,DWinvasion,DWweather,TUmon,TUegg,TUraid,TUquest,TUinvasion,TUweather,TCmon,TCegg,TCraid,TCquest,TCinvasion,TCweather,TGmon,TGegg,TGraid,TGquest,TGinvasion,TGweather,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsgT0,noSend) VALUES ('$process_hour','60','$DUmon','$DUegg','$DUraid','$DUquest','$DUinvasion','$DUweather','$DCmon','$DCegg','$DCraid','$DCquest','$DCinvasion','$DCweather','$DWmon','$DWegg','$DWraid','$DWquest','$DWinvasion','$DWweather','$TUmon','$TUegg','$TUraid','$TUquest','$TUinvasion','$TUweather','$TCmon','$TCegg','$TCraid','$TCquest','$TCinvasion','$TCweather','$TGmon','$TGegg','$TGraid','$TGquest','$TGinvasion','$TGweather','$minMsgT','$maxMsgT','$avgMsgT','$rateLimit','minMsgT0','$maxMsgT0','$avgMsgT0','$noSend');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO controller (Datetime,RPL,DUmon,DUegg,DUraid,DUquest,DUinvasion,DUweather,DCmon,DCegg,DCraid,DCquest,DCinvasion,DCweather,DWmon,DWegg,DWraid,DWquest,DWinvasion,DWweather,TUmon,TUegg,TUraid,TUquest,TUinvasion,TUweather,TCmon,TCegg,TCraid,TCquest,TCinvasion,TCweather,TGmon,TGegg,TGraid,TGquest,TGinvasion,TGweather,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsgT0,noSend) VALUES ('$process_hour','60','$DUmon','$DUegg','$DUraid','$DUquest','$DUinvasion','$DUweather','$DCmon','$DCegg','$DCraid','$DCquest','$DCinvasion','$DCweather','$DWmon','$DWegg','$DWraid','$DWquest','$DWinvasion','$DWweather','$TUmon','$TUegg','$TUraid','$TUquest','$TUinvasion','$TUweather','$TCmon','$TCegg','$TCraid','$TCquest','$TCinvasion','$TCweather','$TGmon','$TGegg','$TGraid','$TGquest','$TGinvasion','$TGweather','$minMsgT','$maxMsgT','$avgMsgT','$rateLimit','$minMsgT0','$maxMsgT0','$avgMsgT0','$noSend');"
 fi
 
 ## Get error log data

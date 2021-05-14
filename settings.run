@@ -58,13 +58,35 @@ then
     do
       echo ""
       echo ""
-      echo "processing now - $hoursback hours"
+      echo "Hourly data: processing now - $hoursback hours"
       echo ""
       cp $PATH_TO_poracleSTATS/cron_files/stats60.sh $PATH_TO_poracleSTATS/cron_files/stats60.sh.tmp
       sed -i "s/1 hour ago/$hoursback hour ago/g" $PATH_TO_poracleSTATS/cron_files/stats60.sh.tmp
       cd $PATH_TO_poracleSTATS/cron_files && ./stats60.sh.tmp
       rm $PATH_TO_poracleSTATS/cron_files/stats60.sh.tmp
       hoursback="$(( hoursback - 1 ))"
+    done
+  fi
+  if [ $choice = "y" ] || [ $choice = "yes" ] || [ $choice = "Y" ] || [ $choice = "Yes" ]
+  then
+    hoursback=8640
+    while test $hoursback != 0
+    do
+      echo ""
+      echo ""
+      echo "Daily data: processing now - $hoursback hours"
+      echo ""
+      cp $PATH_TO_poracleSTATS/default_files/stats1440.sql.default $PATH_TO_poracleSTATS/default_files/stats1440.sql.tmp
+      sed -i "s/interval 1440 minute/interval $hoursback minute/g" $PATH_TO_poracleSTATS/default_files/stats1440.sql.tmp
+      cd $PATH_TO_poracleSTATS/cron_files && ./stats1440.sh.tmp ??? change to sql !!!!!
+      if [ -z "$SQL_password" ]
+        then
+          mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB < $folder/default_files/stats1440.sql.tmp
+        else
+          mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB < $folder/default_files/stats1440.sql.tmp
+      fi
+      rm $PATH_TO_poracleSTATS/default_files/stats1440.sql.tmp
+      hoursback="$(( hoursback - 1440 ))"
     done
   fi
 fi
