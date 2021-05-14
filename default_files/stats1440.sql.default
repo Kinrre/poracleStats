@@ -83,14 +83,15 @@ from poracleStats.telegram
 where Datetime like concat(left(@Datetime,10),'%') and RPL = 60
 ;
 
-INSERT IGNORE INTO poracleStats.error (Datetime,RPL,warn,warnMap,warnRL,error)
+INSERT IGNORE INTO poracleStats.error (Datetime,RPL,warn,warnMap,warnRL,error,errorAddress)
 select
 @Datetime,
 '1440',
 sum(warn),
 sum(warnMap),
 sum(warnRL),
-sum(error)
+sum(error),
+sum(errorAddress)
 from poracleStats.error
 where Datetime like concat(left(@Datetime,10),'%') and RPL = 60
 ;

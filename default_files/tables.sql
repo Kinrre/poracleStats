@@ -55,6 +55,7 @@ CREATE TABLE IF NOT EXISTS `error` (
   `warnMap` smallint(10) DEFAULT NULL,
   `warnRL` smallint(10) DEFAULT NULL,
   `error` smallint(10) DEFAULT NULL,
+  `errorAddress` smallint(10) DEFAULT NULL,
   PRIMARY KEY (Datetime,RPL)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -177,6 +178,10 @@ ALTER TABLE `discord`
 ADD COLUMN IF NOT EXISTS `UmsgSend` smallint(10) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS `CmsgSend` smallint(10) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS `WmsgSend` smallint(10) DEFAULT NULL
+;
+
+ALTER TABLE `error`
+ADD COLUMN IF NOT EXISTS `errorAddress` smallint(10) DEFAULT NULL
 ;
 
 ALTER TABLE `middleman`

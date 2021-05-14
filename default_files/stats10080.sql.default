@@ -83,14 +83,15 @@ from poracleStats.telegram
 where Datetime >= date(curdate() - interval weekday(curdate()) + 7 day) and RPL = 1440
 ;
 
-INSERT IGNORE INTO poracleStats.error (Datetime,RPL,warn,warnMap,warnRL,error)
+INSERT IGNORE INTO poracleStats.error (Datetime,RPL,warn,warnMap,warnRL,error,errorAddress)
 select
 @Datetime,
 '10080',
 sum(warn),
 sum(warnMap),
 sum(warnRL),
-sum(error)
+sum(error),
+sum(errorAddress)
 from poracleStats.error
 where Datetime >= date(curdate() - interval weekday(curdate()) + 7 day) and RPL = 1440
 ;

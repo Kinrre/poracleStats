@@ -91,15 +91,16 @@ echo "grep error log data"
 warn="$(grep 'warn' $folder/tmp/errors.log | wc -l)"
 warnMap="$(grep 'warn' $folder/tmp/errors.log | grep StaticMap | wc -l)"
 warnRL="$(grep 'warn' $folder/tmp/errors.log | grep 'rate limit hit' | wc -l)"
-error="$(grep 'MAIN error' $folder/tmp/errors.log | wc -l)"
+error="$(grep 'error' $folder/tmp/errors.log | wc -l)"
+errorAddress="$(grep 'error' $folder/tmp/errors.log | grep 'getAddress' | wc-l" 
 
 echo "Insert error log data into DB"
 echo ""
 if [ -z "$SQL_password" ]
 then
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO error (Datetime,RPL,warn,warnMap,warnRL,error) VALUES ('$process_hour','60','$warn','$warnMap','$warnRL','$error');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO error (Datetime,RPL,warn,warnMap,warnRL,error,errorAddress) VALUES ('$process_hour','60','$warn','$warnMap','$warnRL','$error','$errorAddress');"
 else
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO error (Datetime,RPL,warn,warnMap,warnRL,error) VALUES ('$process_hour','60','$warn','$warnMap','$warnRL','$error');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO error (Datetime,RPL,warn,warnMap,warnRL,error,errorAddress) VALUES ('$process_hour','60','$warn','$warnMap','$warnRL','$error','$errorAddress');"
 fi
 
 ## Get discord log data
