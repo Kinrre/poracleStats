@@ -14,7 +14,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "7.5.5"
+      "version": "7.5.6"
     },
     {
       "type": "panel",
@@ -46,7 +46,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1620674002463,
+  "iteration": 1620981398898,
   "links": [],
   "panels": [
     {
@@ -87,7 +87,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "7.5.6",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -101,7 +101,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  msgSend as 'Total discord messages created (excl clean)'\nFROM discord\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n\n",
+          "rawSql": "SELECT\n  $__timeGroup(a.Datetime,$__interval) as 'time',\n  a.msgSend as 'Total discord messages created (excl clean)',\n  ifnull(b.msgSend,0) as 'Total telegram messages created (excl clean)'\nFROM discord a, telegram b\nWHERE\n  $__timeFilter(a.datetime) and\n  a.RPL = '$RPL' and\n  a.Datetime = b.Datetime and\n  a.RPL = b.RPL\n  \nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n\n",
           "refId": "A",
           "select": [
             [
@@ -203,7 +203,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "7.5.6",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -318,7 +318,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "7.5.6",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -433,7 +433,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "7.5.6",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -549,7 +549,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "7.5.6",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -665,7 +665,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "7.5.6",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -775,12 +775,12 @@
     ]
   },
   "time": {
-    "from": "now-7d",
+    "from": "now-3d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "40. Overview",
   "uid": "7A45ctjMz",
-  "version": 12
+  "version": 14
 }

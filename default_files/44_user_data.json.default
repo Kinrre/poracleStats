@@ -14,7 +14,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "7.5.5"
+      "version": "7.5.6"
     },
     {
       "type": "datasource",
@@ -46,7 +46,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1620724815378,
+  "iteration": 1620981563103,
   "links": [],
   "panels": [
     {
@@ -84,7 +84,7 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 168
+                "value": 174
               }
             ]
           },
@@ -216,7 +216,19 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 311
+                "value": 220
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "MessageNotCreated"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 145
               }
             ]
           }
@@ -238,14 +250,14 @@
           }
         ]
       },
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "7.5.6",
       "targets": [
         {
           "format": "table",
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  type as 'type',\n  id as 'id',\n  name as 'name',\n  msgSend as '#msgSend',\n  mon as '#mons',\n  egg as '#eggs',\n  raid as '#raids',\n  invasion as '#invasions',\n  quest as '#quests',\n  stopRL as '#RateLimit',\n  stopUR as '#fullStop'\nFROM users\nWHERE\n--  $__timeFilter(datetime) and\n  Datetime = '$Date' and\n  type in ($type) and\n  RPL = '$RPL'\n-- GROUP BY 1\nORDER BY msgSend\n",
+          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  type as 'type',\n  id as 'id',\n  name as 'name',\n  msgSend as '#msgSend',\n  mon as '#mons',\n  egg as '#eggs',\n  raid as '#raids',\n  invasion as '#invasions',\n  quest as '#quests',\n  stopRL as '#RateLimit',\n  mnc as 'MessageNotCreated',\n  stopUR as '#fullStop'\nFROM users\nWHERE\n--  $__timeFilter(datetime) and\n  Datetime = '$Date' and\n  type in ($type) and\n  RPL = '$RPL'\n-- GROUP BY 1\nORDER BY msgSend\n",
           "refId": "A",
           "select": [
             [
@@ -360,5 +372,5 @@
   "timezone": "",
   "title": "44. User data",
   "uid": "16Pe04jGa",
-  "version": 6
+  "version": 8
 }

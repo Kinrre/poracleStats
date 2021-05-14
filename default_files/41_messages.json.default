@@ -14,7 +14,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "7.5.5"
+      "version": "7.5.6"
     },
     {
       "type": "panel",
@@ -46,7 +46,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1620674039537,
+  "iteration": 1620981457625,
   "links": [],
   "panels": [
     {
@@ -87,7 +87,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "7.5.6",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -101,7 +101,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  Umon+Uegg+Uraid+Uquest+Uinvasion as 'Total User messages created'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n\n",
+          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  DUmon+DUegg+DUraid+DUquest+DUinvasion+ifnull(DUweather,0) as '#Discord User messages created',\n  ifnull(TUmon,0)+ifnull(TUegg,0)+ifnull(TUraid,0)+ifnull(TUquest,0)+ifnull(TUinvasion,0)+ifnull(TUweather,0) as '#Telegram User messages created'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n\n",
           "refId": "A",
           "select": [
             [
@@ -202,7 +202,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "7.5.6",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -216,7 +216,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  Cmon+Cegg+Craid+Cquest+Cinvasion as 'Total Channel messages created'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n\n",
+          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  DCmon+DCegg+DCraid+DCquest+DCinvasion+ifnull(DCweather,0) as '#Discord Channel messages created',\n  DWmon+DWegg+DWraid+DWquest+DWinvasion+ifnull(DWweather,0) as '#Discord Webhook messages created',\n  ifnull(TCmon,0)+ifnull(TCegg,0)+ifnull(TCraid,0)+ifnull(TCquest,0)+ifnull(TCinvasion,0)+ifnull(TCweather,0) as '#Telegram Channel messages created',\n  ifnull(TGmon,0)+ifnull(TGegg,0)+ifnull(TGraid,0)+ifnull(TGquest,0)+ifnull(TGinvasion,0)+ifnull(TGweather,0) as '#Telegram Group messages created'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n\n",
           "refId": "A",
           "select": [
             [
@@ -281,6 +281,7 @@
     },
     {
       "aliasColors": {
+        "#Telegram User monster messages created": "dark-purple",
         "Pokemon messages ceated": "dark-blue"
       },
       "bars": false,
@@ -317,7 +318,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "7.5.6",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -344,7 +345,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  Umon as 'Pokemon messages ceated'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
+          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  DUmon as '#Discord User monster messages created',\n  ifnull(TUmon,0) as '#Telegram User monster messages created'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
           "refId": "A",
           "select": [
             [
@@ -409,6 +410,9 @@
     },
     {
       "aliasColors": {
+        "#Discord Webhook Pokemon messages created": "dark-blue",
+        "#Telegram Channel Pokemon messages created": "dark-purple",
+        "#Telegram Group Pokemon messages created": "dark-red",
         "Pokemon messages ceated": "dark-orange"
       },
       "bars": false,
@@ -445,7 +449,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "7.5.6",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -472,7 +476,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  Cmon as 'Pokemon messages ceated'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
+          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  DCmon as '#Discord Channel Pokemon messages created',\n  DWmon as '#Discord Webhook Pokemon messages created',\n  ifnull(TCmon,0) as '#Telegram Channel Pokemon messages created',\n  ifnull(TGmon,0) as '#Telegram Group Pokemon messages created'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n\n",
           "refId": "A",
           "select": [
             [
@@ -537,6 +541,9 @@
     },
     {
       "aliasColors": {
+        "#Discord User egg messages created": "dark-blue",
+        "#Telegram User egg messages created": "dark-red",
+        "#Telegram User raid messages created": "dark-purple",
         "Eggs messages created": "dark-green",
         "Raids messages created": "dark-blue"
       },
@@ -574,7 +581,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "7.5.6",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -601,7 +608,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  Uraid as 'Raids messages created',\n  Uegg as 'Eggs messages created'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
+          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  DUraid as '#Discord User raid messages created',\n  DUegg as '#Discord User egg messages created',\n  ifnull(TUraid,0) as '#Telegram User raid messages created',\n  ifnull(TUegg,0) as '#Telegram User egg messages created'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
           "refId": "A",
           "select": [
             [
@@ -666,6 +673,13 @@
     },
     {
       "aliasColors": {
+        "#Discord Channel egg messages created": "dark-yellow",
+        "#Discord Webhook egg messages created": "dark-orange",
+        "#Discord Webhook raid messages created": "dark-blue",
+        "#Telegram Channel egg messages created": "light-yellow",
+        "#Telegram Channel raid messages created": "dark-purple",
+        "#Telegram Group egg messages created": "light-orange",
+        "#Telegram Group raid messages created": "dark-red",
         "Eggs messages created": "dark-yellow",
         "Raids messages created": "dark-orange"
       },
@@ -703,7 +717,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "7.5.6",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -730,7 +744,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  Craid as 'Raids messages created',\n  Cegg as 'Eggs messages created'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
+          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  DCraid as '#Discord Channel raid messages created',\n  DCegg as '#Discord Channel egg messages created',\n  DWraid as '#Discord Webhook raid messages created',\n  DWegg as '#Discord Webhook egg messages created',\n  ifnull(TCraid,0) as '#Telegram Channel raid messages created',\n  ifnull(TCegg,0) as '#Telegram Channel egg messages created',\n  ifnull(TGraid,0) as '#Telegram Group raid messages created',\n  ifnull(TGegg,0) as '#Telegram Group egg messages created'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n\n",
           "refId": "A",
           "select": [
             [
@@ -795,6 +809,9 @@
     },
     {
       "aliasColors": {
+        "#Discord User invasion messages created": "dark-blue",
+        "#Telegram User invasion messages created": "dark-red",
+        "#Telegram User quest messages created": "dark-purple",
         "Invasion messages created": "dark-green",
         "Quest messages created": "dark-blue"
       },
@@ -832,7 +849,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "7.5.6",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -859,7 +876,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  Uquest as 'Quest messages created',\n  Uinvasion as 'Invasion messages created'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
+          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  DUquest as '#Discord User quest messages created',\n  DUinvasion as '#Discord User invasion messages created',\n  ifnull(TUquest,0) as '#Telegram User quest messages created',\n  ifnull(TUinvasion,0) as '#Telegram User invasion messages created'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
           "refId": "A",
           "select": [
             [
@@ -924,6 +941,13 @@
     },
     {
       "aliasColors": {
+        "#Discord Channel invasion messages created": "dark-yellow",
+        "#Discord Webhook invasion messages created": "dark-orange",
+        "#Discord Webhook quest messages created": "dark-blue",
+        "#Telegram Channel invasion messages created": "light-yellow",
+        "#Telegram Channel quest messages created": "dark-purple",
+        "#Telegram Group invasion messages created": "light-orange",
+        "#Telegram Group quest messages created": "dark-red",
         "Invasion messages created": "dark-yellow",
         "Quest messages created": "dark-orange"
       },
@@ -961,7 +985,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.5",
+      "pluginVersion": "7.5.6",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -988,7 +1012,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  Cquest as 'Quest messages created',\n  Cinvasion as 'Invasion messages created'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
+          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  DCquest as '#Discord Channel quest messages created',\n  DCinvasion as '#Discord Channel invasion messages created',\n  DWquest as '#Discord Webhook quest messages created',\n  DWinvasion as '#Discord Webhook invasion messages created',\n  ifnull(TCquest,0) as '#Telegram Channel quest messages created',\n  ifnull(TCinvasion,0) as '#Telegram Channel invasion messages created',\n  ifnull(TGquest,0) as '#Telegram Group quest messages created',\n  ifnull(TGinvasion,0) as '#Telegram Group invasion messages created'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n\n",
           "refId": "A",
           "select": [
             [
@@ -1015,6 +1039,266 @@
       "timeRegions": [],
       "timeShift": null,
       "title": "Invasion/Quest Channel messages",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {
+        "#Telegram User weather messages created": "dark-purple",
+        "Pokemon messages ceated": "dark-blue"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PORACLE}",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 32
+      },
+      "hiddenSeries": false,
+      "id": 11,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.6",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "Invasions",
+          "yaxis": 2
+        },
+        {
+          "alias": "Quests",
+          "yaxis": 2
+        },
+        {
+          "alias": "Eggs",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  DUweather as '#Discord User weather messages created',\n  ifnull(TUweather,0) as '#Telegram User weather messages created'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Weather User messages",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {
+        "#Discord Webhook weather messages created": "dark-blue",
+        "#Telegram Channel weather messages created": "dark-purple",
+        "#Telegram Group weather messages created": "dark-red",
+        "Pokemon messages ceated": "dark-blue"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PORACLE}",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 32
+      },
+      "hiddenSeries": false,
+      "id": 12,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.6",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "Invasions",
+          "yaxis": 2
+        },
+        {
+          "alias": "Quests",
+          "yaxis": 2
+        },
+        {
+          "alias": "Eggs",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  DCweather as '#Discord Channel weather messages created',\n  DWweather as '#Discord Webhook weather messages created',\n  ifnull(TCweather,0) as '#Telegram Channel weather messages created',\n  ifnull(TGweather,0) as '#Telegram Group weather messages created'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Weather Channel messages",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1085,12 +1369,12 @@
     ]
   },
   "time": {
-    "from": "now-7d",
+    "from": "now-3d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "41. Messages",
   "uid": "Or_LvVCGz",
-  "version": 11
+  "version": 13
 }
