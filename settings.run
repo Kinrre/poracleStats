@@ -74,7 +74,7 @@ then
     do
       echo ""
       echo ""
-      echo "Daily data: processing now - $hoursback hours"
+      echo "Daily data: processing now - $hoursback minutes"
       echo ""
       cp $PATH_TO_poracleSTATS/default_files/stats1440.sql.default $PATH_TO_poracleSTATS/default_files/stats1440.sql.tmp
       sed -i "s/interval 1440 minute/interval $hoursback minute/g" $PATH_TO_poracleSTATS/default_files/stats1440.sql.tmp
