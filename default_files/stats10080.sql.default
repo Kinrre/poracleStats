@@ -1,6 +1,6 @@
 select @Datetime := concat(date(curdate() - interval weekday(curdate()) + 7 day),' ','00:00:00');
 
-INSERT IGNORE INTO controller (Datetime,RPL,DUmon,DUegg,DUraid,DUquest,DUinvasion,DUweather,DCmon,DCegg,DCraid,DCquest,DCinvasion,DCweather,DWmon,DWegg,DWraid,DWquest,DWinvasion,DWweather,TUmon,TUegg,TUraid,TUquest,TUinvasion,TUweather,TCmon,TCegg,TCraid,TCquest,TCinvasion,TCweather,TGmon,TGegg,TGraid,TGquest,TGinvasion,TGweather,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsgT0,noSend)
+INSERT IGNORE INTO poracleStats.controller (Datetime,RPL,DUmon,DUegg,DUraid,DUquest,DUinvasion,DUweather,DCmon,DCegg,DCraid,DCquest,DCinvasion,DCweather,DWmon,DWegg,DWraid,DWquest,DWinvasion,DWweather,TUmon,TUegg,TUraid,TUquest,TUinvasion,TUweather,TCmon,TCegg,TCraid,TCquest,TCinvasion,TCweather,TGmon,TGegg,TGraid,TGquest,TGinvasion,TGweather,minMsgT,maxMsgT,avgMsgT,rateLimit,minMsgT0,maxMsgT0,avgMsgT0,noSend)
 select
 @Datetime,
 '10080',
@@ -48,11 +48,11 @@ min(minMsgT0),
 max(maxMsgT0),
 avg(avgMsgT0),
 sum(noSend)
-from controller
+from poracleStats.controller
 where Datetime >= date(curdate() - interval weekday(curdate()) + 7 day) and RPL = 1440
 ;
 
-INSERT IGNORE INTO discord (Datetime,RPL,warn,error,errorBG,errorUA,msgClean,msgSend,UmsgSend,CmsgSend,WmsgSend)
+INSERT IGNORE INTO poracleStats.discord (Datetime,RPL,warn,error,errorBG,errorUA,msgClean,msgSend,UmsgSend,CmsgSend,WmsgSend)
 select
 @Datetime,
 '10080',
@@ -65,11 +65,11 @@ sum(msgSend),
 sum(UmsgSend),
 sum(CmsgSend),
 sum(WmsgSend)
-from discord
+from poracleStats.discord
 where Datetime >= date(curdate() - interval weekday(curdate()) + 7 day) and RPL = 1440
 ;
 
-INSERT IGNORE INTO telegram (Datetime,RPL,stickerFail,msgClean,msgSend,UmsgSend,CmsgSend,GmsgSend)
+INSERT IGNORE INTO poracleStats.telegram (Datetime,RPL,stickerFail,msgClean,msgSend,UmsgSend,CmsgSend,GmsgSend)
 select
 @Datetime,
 '10080',
@@ -79,11 +79,11 @@ sum(msgSend),
 sum(UmsgSend),
 sum(CmsgSend),
 sum(GmsgSend)
-from telegram
+from poracleStats.telegram
 where Datetime >= date(curdate() - interval weekday(curdate()) + 7 day) and RPL = 1440
 ;
 
-INSERT IGNORE INTO error (Datetime,RPL,warn,warnMap,warnRL,error,errorAddress)
+INSERT IGNORE INTO poracleStats.error (Datetime,RPL,warn,warnMap,warnRL,error,errorAddress)
 select
 @Datetime,
 '10080',
@@ -92,11 +92,11 @@ sum(warnMap),
 sum(warnRL),
 sum(error),
 sum(errorAddress)
-from error
+from poracleStats.error
 where Datetime >= date(curdate() - interval weekday(curdate()) + 7 day) and RPL = 1440
 ;
 
-INSERT INTO general (Datetime,RPL,whQinMin,whQinMax,whQinAvg,whQoutMin,whQoutMax,whQoutAvg,stopRL,stopUR)
+INSERT INTO poracleStats.general (Datetime,RPL,whQinMin,whQinMax,whQinAvg,whQoutMin,whQoutMax,whQoutAvg,stopRL,stopUR)
 select
 @Datetime,
 '10080',
@@ -108,22 +108,22 @@ max(whQoutMax),
 avg(whQoutAvg),
 sum(stopRL),
 sum(stopUR)
-from general
+from poracleStats.general
 where Datetime >= date(curdate() - interval weekday(curdate()) + 7 day) and RPL = 1440
 ;
 
-INSERT IGNORE INTO middleman (Datetime,RPL,total,post200,post500)
+INSERT IGNORE INTO poracleStats.middleman (Datetime,RPL,total,post200,post500)
 select
 @Datetime,
 '10080',
 sum(total),
 sum(post200),
 sum(post500)
-from middleman
+from poracleStats.middleman
 where Datetime >= date(curdate() - interval weekday(curdate()) + 7 day) and RPL = 1440
 ;
 
-INSERT IGNORE INTO users (Datetime,RPL,id,name,type,msgSend,mon,egg,raid,quest,invasion,stopRL,stopUR,mnc)
+INSERT IGNORE INTO poracleStats.users (Datetime,RPL,id,name,type,msgSend,mon,egg,raid,quest,invasion,stopRL,stopUR,mnc)
 select
 @Datetime,
 '10080',
@@ -139,7 +139,7 @@ sum(invasion),
 sum(stopRL),
 sum(stopUR),
 sum(mnc)
-from users
+from poracleStats.users
 where Datetime >= date(curdate() - interval weekday(curdate()) + 7 day) and RPL = 1440
 group by id
 ;

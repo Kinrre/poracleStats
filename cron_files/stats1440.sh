@@ -36,8 +36,9 @@ else
 	stopUR=$(grep -e "$id" $folder/tmp/general1440.log | grep 'Stopping alerts [until restart]' | wc -l)
 	mnc=$(grep -e "$id" $folder/tmp/controller1440.log | grep 'Not creating' | wc -l)
 
-        if [ "$msgSend" != '' ]; then
-                mysql -u$SQL_user -p$SQL_password -h$DB_IP -P$DB_PORT $STATS_DB -N -e "UPDATE users set msgSend='$msgSend', mon='$mon', raid='$raid', egg='$egg', invasion='$invasion', quest='$quest', stopRL='$stopRL', stopUR='$stopUR, mnc='$mnc'  WHERE id = '$id' and Datetime = '$process_hour';"
+        if [ "$msgSend" != '' ]
+          then
+            mysql -u$SQL_user -p$SQL_password -h$DB_IP -P$DB_PORT $STATS_DB -e "UPDATE users set msgSend='$msgSend', mon='$mon', raid='$raid', egg='$egg', invasion='$invasion', quest='$quest', stopRL='$stopRL', stopUR='$stopUR', mnc='$mnc' WHERE id = '$id' and Datetime = '$process_hour';"
         fi
         done < <(query "select id FROM users where datetime = '$process_hour';")
 fi

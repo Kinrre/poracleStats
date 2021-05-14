@@ -65,13 +65,29 @@ TGquest="$(grep 'Creating quest alert for telegram:group' $folder/tmp/controller
 TGinvasion="$(grep 'Creating invasion alert for telegram:group' $folder/tmp/controller.log | wc -l)"
 TGweather="$(grep 'Creating weather alert for telegram:group' $folder/tmp/controller.log | wc -l)"
 
-minMsgT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s min)"
-maxMsgT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s max)"
-avgMsgT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s add/length)"
+checkLength="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | wc -l)"
+if (( $checkLength > 0 ))
+  then
+    minMsgT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s min)"
+    maxMsgT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s max)"
+    avgMsgT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s add/length)"
+  else
+    minMsgT=0
+    maxMsgT=0
+    avgMsgT=0
+fi
 
-minMsgT0="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s min)"
-maxMsgT0="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s max)"
-avgMsgT0="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s add/length)"
+checkLength="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | wc -l)"
+if (( $checkLength > 0 ))
+  then
+    minMsgT="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s min)"
+    maxMsgT="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s max)"
+    avgMsgT="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s add/length)"
+  else
+    minMsgT=0
+    maxMsgT=0
+    avgMsgT=0
+fi
 
 rateLimit="$(grep 'Rate limit' $folder/tmp/controller.log | wc -l)"
 
