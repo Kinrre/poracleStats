@@ -80,13 +80,13 @@ fi
 checkLength="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | wc -l)"
 if (( $checkLength > 0 ))
   then
-    minMsgT="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s min)"
-    maxMsgT="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s max)"
-    avgMsgT="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s add/length)"
+    minMsgT0="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s min)"
+    maxMsgT0="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s max)"
+    avgMsgT0="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | jq -s add/length)"
   else
-    minMsgT=0
-    maxMsgT=0
-    avgMsgT=0
+    minMsgT0=0
+    maxMsgT0=0
+    avgMsgT0=0
 fi
 
 rateLimit="$(grep 'Rate limit' $folder/tmp/controller.log | wc -l)"
