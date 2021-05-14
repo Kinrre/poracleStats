@@ -48,7 +48,7 @@ min(minMsgT0),
 max(maxMsgT0),
 avg(avgMsgT0),
 sum(noSend)
-from poracleStats.controller
+from controller
 where Datetime like concat(left(@Datetime,10),'%') and RPL = 60
 ;
 
@@ -65,7 +65,7 @@ sum(msgSend),
 sum(UmsgSend),
 sum(CmsgSend),
 sum(WmsgSend)
-from poracleStats.discord
+from discord
 where Datetime like concat(left(@Datetime,10),'%') and RPL = 60
 ;
 
@@ -79,7 +79,7 @@ sum(msgSend),
 sum(UmsgSend),
 sum(CmsgSend),
 sum(GmsgSend)
-from poracleStats.telegram
+from telegram
 where Datetime like concat(left(@Datetime,10),'%') and RPL = 60
 ;
 
@@ -92,7 +92,7 @@ sum(warnMap),
 sum(warnRL),
 sum(error),
 sum(errorAddress)
-from poracleStats.error
+from error
 where Datetime like concat(left(@Datetime,10),'%') and RPL = 60
 ;
 
@@ -108,7 +108,7 @@ max(whQoutMax),
 avg(whQoutAvg),
 sum(stopRL),
 sum(stopUR)
-from poracleStats.general
+from general
 where Datetime like concat(left(@Datetime,10),'%') and RPL = 60
 ;
 
@@ -119,6 +119,6 @@ select
 sum(total),
 sum(post200),
 sum(post500)
-from poracleStats.middleman
+from middleman
 where Datetime like concat(left(@Datetime,10),'%') and RPL = 60
 ;
