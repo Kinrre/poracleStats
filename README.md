@@ -8,6 +8,7 @@ Numbers are being added to DB, roughly un-verified, so feeback is appreciated. B
 
 ## Requirements
 PoracleJS logger settings in ``local.json`` for both ``consoleLogLevel`` and ``logLevel`` to be set to ``verbose``.<BR>
+Make sure ``jq`` is installed (sudo apt-get install jq).<BR>
 
 ## Setting up
 
