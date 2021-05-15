@@ -52,7 +52,7 @@ from poracleStats.controller
 where Datetime >= date(curdate() - interval weekday(curdate()) + 7 day) and RPL = 1440
 ;
 
-INSERT IGNORE INTO poracleStats.discord (Datetime,RPL,warn,error,errorBG,errorUA,msgClean,msgSend,UmsgSend,CmsgSend,WmsgSend)
+INSERT IGNORE INTO poracleStats.discord (Datetime,RPL,warn,error,errorBG,errorUA,errorCantSend,errorNoPerm,errorNoAccess,msgClean,msgSend,UmsgSend,CmsgSend,WmsgSend)
 select
 @Datetime,
 '10080',
@@ -60,6 +60,9 @@ sum(warn),
 sum(error),
 sum(errorBG),
 sum(errorUA),
+sum(errorCantSend),
+sum(errorNoPerm),
+sum(errorNoAccess),
 sum(msgClean),
 sum(msgSend),
 sum(UmsgSend),
