@@ -125,6 +125,11 @@ warn2="$(grep 'MAIN warn' $folder/tmp/discord.log | wc -l)"
 error2="$(grep 'MAIN error' $folder/tmp/discord.log | wc -l)"
 errorBG="$(grep 'MAIN error' $folder/tmp/discord.log | grep 'Bad Gateway' | wc -l)"
 errorUA="$(grep 'MAIN error' $folder/tmp/discord.log | grep 'The user aborted a request' | wc -l)"
+
+errorCantSend="$(grep 'Cannot send messages to' $folder/tmp/discord.log | wc -l)"
+errorNoPerm="$(grep 'Missing Permissions' $folder/tmp/discord.log | wc -l)"
+errorNoAccess="$(grep 'Missing Access' $folder/tmp/discord.log | wc -l)"
+
 msgClean="$(grep 'Sending discord message' $folder/tmp/discord.log | grep 'clean' | wc -l)"
 msgSend="$(grep 'Sending discord message' $folder/tmp/discord.log | grep -v 'clean' | wc -l)"
 UmsgSend="$(grep 'USER Sending discord message' $folder/tmp/discord.log | grep -v 'clean' | wc -l)"
@@ -135,9 +140,9 @@ echo "Insert discord log data into DB"
 echo ""
 if [ -z "$SQL_password" ]
 then
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO discord (Datetime,RPL,warn,error,errorBG,errorUA,msgClean,msgSend,UmsgSend,CmsgSend,WmsgSend) VALUES ('$process_hour','60','$warn2','$error2','$errorBG','$errorUA','$msgClean','$msgSend','$UmsgSend','$CmsgSend','$WmsgSend');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO discord (Datetime,RPL,warn,error,errorBG,errorUA,errorCantSend,errorNoPerm,errorNoAccess,msgClean,msgSend,UmsgSend,CmsgSend,WmsgSend) VALUES ('$process_hour','60','$warn2','$error2','$errorBG','$errorUA','$errorCantSend','$errorNoPerm','$errorNoAccess','$msgClean','$msgSend','$UmsgSend','$CmsgSend','$WmsgSend');"
 else
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO discord (Datetime,RPL,warn,error,errorBG,errorUA,msgClean,msgSend,UmsgSend,CmsgSend,WmsgSend) VALUES ('$process_hour','60','$warn2','$error2','$errorBG','$errorUA','$msgClean','$msgSend','$UmsgSend','$CmsgSend','$WmsgSend');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO discord (Datetime,RPL,warn,error,errorBG,errorUA,errorCantSend,errorNoPerm,errorNoAccess,msgClean,msgSend,UmsgSend,CmsgSend,WmsgSend) VALUES ('$process_hour','60','$warn2','$error2','$errorBG','$errorUA','$errorCantSend','$errorNoPerm','$errorNoAccess','$msgClean','$msgSend','$UmsgSend','$CmsgSend','$WmsgSend');"
 fi
 
 ## Get telegram log data

@@ -62,6 +62,9 @@ warn = #warnings<BR>
 error = #errors<BR>
 errorBG = #errors on Bad Gateway<BR>
 errorUA = #errors on User Aborted requests<BR>
+errorCantSend = #failed to send discord alert due to Cannot send messages to this user<BR>
+errorNoPerm = #failed to send dicord alert due to Missing Permissions<BR>
+errorNoAccess = #failed to send discord alert due to Missing Access<BR> 
 msgClean = #Clean messages<BR>
 msgSend = #Messages send<BR>
 UmsgSend = #User messages send<BR>
@@ -81,6 +84,7 @@ warn = #warnings<BR>
 warnMap = #warnings related to StaticMap<BR>
 warnRL = #warning relate to Rate Limit<BR>
 error = #errors<BR>
+errorAddress = #errors due to nominatim getAddress<BR>
 <BR>
 ### Table general
 whQinMin = WebHook Queue inbound minimum<BR>

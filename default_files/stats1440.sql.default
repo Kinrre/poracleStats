@@ -52,7 +52,7 @@ from poracleStats.controller
 where Datetime like concat(left(@Datetime,10),'%') and RPL = 60
 ;
 
-INSERT IGNORE INTO poracleStats.discord (Datetime,RPL,warn,error,errorBG,errorUA,msgClean,msgSend,UmsgSend,CmsgSend,WmsgSend)
+INSERT IGNORE INTO poracleStats.discord (Datetime,RPL,warn,error,errorBG,errorUA,errorCantSend,errorNoPerm,errorNoAccess,msgClean,msgSend,UmsgSend,CmsgSend,WmsgSend)
 select
 @Datetime,
 '1440',
@@ -60,6 +60,9 @@ sum(warn),
 sum(error),
 sum(errorBG),
 sum(errorUA),
+sum(errorCantSend),
+sum(errorNoPerm),
+sum(errorNoAccess),
 sum(msgClean),
 sum(msgSend),
 sum(UmsgSend),

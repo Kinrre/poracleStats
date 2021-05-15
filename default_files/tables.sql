@@ -80,6 +80,9 @@ CREATE TABLE IF NOT EXISTS `discord` (
   `error` smallint(10) DEFAULT NULL,
   `errorBG` smallint(10) DEFAULT NULL,
   `errorUA` smallint(10) DEFAULT NULL,
+  `errorCantSend` smallint(10) DEFAULT NULL,
+  `errorNoPerm` smallint(10) DEFAULT NULL,
+  `errorNoAccess` smallint(10) DEFAULT NULL,
   `msgClean` smallint(10) DEFAULT NULL,
   `msgSend` smallint(10) DEFAULT NULL,
   `UmsgSend` smallint(10) DEFAULT NULL,
@@ -175,6 +178,9 @@ ADD COLUMN IF NOT EXISTS `noSend` smallint(10) DEFAULT NULL
 ;
 
 ALTER TABLE `discord`
+ADD COLUMN IF NOT EXISTS `errorCantSend` smallint(10) DEFAULT NULL AFTER `errorUA`,
+ADD COLUMN IF NOT EXISTS `errorNoPerm` smallint(10) DEFAULT NULL AFTER `errorCantSend`,
+ADD COLUMN IF NOT EXISTS `errorNoAccess` smallint(10) DEFAULT NULL AFTER `errorNoPerm`,
 ADD COLUMN IF NOT EXISTS `UmsgSend` smallint(10) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS `CmsgSend` smallint(10) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS `WmsgSend` smallint(10) DEFAULT NULL
