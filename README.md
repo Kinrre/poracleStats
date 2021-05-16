@@ -7,8 +7,8 @@ Hourly process PoracleJS logs and store into database.<BR>
 Numbers are being added to DB, roughly un-verified, so feeback is appreciated. Bitch at it please :)
 
 ## Requirements
-PoracleJS logger settings in ``local.json`` for both ``consoleLogLevel`` and ``logLevel`` to be set to ``verbose``.<BR>
-Make sure ``jq`` is installed (sudo apt-get install jq).<BR>
+- PoracleJS logger settings in ``local.json`` for both ``consoleLogLevel`` and ``logLevel`` to be set to ``verbose``.<BR>
+- Make sure ``jq`` is installed (sudo apt-get install jq).<BR>
 
 ## Setting up
 
