@@ -15,7 +15,7 @@ if [ -z "$userStats" ]; then
 else
 	echo "Get log data"
 	echo ""
-	grep Creating $PATH_TO_PoraclJS/logs/controller-$process_date.log | grep -v 'debug' > $folder/tmp/controller1440.log
+	grep -i 'Creating' $PATH_TO_PoraclJS/logs/controller-$process_date.log | grep -v 'debug' > $folder/tmp/controller1440.log
 	grep 'Stopping alerts' $PATH_TO_PoraclJS/logs/general-$process_date.log | grep -v 'debug' > $folder/tmp/general1440.log
         echo "Inserting all users"
         echo ""
@@ -33,7 +33,7 @@ else
 	invasion=$(grep -e "$id" $folder/tmp/controller1440.log | grep 'Creating invasion alert' | wc -l)
 	quest=$(grep -e "$id" $folder/tmp/controller1440.log | grep 'Creating quest alert' | wc -l)
 	stopRL=$(grep -e "$id" $folder/tmp/general1440.log | grep 'Stopping alerts (Rate limit)' | wc -l)
-	stopUR=$(grep -e "$id" $folder/tmp/general1440.log | grep 'Stopping alerts [until restart]' | wc -l)
+	stopUR=$(grep -e "$id" $folder/tmp/general1440.log | grep 'Stopping alerts \[until restart\]' | wc -l)
 	mnc=$(grep -e "$id" $folder/tmp/controller1440.log | grep 'Not creating' | wc -l)
 
         if [ "$msgSend" != '' ]
