@@ -3,8 +3,6 @@
 Since nobody with an actual brain picked this up, this idiot gave it a go. <BR>
 <BR>
 Hourly process PoracleJS logs and store into database.<BR>
-<BR>
-Numbers are being added to DB, roughly un-verified, so feeback is appreciated. Bitch at it please :)
 
 ## Requirements
 - PoracleJS logger settings in ``local.json`` for both ``consoleLogLevel`` and ``logLevel`` to be set to ``verbose``.<BR>
@@ -39,7 +37,7 @@ flush privileges;
 ##  Meaning of columns
 ### Table controller:
 DUmon  = #Discord User messages created for monster<BR>
-DUegg  = #Disciord User messages created for eggs<BR>
+DUegg  = #Discord User messages created for eggs<BR>
 DUraid  = #Discord User messages created for raids<BR>
 DUquest  = #Discord User messages created for quests<BR>
 DUinvasion  = #Discord User messages created for invasions<BR>
