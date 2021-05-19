@@ -4,11 +4,11 @@ source config.ini
 
 echo "Create tables"
 echo ""
-versionExist=$(mysql -N -e "SELECT count(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'test' AND TABLE_NAME = 'version';")
+versionExist=$(mysql -N -e "SELECT count(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '$STATS_DB' AND TABLE_NAME = 'version';")
 
 if (( "versionExist" == 1 ))
 then
-  oldVersion=$(mysql test -N -se "select version from version where version.key = 'poraclestats'")
+  oldVersion=$(mysql $STATS_DB -N -se "select version from version where version.key = 'poraclestats'")
   if (( "$oldVersion" < 12  ))
     then
       if [ -z "$SQL_password" ]
