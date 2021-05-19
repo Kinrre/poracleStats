@@ -1,0 +1,26 @@
+select @Datetime := concat(date(now() - interval 1440 minute),' ', SEC_TO_TIME((TIME_TO_SEC(time(now() - interval 1440 minute)) DIV 86400) * 86400));
+
+INSERT IGNORE INTO poracleStats.general (Datetime,RPL,whQinMinRaw,whQinMaxRaw,whQinAvgRaw,whQinMinWorker,whQinMaxWorker,whQinAvgWorker,whQoutMinDiscord,whQoutMaxDiscord,whQoutAvgDiscord,whQoutMinDiscordWH,whQoutMaxDiscordWH,whQoutAvgDiscordWH,whQoutMinTelegram,whQoutMaxTelegram,whQoutAvgTelegram,stopRL,stopUR)
+select
+@Datetime,
+'1440',
+min(whQinMinRaw),
+max(whQinMaxRaw),
+avg(whQinAvgRaw),
+min(whQinMinWorker),
+max(whQinMaxWorker),
+avg(whQinAvgWorker),
+min(whQoutMinDiscord),
+max(whQoutMaxDiscord),
+avg(whQoutAvgDiscord),
+min(whQoutMinDiscordWH),
+max(whQoutMaxDiscordWH),
+avg(whQoutAvgDiscordWH),
+min(whQoutMinTelegram),
+max(whQoutMaxTelegram),
+avg(whQoutAvgTelegram),
+sum(stopRL),
+sum(stopUR)
+from poracleStats.general
+where Datetime like concat(left(@Datetime,10),'%') and RPL = 60
+;

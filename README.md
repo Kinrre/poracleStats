@@ -85,12 +85,21 @@ error = #errors<BR>
 errorAddress = #errors due to nominatim getAddress<BR>
 <BR>
 ### Table general
-whQinMin = WebHook Queue inbound minimum<BR>
-whQinMax = WebHook Queue inbound maximum<BR>
-whQinAvg = WebHook Queue inbound average<BR>
-<BR>
-whQoutxxx = as above but outbound<BR>
-<BR>
+whQinMinRaw = minimum raw inbound webhook queue<BR>
+whQinMaxRaw = maximum raw inbound webhook queue<BR>
+whQinAvgRaw = average raw inbound webhook queue<BR>
+whQinMinWorker = minimum worker inbound webhook queue<BR>
+whQinMaxWorker = maximum worker inbound webhook queue<BR>
+whQinAvgWorker = average worker inbound webhook queue<BR>
+whQoutMinDiscord = minimum discord outbound queue<BR>
+whQoutMaxDiscord = maximum discord outbound queue<BR>
+whQoutAvgDiscord = average discord outbound queue<BR>
+whQoutMinDiscordWH = minimum discord webook outbound queue<BR>
+whQoutMaxDiscordWH = maximum discord webook outbound queue<BR>
+whQoutAvgDiscordWH = average discord webook outbound queue<BR>
+whQoutMinTelegram = minimum telegram outbound queue<BR>
+whQoutMaxTelegram = maximum telegram outbound queue<BR>
+whQoutAvgTelegram = average telegram outbound queue<BR>
 stopRL = user stops due to rate limit hit<BR>
 stopUR = users stopped due to too many rate limit hits, stopped until User Reactivation<BR>
 <BR>
