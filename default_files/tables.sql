@@ -62,12 +62,21 @@ CREATE TABLE IF NOT EXISTS `error` (
 CREATE TABLE IF NOT EXISTS `general` (
   `Datetime` datetime NOT NULL,
   `RPL` smallint(6) NOT NULL,
-  `whQinMin` smallint(10) DEFAULT NULL,
-  `whQinMax` smallint(10) DEFAULT NULL,
-  `whQinAvg` smallint(10) DEFAULT NULL,
-  `whQoutMin` smallint(10) DEFAULT NULL,
-  `whQoutMax` smallint(10) DEFAULT NULL,
-  `whQoutAvg` smallint(10) DEFAULT NULL,
+  `whQinMinRaw` smallint(10) DEFAULT NULL,
+  `whQinMaxRaw` smallint(10) DEFAULT NULL,
+  `whQinAvgRaw` smallint(10) DEFAULT NULL,
+  `whQinMinWorker` smallint(10) DEFAULT NULL,
+  `whQinMaxWorker` smallint(10) DEFAULT NULL,
+  `whQinAvgWorker` smallint(10) DEFAULT NULL,
+  `whQoutMinDiscord` smallint(10) DEFAULT NULL,
+  `whQoutMaxDiscord` smallint(10) DEFAULT NULL,
+  `whQoutAvgDiscord` smallint(10) DEFAULT NULL,
+  `whQoutMinDiscordWH` smallint(10) DEFAULT NULL,
+  `whQoutMaxDiscordWH` smallint(10) DEFAULT NULL,
+  `whQoutAvgDiscordWH` smallint(10) DEFAULT NULL,
+  `whQoutMinTelegram` smallint(10) DEFAULT NULL,
+  `whQoutMaxTelegram` smallint(10) DEFAULT NULL,
+  `whQoutAvgTelegram` smallint(10) DEFAULT NULL,
   `stopRL` smallint(10) DEFAULT NULL,
   `stopUR` smallint(10) DEFAULT NULL,
   PRIMARY KEY (Datetime,RPL)
@@ -201,4 +210,4 @@ ADD COLUMN IF NOT EXISTS `mnc` smallint(10) DEFAULT NULL
 
 -- update version
 INSERT IGNORE INTO version values ('poraclestats',1);
-UPDATE version set version = 11 where version.key = 'poraclestats';
+UPDATE version set version = 12 where version.key = 'poraclestats';

@@ -4,11 +4,36 @@ source config.ini
 
 echo "Create tables"
 echo ""
-if [ -z "$SQL_password" ]
+versionExist=$(mysql -N -e "SELECT count(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '$STATS_DB' AND TABLE_NAME = 'version';")
+
+if (( "versionExist" == 1 ))
 then
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB < $PATH_TO_poracleSTATS/default_files/tables.sql
+  oldVersion=$(mysql $STATS_DB -N -se "select version from version where version.key = 'poraclestats'")
+  if (( "$oldVersion" < 12  ))
+    then
+      if [ -z "$SQL_password" ]
+      then
+        mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "DROP TABLE general;"
+        mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB < $PATH_TO_poracleSTATS/default_files/tables.sql
+      else
+        mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "DROP TABLE general;"
+        mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB < $PATH_TO_poracleSTATS/default_files/tables.sql
+      fi
+    else
+      if [ -z "$SQL_password" ]
+      then
+        mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB < $PATH_TO_poracleSTATS/default_files/tables.sql
+      else
+        mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB < $PATH_TO_poracleSTATS/default_files/tables.sql
+      fi
+  fi
 else
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB < $PATH_TO_poracleSTATS/default_files/tables.sql
+  if [ -z "$SQL_password" ]
+  then
+    mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB < $PATH_TO_poracleSTATS/default_files/tables.sql
+  else
+    mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB < $PATH_TO_poracleSTATS/default_files/tables.sql
+  fi
 fi
 
 echo "Create sql aggregation file"
@@ -88,6 +113,48 @@ then
       rm $PATH_TO_poracleSTATS/default_files/stats1440.sql.tmp
       hoursback="$(( hoursback - 1440 ))"
     done
+  fi
+fi
+
+# Fixing Queue fuckup by re-processing last 6 days of data from general.log
+if (( "versionExist" == 1 ))
+then
+  if (( "$oldVersion" < 12  ))
+    then
+     echo "Fixing Queue fuckup by re-processing last 6 days of data from general.log"
+      hoursback=144
+      while test $hoursback != 0
+      do
+        echo ""
+        echo ""
+        echo "Hourly data: processing now - $hoursback hours"
+        echo ""
+        cp $PATH_TO_poracleSTATS/cron_files/fix_generalLog.sh $PATH_TO_poracleSTATS/cron_files/fix_generalLog.sh.tmp
+        sed -i "s/1 hour ago/$hoursback hour ago/g" $PATH_TO_poracleSTATS/cron_files/fix_generalLog.sh.tmp
+        cd $PATH_TO_poracleSTATS/cron_files && ./fix_generalLog.sh.tmp
+        rm $PATH_TO_poracleSTATS/cron_files/fix_generalLog.sh.tmp
+        hoursback="$(( hoursback - 1 ))"
+      done
+
+      hoursback=8640
+      while test $hoursback != 0
+      do
+        echo ""
+        echo ""
+        echo "Daily data: processing now - $hoursback minutes"
+        echo ""
+        cp $PATH_TO_poracleSTATS/default_files/fix_generalLog.sql.default $PATH_TO_poracleSTATS/default_files/fix_generalLog.sql.tmp
+        sed -i "s/interval 1440 minute/interval $hoursback minute/g" $PATH_TO_poracleSTATS/default_files/fix_generalLog.sql.tmp
+        sed -i "s/poracleStats/$STATS_DB/g" $PATH_TO_poracleSTATS/default_files/fix_generalLog.sql.tmp
+        if [ -z "$SQL_password" ]
+          then
+            mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB < $PATH_TO_poracleSTATS/default_files/fix_generalLog.sql.tmp
+          else
+            mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB < $PATH_TO_poracleSTATS/default_files/fix_generalLog.sql.tmp
+        fi
+        rm $PATH_TO_poracleSTATS/default_files/fix_generalLog.sql.tmp
+        hoursback="$(( hoursback - 1440 ))"
+      done
   fi
 fi
 

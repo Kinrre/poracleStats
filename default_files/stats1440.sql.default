@@ -99,16 +99,25 @@ from error
 where Datetime like concat(left(@Datetime,10),'%') and RPL = 60
 ;
 
-INSERT IGNORE INTO poracleStats.general (Datetime,RPL,whQinMin,whQinMax,whQinAvg,whQoutMin,whQoutMax,whQoutAvg,stopRL,stopUR)
+INSERT IGNORE INTO poracleStats.general (Datetime,RPL,whQinMinRaw,whQinMaxRaw,whQinAvgRaw,whQinMinWorker,whQinMaxWorker,whQinAvgWorker,whQoutMinDiscord,whQoutMaxDiscord,whQoutAvgDiscord,whQoutMinDiscordWH,whQoutMaxDiscordWH,whQoutAvgDiscordWH,whQoutMinTelegram,whQoutMaxTelegram,whQoutAvgTelegram,stopRL,stopUR)
 select
 @Datetime,
 '1440',
-min(whQinMin),
-max(whQinMax),
-avg(whQinAvg),
-min(whQoutMin),
-max(whQoutMax),
-avg(whQoutAvg),
+min(whQinMinRaw),
+max(whQinMaxRaw),
+avg(whQinAvgRaw),
+min(whQinMinWorker),
+max(whQinMaxWorker),
+avg(whQinAvgWorker),
+min(whQoutMinDiscord),
+max(whQoutMaxDiscord),
+avg(whQoutAvgDiscord),
+min(whQoutMinDiscordWH),
+max(whQoutMaxDiscordWH),
+avg(whQoutAvgDiscordWH),
+min(whQoutMinTelegram),
+max(whQoutMaxTelegram),
+avg(whQoutAvgTelegram),
 sum(stopRL),
 sum(stopUR)
 from poracleStats.general
