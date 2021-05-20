@@ -27,6 +27,8 @@ flush privileges;
 - check for any changes in default_files/config.ini.example and adapt accordingly
 - execute ``./settings.run`` 
 - update grafana templates when changed
+<BR>
+If you want to keep track on changes to poracleStats https://discord.gg/vXnwgT5
 
 ## Grafana
 - Install Grafana, more details can be found at https://grafana.com/docs/grafana/latest/installation/debian/#install-from-apt-repository or if you prefer to use docker <https://hub.docker.com/r/grafana/grafana>
