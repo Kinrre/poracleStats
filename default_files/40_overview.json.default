@@ -46,7 +46,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1620981398898,
+  "iteration": 1621503688515,
   "links": [],
   "panels": [
     {
@@ -322,7 +322,12 @@
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [],
+      "seriesOverrides": [
+        {
+          "alias": "average worker inbound queue",
+          "yaxis": 2
+        }
+      ],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
@@ -332,7 +337,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  whQinAvg as 'average webhook inbound queue'\nFROM general\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
+          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  whQinAvgRaw as 'average raw inbound queue',\n  whQinAvgWorker as 'average worker inbound queue'\nFROM general\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
           "refId": "A",
           "select": [
             [
@@ -447,7 +452,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  whQoutAvg as 'average webhook outbound queue'\nFROM general\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
+          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  whQoutMaxDiscord as 'average discord outbound queue',\n  whQoutAvgDiscordWH as 'average discord webhook outbound queue',\n  whQoutAvgTelegram as 'average telegram outbound queue'\nFROM general\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
           "refId": "A",
           "select": [
             [
@@ -775,12 +780,12 @@
     ]
   },
   "time": {
-    "from": "now-3d",
+    "from": "now-7d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "40. Overview",
   "uid": "7A45ctjMz",
-  "version": 14
+  "version": 19
 }

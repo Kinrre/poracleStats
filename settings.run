@@ -116,11 +116,12 @@ then
   fi
 fi
 
-echo "Fixing Queue fuckup by re-processing last 6 days of data from general.log"
+# Fixing Queue fuckup by re-processing last 6 days of data from general.log
 if (( "versionExist" == 1 ))
 then
   if (( "$oldVersion" < 12  ))
     then
+     echo "Fixing Queue fuckup by re-processing last 6 days of data from general.log"
       hoursback=144
       while test $hoursback != 0
       do
