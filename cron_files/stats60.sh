@@ -106,7 +106,7 @@ fi
 echo "grep error log data"
 warn="$(grep 'warn' $folder/tmp/errors.log | wc -l)"
 warnMap="$(grep 'warn' $folder/tmp/errors.log | grep StaticMap | wc -l)"
-warnRL="$(grep 'warn' $folder/tmp/errors.log | grep 'rate limit hit' | wc -l)"
+warnRL="$(grep 'warn' $folder/tmp/errors.log | grep -i 'rate limit' | wc -l)"
 error="$(grep 'error' $folder/tmp/errors.log | wc -l)"
 errorAddress="$(grep 'error' $folder/tmp/errors.log | grep 'getAddress' | wc -l)" 
 
