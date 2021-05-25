@@ -79,6 +79,10 @@ CREATE TABLE IF NOT EXISTS `general` (
   `whQoutAvgTelegram` smallint(10) DEFAULT NULL,
   `stopRL` smallint(10) DEFAULT NULL,
   `stopUR` smallint(10) DEFAULT NULL,
+  `whReceived` smallint(10) DEFAULT NULL,
+  `whDiscarded` smallint(10) DEFAULT NULL,
+  `workerIn` smallint(10) DEFAULT NULL,
+  `poracleRes` smallint(10) DEFAULT NULL,
   PRIMARY KEY (Datetime,RPL)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -195,6 +199,13 @@ ADD COLUMN IF NOT EXISTS `CmsgSend` smallint(10) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS `WmsgSend` smallint(10) DEFAULT NULL
 ;
 
+ALTER TABLE `general`
+ADD COLUMN IF NOT EXISTS `whReceived` smallint(10) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `whDiscarded` smallint(10) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `workerIn` smallint(10) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `poracleRes` smallint(10) DEFAULT NULL
+;
+
 ALTER TABLE `error`
 ADD COLUMN IF NOT EXISTS `errorAddress` smallint(10) DEFAULT NULL
 ;
@@ -210,4 +221,4 @@ ADD COLUMN IF NOT EXISTS `mnc` smallint(10) DEFAULT NULL
 
 -- update version
 INSERT IGNORE INTO version values ('poraclestats',1);
-UPDATE version set version = 12 where version.key = 'poraclestats';
+UPDATE version set version = 13 where version.key = 'poraclestats';
