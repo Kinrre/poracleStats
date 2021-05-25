@@ -36,6 +36,17 @@ else
   fi
 fi
 
+echo "Alter tables if version < 13"
+if (( "$oldVersion" < 13  ))
+  then
+    if [ -z "$SQL_password" ]
+    then
+      mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB < $PATH_TO_poracleSTATS/default_files/tables_int_change.sql
+    else
+      mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB < $PATH_TO_poracleSTATS/default_files/tables_int_change.sql
+    fi
+fi
+
 echo "Create sql aggregation file"
 echo ""
 cp $PATH_TO_poracleSTATS/default_files/stats1440.sql.default $PATH_TO_poracleSTATS/cron_files/stats1440.sql

@@ -104,6 +104,10 @@ whQoutMaxTelegram = maximum telegram outbound queue<BR>
 whQoutAvgTelegram = average telegram outbound queue<BR>
 stopRL = user stops due to rate limit hit<BR>
 stopUR = users stopped due to too many rate limit hits, stopped until User Reactivation<BR>
+whReceived = Total number of webhooks received from scanner<BR>
+whDiscarded = Discarded webhooks due too duplicates<BR>
+workerIn = Webhooks send to Poracle workers for processing<BR>
+poracleRes = 1 when Poracle was restarted at least once this hour <BR>
 <BR>
 ### Table users
 id = id from PoracleJS humans table<BR>
