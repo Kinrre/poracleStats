@@ -36,6 +36,19 @@ else
   fi
 fi
 
+# Alter tables if version < 13
+if (( "$oldVersion" < 13  ))
+  then
+    echo "Alter tables"
+    echo ""
+    if [ -z "$SQL_password" ]
+    then
+      mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB < $PATH_TO_poracleSTATS/default_files/tables_int_change.sql
+    else
+      mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB < $PATH_TO_poracleSTATS/default_files/tables_int_change.sql
+    fi
+fi
+
 echo "Create sql aggregation file"
 echo ""
 cp $PATH_TO_poracleSTATS/default_files/stats1440.sql.default $PATH_TO_poracleSTATS/cron_files/stats1440.sql
@@ -58,6 +71,7 @@ cp $PATH_TO_poracleSTATS/default_files/41_messages.json.default $PATH_TO_poracle
 cp $PATH_TO_poracleSTATS/default_files/42_message_times.json.default $PATH_TO_poracleSTATS/grafana/42_message_times.json
 cp $PATH_TO_poracleSTATS/default_files/43_warning_error.json.default $PATH_TO_poracleSTATS/grafana/43_warning_error.json
 cp $PATH_TO_poracleSTATS/default_files/44_user_data.json.default $PATH_TO_poracleSTATS/grafana/44_user_data.json
+cp $PATH_TO_poracleSTATS/default_files/45_webhooks_queues.json.default $PATH_TO_poracleSTATS/grafana/45_webhooks_queues.json
 cd $PATH_TO_poracleSTATS/grafana/ && sed -i "s/Poracle/$DataSource_stats/g" *.json
 cd $PATH_TO_poracleSTATS/grafana/ && sed -i "s/PORACLE/$DS_STATS/g" *.json
 
