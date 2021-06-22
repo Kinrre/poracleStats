@@ -223,10 +223,20 @@ fi
 stopRL="$(grep 'Stopping alerts (Rate limit)' $folder/tmp/general.log | grep -v 'clean' | wc -l)"
 stopUR="$(grep 'Stopping alerts [until restart]' $folder/tmp/general.log | grep -v 'clean' | wc -l)"
 
-min_hits="$(grep 'Duplicate cache stats' $folder/tmp/general.log | head -1 | awk '{ print $8 }' | grep -Po '(?<=("hits":)).*(?=,")')"
-max_hits="$(grep 'Duplicate cache stats' $folder/tmp/general.log | tail -1 | awk '{ print $8 }' | grep -Po '(?<=("hits":)).*(?=,")')"
-min_misses="$(grep 'Duplicate cache stats' $folder/tmp/general.log | head -1 | awk '{ print $8 }' | grep -Po '(?<=("misses":)).*(?=,")')"
-max_misses="$(grep 'Duplicate cache stats' $folder/tmp/general.log | tail -1 | awk '{ print $8 }' | grep -Po '(?<=("misses":)).*(?=,")')"
+checkRedis="$(grep 'Duplicate cache stats' $folder/tmp/general.log | head -1 | awk '{ print $8 }' | grep 'redis' | wc -l)"
+if (( $checkRedis > 0 ))
+  then
+  min_hits="$(grep 'Duplicate cache stats' $folder/tmp/general.log | head -1 | awk '{ print $8 }' | grep -Po '(?<=("hits":)).*(?=,"misses")')"
+  max_hits="$(grep 'Duplicate cache stats' $folder/tmp/general.log | tail -1 | awk '{ print $8 }' | grep -Po '(?<=("hits":)).*(?=,"misses")')"
+  min_misses="$(grep 'Duplicate cache stats' $folder/tmp/general.log | head -1 | awk '{ print $8 }' | grep -Po '(?<=("misses":)).*(?=,"type")')"
+  max_misses="$(grep 'Duplicate cache stats' $folder/tmp/general.log | tail -1 | awk '{ print $8 }' | grep -Po '(?<=("misses":)).*(?=,"type")')"
+  else
+  min_hits="$(grep 'Duplicate cache stats' $folder/tmp/general.log | head -1 | awk '{ print $8 }' | grep -Po '(?<=("hits":)).*(?=,"misses")')"
+  max_hits="$(grep 'Duplicate cache stats' $folder/tmp/general.log | tail -1 | awk '{ print $8 }' | grep -Po '(?<=("hits":)).*(?=,"misses")')"
+  min_misses="$(grep 'Duplicate cache stats' $folder/tmp/general.log | head -1 | awk '{ print $8 }' | grep -Po '(?<=("misses":)).*(?=,"keys")')"
+  max_misses="$(grep 'Duplicate cache stats' $folder/tmp/general.log | tail -1 | awk '{ print $8 }' | grep -Po '(?<=("misses":)).*(?=,"keys")')"
+fi
+
 if (( $max_misses < $min_misses ))
   then
     whReceived=0
