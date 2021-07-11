@@ -14,12 +14,12 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "7.5.6"
+      "version": "8.0.4"
     },
     {
       "type": "panel",
       "id": "graph",
-      "name": "Graph",
+      "name": "Graph (old)",
       "version": ""
     },
     {
@@ -46,7 +46,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1620981457625,
+  "iteration": 1626043698458,
   "links": [],
   "panels": [
     {
@@ -57,10 +57,6 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PORACLE}",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -87,7 +83,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.6",
+      "pluginVersion": "8.0.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -143,6 +139,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:185",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -151,6 +148,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:186",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -172,10 +170,6 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PORACLE}",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -202,7 +196,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.6",
+      "pluginVersion": "8.0.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -258,6 +252,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:246",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -266,6 +261,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:247",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -288,10 +284,6 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PORACLE}",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -318,7 +310,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.6",
+      "pluginVersion": "8.0.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -387,6 +379,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:307",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -395,6 +388,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:308",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -419,10 +413,6 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PORACLE}",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -449,7 +439,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.6",
+      "pluginVersion": "8.0.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -518,6 +508,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:368",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -526,6 +517,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:369",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -551,10 +543,6 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PORACLE}",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -581,7 +569,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.6",
+      "pluginVersion": "8.0.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -650,6 +638,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:488",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -658,6 +647,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:489",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -687,10 +677,6 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PORACLE}",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -717,7 +703,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.6",
+      "pluginVersion": "8.0.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -786,6 +772,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:549",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -794,6 +781,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:550",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -819,10 +807,6 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PORACLE}",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -849,7 +833,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.6",
+      "pluginVersion": "8.0.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -918,6 +902,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:669",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -926,6 +911,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:670",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -955,10 +941,6 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PORACLE}",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -985,7 +967,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.6",
+      "pluginVersion": "8.0.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1054,6 +1036,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:730",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1062,6 +1045,538 @@
           "show": true
         },
         {
+          "$$hashKey": "object:731",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {
+        "#Telegram User gym messages created": "dark-purple",
+        "#Telegram User weather messages created": "dark-purple",
+        "Pokemon messages ceated": "dark-blue"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PORACLE}",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 32
+      },
+      "hiddenSeries": false,
+      "id": 13,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.0.4",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:247",
+          "alias": "Invasions",
+          "yaxis": 2
+        },
+        {
+          "$$hashKey": "object:248",
+          "alias": "Quests",
+          "yaxis": 2
+        },
+        {
+          "$$hashKey": "object:249",
+          "alias": "Eggs",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  ifnull(DUgym,0) as '#Discord User gym messages created',\n  ifnull(TUgym,0) as '#Telegram User gym messages created'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Gym User messages",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:307",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:308",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {
+        "#Discord Webhook gym messages created": "dark-blue",
+        "#Telegram Channel gym messages created": "dark-purple",
+        "#Telegram Group gym messages created": "dark-red",
+        "#Telegram User weather messages created": "dark-purple",
+        "Pokemon messages ceated": "dark-blue"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PORACLE}",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 32
+      },
+      "hiddenSeries": false,
+      "id": 15,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.0.4",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:247",
+          "alias": "Invasions",
+          "yaxis": 2
+        },
+        {
+          "$$hashKey": "object:248",
+          "alias": "Quests",
+          "yaxis": 2
+        },
+        {
+          "$$hashKey": "object:249",
+          "alias": "Eggs",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  ifnull(DCgym,0) as '#Discord Channel gym messages created',\n  ifnull(DWgym,0) as '#Discord Webhook gym messages created',\n  ifnull(TCgym,0) as '#Telegram Channel gym messages created',\n  ifnull(TGgym,0) as '#Telegram Group gym messages created'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Gym Channel messages",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:307",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:308",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {
+        "#Telegram User nest messages created": "dark-purple",
+        "#Telegram User weather messages created": "dark-purple",
+        "Pokemon messages ceated": "dark-blue"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PORACLE}",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 40
+      },
+      "hiddenSeries": false,
+      "id": 14,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.0.4",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:247",
+          "alias": "Invasions",
+          "yaxis": 2
+        },
+        {
+          "$$hashKey": "object:248",
+          "alias": "Quests",
+          "yaxis": 2
+        },
+        {
+          "$$hashKey": "object:249",
+          "alias": "Eggs",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  ifnull(DUnest,0) as '#Discord User nest messages created',\n  ifnull(TUnest,0) as '#Telegram User nest messages created'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Nest User messages",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:307",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:308",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {
+        "#Discord Webhook gym messages created": "dark-blue",
+        "#Discord Webhook nest messages created": "dark-blue",
+        "#Telegram Channel gym messages created": "dark-purple",
+        "#Telegram Channel nest messages created": "dark-purple",
+        "#Telegram Group gym messages created": "dark-red",
+        "#Telegram Group nest messages created": "dark-red",
+        "#Telegram User weather messages created": "dark-purple",
+        "Pokemon messages ceated": "dark-blue"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PORACLE}",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 40
+      },
+      "hiddenSeries": false,
+      "id": 16,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.0.4",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:247",
+          "alias": "Invasions",
+          "yaxis": 2
+        },
+        {
+          "$$hashKey": "object:248",
+          "alias": "Quests",
+          "yaxis": 2
+        },
+        {
+          "$$hashKey": "object:249",
+          "alias": "Eggs",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  ifnull(DCnest,0) as '#Discord Channel nest messages created',\n  ifnull(DWnest,0) as '#Discord Webhook nest messages created',\n  ifnull(TCnest,0) as '#Telegram Channel nest messages created',\n  ifnull(TGnest,0) as '#Telegram Group nest messages created'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Nest Channel messages",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:307",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:308",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1084,17 +1599,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PORACLE}",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 32
+        "y": 48
       },
       "hiddenSeries": false,
       "id": 11,
@@ -1114,7 +1625,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.6",
+      "pluginVersion": "8.0.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1183,6 +1694,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:307",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1191,6 +1703,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:308",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1215,17 +1728,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PORACLE}",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 32
+        "y": 48
       },
       "hiddenSeries": false,
       "id": 12,
@@ -1245,20 +1754,23 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.6",
+      "pluginVersion": "8.0.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [
         {
+          "$$hashKey": "object:653",
           "alias": "Invasions",
           "yaxis": 2
         },
         {
+          "$$hashKey": "object:654",
           "alias": "Quests",
           "yaxis": 2
         },
         {
+          "$$hashKey": "object:655",
           "alias": "Eggs",
           "yaxis": 2
         }
@@ -1314,6 +1826,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:307",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1322,6 +1835,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:308",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1337,7 +1851,7 @@
     }
   ],
   "refresh": false,
-  "schemaVersion": 27,
+  "schemaVersion": 30,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -1361,7 +1875,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -1369,12 +1882,12 @@
     ]
   },
   "time": {
-    "from": "now-3d",
+    "from": "now-7d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "41. Messages",
   "uid": "Or_LvVCGz",
-  "version": 13
+  "version": 15
 }

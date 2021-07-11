@@ -14,7 +14,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "7.5.6"
+      "version": "8.0.4"
     },
     {
       "type": "datasource",
@@ -46,7 +46,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1620981563103,
+  "iteration": 1626044429642,
   "links": [],
   "panels": [
     {
@@ -58,6 +58,7 @@
           },
           "custom": {
             "align": null,
+            "displayMode": "auto",
             "filterable": false
           },
           "mappings": [],
@@ -84,7 +85,11 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 174
+                "value": 166
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "json-view"
               }
             ]
           },
@@ -156,7 +161,7 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 71
+                "value": 69
               }
             ]
           },
@@ -192,7 +197,7 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 162
+                "value": 158
               }
             ]
           },
@@ -204,7 +209,7 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 142
+                "value": 124
               }
             ]
           },
@@ -216,7 +221,7 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 220
+                "value": 199
               }
             ]
           },
@@ -229,6 +234,90 @@
               {
                 "id": "custom.width",
                 "value": 145
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "#nest"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 57
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "#gym"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 53
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "#weather"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 78
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "#Send"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 62
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "#RL"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 43
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "MNC"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 44
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "#msgStop"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 88
               }
             ]
           }
@@ -246,18 +335,18 @@
         "sortBy": [
           {
             "desc": true,
-            "displayName": "#msgSend"
+            "displayName": "#Send"
           }
         ]
       },
-      "pluginVersion": "7.5.6",
+      "pluginVersion": "8.0.4",
       "targets": [
         {
           "format": "table",
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  type as 'type',\n  id as 'id',\n  name as 'name',\n  msgSend as '#msgSend',\n  mon as '#mons',\n  egg as '#eggs',\n  raid as '#raids',\n  invasion as '#invasions',\n  quest as '#quests',\n  stopRL as '#RateLimit',\n  mnc as 'MessageNotCreated',\n  stopUR as '#fullStop'\nFROM users\nWHERE\n--  $__timeFilter(datetime) and\n  Datetime = '$Date' and\n  type in ($type) and\n  RPL = '$RPL'\n-- GROUP BY 1\nORDER BY msgSend\n",
+          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  type as 'type',\n  id as 'id',\n  name as 'name',\n  msgSend as '#Send',\n  mon as '#mons',\n  egg as '#eggs',\n  raid as '#raids',\n  invasion as '#invasions',\n  quest as '#quests',\n  ifnull(nest,0) as '#nest',\n  ifnull(gym,0) as '#gym',\n  ifnull(weather,0) as '#weather',\n  stopRL as '#RL',\n  mnc as 'MNC',\n  stopUR as '#msgStop'\nFROM users\nWHERE\n--  $__timeFilter(datetime) and\n  Datetime = '$Date' and\n  type in ($type) and\n  RPL = '$RPL'\n-- GROUP BY 1\nORDER BY msgSend\n",
           "refId": "A",
           "select": [
             [
@@ -285,7 +374,7 @@
       "type": "table"
     }
   ],
-  "schemaVersion": 27,
+  "schemaVersion": 30,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -309,7 +398,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -318,7 +406,7 @@
         "allValue": null,
         "current": {},
         "datasource": "${DS_PORACLE}",
-        "definition": "select distinct(date(datetime)) from users;",
+        "definition": "select distinct(left(datetime,10)) from users;",
         "description": null,
         "error": null,
         "hide": 0,
@@ -327,13 +415,12 @@
         "multi": false,
         "name": "Date",
         "options": [],
-        "query": "select distinct(date(datetime)) from users;",
+        "query": "select distinct(left(datetime,10)) from users;",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 4,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -357,7 +444,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -372,5 +458,5 @@
   "timezone": "",
   "title": "44. User data",
   "uid": "16Pe04jGa",
-  "version": 8
+  "version": 13
 }
