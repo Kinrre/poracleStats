@@ -78,14 +78,22 @@ TGnest="$(grep 'Creating nest alert for telegram:group' $folder/tmp/controller.l
 TGgym="$(grep 'Creating gym alert for telegram:group' $folder/tmp/controller.log | wc -l)"
 
 checkLength="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | wc -l)"
+checkLengthPvp="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $2}' | wc -l)"
 if (( $checkLength > 0 ))
   then
     minMsgT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s min)"
     maxMsgT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s max)"
     avgMsgT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s add/length)"
-    minPvpT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $2}' | jq -s min)"
-    maxPvpT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $2}' | jq -s max)"
-    avgPvpT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $2}' | jq -s add/length)"
+    if (( $checkLengthPvp > 0 ))
+      then
+        minPvpT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $2}' | jq -s min)"
+        maxPvpT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $2}' | jq -s max)"
+        avgPvpT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $2}' | jq -s add/length)"
+      else
+        minPvpT=0
+        maxPvpT=0
+        avgPvpT=0
+    fi
   else
     minMsgT=0
     maxMsgT=0
@@ -96,14 +104,22 @@ if (( $checkLength > 0 ))
 fi
 
 checkLength="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | wc -l)"
+checkLengthPvp="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $2}' | wc -l)"
 if (( $checkLength > 0 ))
   then
     minMsgT0="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s min)"
     maxMsgT0="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s max)"
     avgMsgT0="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s add/length)"
-    minPvpT0="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $2}' | jq -s min)"
-    maxPvpT0="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $2}' | jq -s max)"
-    avgPvpT0="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $2}' | jq -s add/length)"
+    if (( $checkLengthPvp > 0 ))
+      then
+        minPvpT0="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $2}' | jq -s min)"
+        maxPvpT0="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $2}' | jq -s max)"
+        avgPvpT0="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $2}' | jq -s add/length)"
+      else
+        minPvpT0=0
+        maxPvpT0=0
+        avgPvpT0=0
+    fi
   else
     minMsgT0=0
     maxMsgT0=0
