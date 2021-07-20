@@ -52,10 +52,16 @@ CREATE TABLE IF NOT EXISTS `controller` (
   `minMsgT` decimal(10,2) DEFAULT NULL,
   `maxMsgT` decimal(10,2) DEFAULT NULL,
   `avgMsgT` decimal(10,2) DEFAULT NULL,
+  `minPvpT` decimal(10,2) DEFAULT NULL,
+  `maxPvpT` decimal(10,2) DEFAULT NULL,
+  `avgPvpT` decimal(10,2) DEFAULT NULL,
   `rateLimit` smallint(10) DEFAULT NULL,
   `minMsgT0` decimal(10,2) DEFAULT NULL,
   `maxMsgT0` decimal(10,2) DEFAULT NULL,
   `avgMsgT0` decimal(10,2) DEFAULT NULL,
+  `minPvpT0` decimal(10,2) DEFAULT NULL,
+  `maxPvpT0` decimal(10,2) DEFAULT NULL,
+  `avgPvpT0` decimal(10,2) DEFAULT NULL,
   `noSend` smallint(10) DEFAULT NULL,
   PRIMARY KEY (Datetime,RPL)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -214,7 +220,13 @@ ADD COLUMN IF NOT EXISTS `TGinvasion` smallint(10) DEFAULT NULL AFTER TGquest,
 ADD COLUMN IF NOT EXISTS `TGweather` smallint(10) DEFAULT NULL AFTER TGinvasion,
 ADD COLUMN IF NOT EXISTS `TGnest` INT DEFAULT NULL AFTER TGweather,
 ADD COLUMN IF NOT EXISTS `TGgym` INT DEFAULT NULL AFTER TGnest,
-ADD COLUMN IF NOT EXISTS `noSend` smallint(10) DEFAULT NULL
+ADD COLUMN IF NOT EXISTS `noSend` smallint(10) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `minPvpT` decimal(10,2) DEFAULT NULL AFTER avgMsgT,
+ADD COLUMN IF NOT EXISTS `maxPvpT` decimal(10,2) DEFAULT NULL AFTER minPvpT,
+ADD COLUMN IF NOT EXISTS `avgPvpT` decimal(10,2) DEFAULT NULL AFTER maxPvpT,
+ADD COLUMN IF NOT EXISTS `minPvpT0` decimal(10,2) DEFAULT NULL AFTER avgMsgT0,
+ADD COLUMN IF NOT EXISTS `maxPvpT0` decimal(10,2) DEFAULT NULL AFTER minPvpT0,
+ADD COLUMN IF NOT EXISTS `avgPvpT0` decimal(10,2) DEFAULT NULL AFTER maxPvpT0
 ;
 
 ALTER TABLE `discord`
@@ -251,4 +263,4 @@ ADD COLUMN IF NOT EXISTS `gym` smallint(10) DEFAULT NULL AFTER `nest`
 
 -- update version
 INSERT IGNORE INTO version values ('poraclestats',1);
-UPDATE version set version = 14 where version.key = 'poraclestats';
+UPDATE version set version = 15 where version.key = 'poraclestats';
