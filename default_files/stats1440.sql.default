@@ -1,6 +1,6 @@
 select @Datetime := concat(date(now() - interval 1440 minute),' ', SEC_TO_TIME((TIME_TO_SEC(time(now() - interval 1440 minute)) DIV 86400) * 86400));
 
-INSERT IGNORE INTO poracleStats.controller (Datetime,RPL,DUmon,DUegg,DUraid,DUquest,DUinvasion,DUweather,DUnest,DUgym,DCmon,DCegg,DCraid,DCquest,DCinvasion,DCweather,DCnest,DCgym,DWmon,DWegg,DWraid,DWquest,DWinvasion,DWweather,DWnest,DWgym,TUmon,TUegg,TUraid,TUquest,TUinvasion,TUweather,TUnest,TUgym,TCmon,TCegg,TCraid,TCquest,TCinvasion,TCweather,TCnest,TCgym,TGmon,TGegg,TGraid,TGquest,TGinvasion,TGweather,TGnest,TGgym,minMsgT,maxMsgT,avgMsgT,minPvpT,maxPvpT,avgPvpT,rateLimit,minMsgT0,maxMsgT0,avgMsgT0,minPvpT0,maxPvpT0,avgPvpT0,noSend)
+INSERT IGNORE INTO poracleStats.controller (Datetime,RPL,DUmon,DUegg,DUraid,DUquest,DUinvasion,DUweather,DUnest,DUgym,DCmon,DCegg,DCraid,DCquest,DCinvasion,DCweather,DCnest,DCgym,DWmon,DWegg,DWraid,DWquest,DWinvasion,DWweather,DWnest,DWgym,TUmon,TUegg,TUraid,TUquest,TUinvasion,TUweather,TUnest,TUgym,TCmon,TCegg,TCraid,TCquest,TCinvasion,TCweather,TCnest,TCgym,TGmon,TGegg,TGraid,TGquest,TGinvasion,TGweather,TGnest,TGgym,minMsgSqlT,maxMsgSqlT,avgMsgSqlT,minMsgDtsT,maxMsgDtsT,avgMsgDtsT,minPvpT,maxPvpT,avgPvpT,rateLimit,minMsgT0,maxMsgT0,avgMsgT0,minPvpT0,maxPvpT0,avgPvpT0,noSend)
 select
 @Datetime,
 '1440',
@@ -52,9 +52,12 @@ sum(TGinvasion),
 sum(TGweather),
 sum(TGnest),
 sum(TGgym),
-min(minMsgT),
-max(maxMsgT),
-avg(avgMsgT),
+min(minMsgSqlT),
+max(maxMsgSqlT),
+avg(avgMsgSqlT),
+min(minMsgDtsT),
+max(maxMsgDtsT),
+avg(avgMsgDtsT),
 min(minPvpT),
 max(maxPvpT),
 avg(avgPvpT),

@@ -77,13 +77,14 @@ TGweather="$(grep 'Creating weather alert for telegram:group' $folder/tmp/contro
 TGnest="$(grep 'Creating nest alert for telegram:group' $folder/tmp/controller.log | wc -l)"
 TGgym="$(grep 'Creating gym alert for telegram:group' $folder/tmp/controller.log | wc -l)"
 
-checkLength="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | wc -l)"
+# original min/max/avg MsgT = SQLtime
+checkLength="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep info: | grep 'ms)' | wc -l)"
 checkLengthPvp="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $2}' | wc -l)"
 if (( $checkLength > 0 ))
   then
-    minMsgT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s min)"
-    maxMsgT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s max)"
-    avgMsgT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s add/length)"
+    minMsgSqlT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep info: | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s min)"
+    maxMsgSqlT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep info: | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s max)"
+    avgMsgSqlT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep info: | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s add/length)"
     if (( $checkLengthPvp > 0 ))
       then
         minPvpT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $2}' | jq -s min)"
@@ -95,13 +96,27 @@ if (( $checkLength > 0 ))
         avgPvpT=0
     fi
   else
-    minMsgT=0
-    maxMsgT=0
-    avgMsgT=0
+    minMsgSqlT=0
+    maxMsgSqlT=0
+    avgMsgSqlT=0
     minPvpT=0
     maxPvpT=0
     avgPvpT=0
 fi
+
+# Add data for PR575, dts processing time
+checkLength="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep verbose: | grep 'ms)' | wc -l)"
+if (( $checkLength > 0 ))
+  then
+    minMsgDtsT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep verbose: | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s min)"
+    maxMsgDtsT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep verbose: | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s max)"
+    avgMsgDtsT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep verbose: | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s add/length)"
+  else
+    minMsgDtsT=0
+    maxMsgDtsT=0
+    avgMsgDtsT=0
+fi
+
 
 checkLength="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | wc -l)"
 checkLengthPvp="$(grep '0 humans cared' $folder/tmp/controller.log | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $2}' | wc -l)"
@@ -137,9 +152,9 @@ echo "Insert controller log data into DB"
 echo ""
 if [ -z "$SQL_password" ]
 then
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO controller (Datetime,RPL,DUmon,DUegg,DUraid,DUquest,DUinvasion,DUweather,DUnest,DUgym,DCmon,DCegg,DCraid,DCquest,DCinvasion,DCweather,DCnest,DCgym,DWmon,DWegg,DWraid,DWquest,DWinvasion,DWweather,DWnest,DWgym,TUmon,TUegg,TUraid,TUquest,TUinvasion,TUweather,TUnest,TUgym,TCmon,TCegg,TCraid,TCquest,TCinvasion,TCweather,TCnest,TCgym,TGmon,TGegg,TGraid,TGquest,TGinvasion,TGweather,TGnest,TGgym,minMsgT,maxMsgT,avgMsgT,minPvpT,maxPvpT,avgPvpT,rateLimit,minMsgT0,maxMsgT0,avgMsgT0,minPvpT0,maxPvpT0,avgPvpT0,noSend) VALUES ('$process_hour','60','$DUmon','$DUegg','$DUraid','$DUquest','$DUinvasion','$DUweather','$DUnest','$DUgym','$DCmon','$DCegg','$DCraid','$DCquest','$DCinvasion','$DCweather','$DCnest','$DCgym','$DWmon','$DWegg','$DWraid','$DWquest','$DWinvasion','$DWweather','$DWnest','$DWgym','$TUmon','$TUegg','$TUraid','$TUquest','$TUinvasion','$TUweather','$TUnest','$TUgym','$TCmon','$TCegg','$TCraid','$TCquest','$TCinvasion','$TCweather','$TCnest','$TCgym','$TGmon','$TGegg','$TGraid','$TGquest','$TGinvasion','$TGweather','$TGnest','$TGgym','$minMsgT','$maxMsgT','$avgMsgT','$minPvpT','$maxPvpT','$avgPvpT','$rateLimit','minMsgT0','$maxMsgT0','$avgMsgT0','$minPvpT0','$maxPvpT0','$avgPvpT0','$noSend');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO controller (Datetime,RPL,DUmon,DUegg,DUraid,DUquest,DUinvasion,DUweather,DUnest,DUgym,DCmon,DCegg,DCraid,DCquest,DCinvasion,DCweather,DCnest,DCgym,DWmon,DWegg,DWraid,DWquest,DWinvasion,DWweather,DWnest,DWgym,TUmon,TUegg,TUraid,TUquest,TUinvasion,TUweather,TUnest,TUgym,TCmon,TCegg,TCraid,TCquest,TCinvasion,TCweather,TCnest,TCgym,TGmon,TGegg,TGraid,TGquest,TGinvasion,TGweather,TGnest,TGgym,minMsgSqlT,maxMsgSqlT,avgMsgSqlT,minMsgDtsT,maxMsgDtsT,avgMsgDtsT,minPvpT,maxPvpT,avgPvpT,rateLimit,minMsgT0,maxMsgT0,avgMsgT0,minPvpT0,maxPvpT0,avgPvpT0,noSend) VALUES ('$process_hour','60','$DUmon','$DUegg','$DUraid','$DUquest','$DUinvasion','$DUweather','$DUnest','$DUgym','$DCmon','$DCegg','$DCraid','$DCquest','$DCinvasion','$DCweather','$DCnest','$DCgym','$DWmon','$DWegg','$DWraid','$DWquest','$DWinvasion','$DWweather','$DWnest','$DWgym','$TUmon','$TUegg','$TUraid','$TUquest','$TUinvasion','$TUweather','$TUnest','$TUgym','$TCmon','$TCegg','$TCraid','$TCquest','$TCinvasion','$TCweather','$TCnest','$TCgym','$TGmon','$TGegg','$TGraid','$TGquest','$TGinvasion','$TGweather','$TGnest','$TGgym','$minMsgSqlT','$maxMsgSqlT','$avgMsgSqlT','$minMsgDtsT','$maxMsgDtsT','$avgMsgDtsT','$minPvpT','$maxPvpT','$avgPvpT','$rateLimit','minMsgT0','$maxMsgT0','$avgMsgT0','$minPvpT0','$maxPvpT0','$avgPvpT0','$noSend');"
 else
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO controller (Datetime,RPL,DUmon,DUegg,DUraid,DUquest,DUinvasion,DUweather,DUnest,DUgym,DCmon,DCegg,DCraid,DCquest,DCinvasion,DCweather,DCnest,DCgym,DWmon,DWegg,DWraid,DWquest,DWinvasion,DWweather,DWnest,DWgym,TUmon,TUegg,TUraid,TUquest,TUinvasion,TUweather,TUnest,TUgym,TCmon,TCegg,TCraid,TCquest,TCinvasion,TCweather,TCnest,TCgym,TGmon,TGegg,TGraid,TGquest,TGinvasion,TGweather,TGnest,TGgym,minMsgT,maxMsgT,avgMsgT,minPvpT,maxPvpT,avgPvpT,rateLimit,minMsgT0,maxMsgT0,avgMsgT0,minPvpT0,maxPvpT0,avgPvpT0,noSend) VALUES ('$process_hour','60','$DUmon','$DUegg','$DUraid','$DUquest','$DUinvasion','$DUweather','$DUnest','$DUgym','$DCmon','$DCegg','$DCraid','$DCquest','$DCinvasion','$DCweather','$DCnest','$DCgym','$DWmon','$DWegg','$DWraid','$DWquest','$DWinvasion','$DWweather','$DWnest','$DWgym','$TUmon','$TUegg','$TUraid','$TUquest','$TUinvasion','$TUweather','$TUnest','$TUgym','$TCmon','$TCegg','$TCraid','$TCquest','$TCinvasion','$TCweather','$TCnest','$TCgym','$TGmon','$TGegg','$TGraid','$TGquest','$TGinvasion','$TGweather','$TGnest','$TGgym','$minMsgT','$maxMsgT','$avgMsgT','$minPvpT','$maxPvpT','$avgPvpT','$rateLimit','minMsgT0','$maxMsgT0','$avgMsgT0','$minPvpT0','$maxPvpT0','$avgPvpT0','$noSend');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO controller (Datetime,RPL,DUmon,DUegg,DUraid,DUquest,DUinvasion,DUweather,DUnest,DUgym,DCmon,DCegg,DCraid,DCquest,DCinvasion,DCweather,DCnest,DCgym,DWmon,DWegg,DWraid,DWquest,DWinvasion,DWweather,DWnest,DWgym,TUmon,TUegg,TUraid,TUquest,TUinvasion,TUweather,TUnest,TUgym,TCmon,TCegg,TCraid,TCquest,TCinvasion,TCweather,TCnest,TCgym,TGmon,TGegg,TGraid,TGquest,TGinvasion,TGweather,TGnest,TGgym,minMsgSqlT,maxMsgSqlT,avgMsgSqlT,minMsgDtsT,maxMsgDtsT,avgMsgDtsT,minPvpT,maxPvpT,avgPvpT,rateLimit,minMsgT0,maxMsgT0,avgMsgT0,minPvpT0,maxPvpT0,avgPvpT0,noSend) VALUES ('$process_hour','60','$DUmon','$DUegg','$DUraid','$DUquest','$DUinvasion','$DUweather','$DUnest','$DUgym','$DCmon','$DCegg','$DCraid','$DCquest','$DCinvasion','$DCweather','$DCnest','$DCgym','$DWmon','$DWegg','$DWraid','$DWquest','$DWinvasion','$DWweather','$DWnest','$DWgym','$TUmon','$TUegg','$TUraid','$TUquest','$TUinvasion','$TUweather','$TUnest','$TUgym','$TCmon','$TCegg','$TCraid','$TCquest','$TCinvasion','$TCweather','$TCnest','$TCgym','$TGmon','$TGegg','$TGraid','$TGquest','$TGinvasion','$TGweather','$TGnest','$TGgym','$minMsgSqlT','$maxMsgSqlT','$avgMsgSqlT','$minMsgDtsT','$maxMsgDtsT','$avgMsgDtsT','$minPvpT','$maxPvpT','$avgPvpT','$rateLimit','minMsgT0','$maxMsgT0','$avgMsgT0','$minPvpT0','$maxPvpT0','$avgPvpT0','$noSend');"
 fi
 
 ## Get error log data

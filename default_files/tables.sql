@@ -49,9 +49,12 @@ CREATE TABLE IF NOT EXISTS `controller` (
   `TGweather` smallint(10) DEFAULT NULL,
   `TGnest` INT DEFAULT NULL,
   `TGgym` INT DEFAULT NULL,
-  `minMsgT` decimal(10,2) DEFAULT NULL,
-  `maxMsgT` decimal(10,2) DEFAULT NULL,
-  `avgMsgT` decimal(10,2) DEFAULT NULL,
+  `minMsgSqlT` decimal(10,2) DEFAULT NULL,
+  `maxMsgSqlT` decimal(10,2) DEFAULT NULL,
+  `avgMsgSqlT` decimal(10,2) DEFAULT NULL,
+  `minMsgDtsT` decimal(10,2) DEFAULT NULL,
+  `maxMsgDtsT` decimal(10,2) DEFAULT NULL,
+  `avgMsgDtsT` decimal(10,2) DEFAULT NULL,
   `minPvpT` decimal(10,2) DEFAULT NULL,
   `maxPvpT` decimal(10,2) DEFAULT NULL,
   `avgPvpT` decimal(10,2) DEFAULT NULL,
@@ -221,13 +224,20 @@ ADD COLUMN IF NOT EXISTS `TGweather` smallint(10) DEFAULT NULL AFTER TGinvasion,
 ADD COLUMN IF NOT EXISTS `TGnest` INT DEFAULT NULL AFTER TGweather,
 ADD COLUMN IF NOT EXISTS `TGgym` INT DEFAULT NULL AFTER TGnest,
 ADD COLUMN IF NOT EXISTS `noSend` smallint(10) DEFAULT NULL,
-ADD COLUMN IF NOT EXISTS `minPvpT` decimal(10,2) DEFAULT NULL AFTER avgMsgT,
+CHANGE COLUMN IF EXISTS `minMsgT` `minMsgSqlT` decimal(10,2) DEFAULT NULL,
+CHANGE COLUMN IF EXISTS `maxMsgT` `maxMsgSqlT` decimal(10,2) DEFAULT NULL,
+CHANGE COLUMN IF EXISTS `avgMsgT` `avgMsgSqlT` decimal(10,2) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `minMsgDtsT` decimal(10,2) DEFAULT NULL AFTER avgMsgSqlT,
+ADD COLUMN IF NOT EXISTS `maxMsgDtsT` decimal(10,2) DEFAULT NULL AFTER minMsgDtsT,
+ADD COLUMN IF NOT EXISTS `avgMsgDtsT` decimal(10,2) DEFAULT NULL AFTER maxMsgDtsT,
+ADD COLUMN IF NOT EXISTS `minPvpT` decimal(10,2) DEFAULT NULL AFTER avgMsgDtsT,
 ADD COLUMN IF NOT EXISTS `maxPvpT` decimal(10,2) DEFAULT NULL AFTER minPvpT,
 ADD COLUMN IF NOT EXISTS `avgPvpT` decimal(10,2) DEFAULT NULL AFTER maxPvpT,
 ADD COLUMN IF NOT EXISTS `minPvpT0` decimal(10,2) DEFAULT NULL AFTER avgMsgT0,
 ADD COLUMN IF NOT EXISTS `maxPvpT0` decimal(10,2) DEFAULT NULL AFTER minPvpT0,
 ADD COLUMN IF NOT EXISTS `avgPvpT0` decimal(10,2) DEFAULT NULL AFTER maxPvpT0
 ;
+
 
 ALTER TABLE `discord`
 ADD COLUMN IF NOT EXISTS `errorCantSend` smallint(10) DEFAULT NULL AFTER `errorUA`,
@@ -263,4 +273,4 @@ ADD COLUMN IF NOT EXISTS `gym` smallint(10) DEFAULT NULL AFTER `nest`
 
 -- update version
 INSERT IGNORE INTO version values ('poraclestats',1);
-UPDATE version set version = 15 where version.key = 'poraclestats';
+UPDATE version set version = 16 where version.key = 'poraclestats';

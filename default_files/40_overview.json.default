@@ -14,12 +14,12 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "7.5.6"
+      "version": "8.1.5"
     },
     {
       "type": "panel",
       "id": "graph",
-      "name": "Graph",
+      "name": "Graph (old)",
       "version": ""
     },
     {
@@ -38,6 +38,12 @@
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
@@ -46,7 +52,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1621503688515,
+  "iteration": 1633459045654,
   "links": [],
   "panels": [
     {
@@ -57,10 +63,6 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PORACLE}",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -87,7 +89,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.6",
+      "pluginVersion": "8.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -143,6 +145,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:52",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -151,6 +154,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:53",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -166,17 +170,14 @@
     },
     {
       "aliasColors": {
+        "avg DTS time, a human cared": "dark-blue",
         "avg time, a human cared": "dark-blue",
-        "avg time, no human cared": "dark-yellow"
+        "avg time, no human cared": "dark-orange"
       },
       "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PORACLE}",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -203,11 +204,16 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.6",
+      "pluginVersion": "8.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [],
+      "seriesOverrides": [
+        {
+          "alias": "avg time, no human cared",
+          "yaxis": 2
+        }
+      ],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
@@ -217,7 +223,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  avgMsgT as 'avg time, a human cared',\n  avgMsgT0 as 'avg time, no human cared'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
+          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  avgMsgDtsT as 'avg DTS time, a human cared',\n  avgMsgT0 as 'avg time, no human cared'\nFROM controller\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
           "refId": "A",
           "select": [
             [
@@ -259,6 +265,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:629",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -267,6 +274,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:630",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -282,16 +290,14 @@
     },
     {
       "aliasColors": {
-        "average webhook inbound queue": "yellow"
+        "average raw inbound queue": "dark-blue",
+        "average webhook inbound queue": "yellow",
+        "average worker inbound queue": "dark-orange"
       },
       "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PORACLE}",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -318,7 +324,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.6",
+      "pluginVersion": "8.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -379,6 +385,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:461",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -387,6 +394,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:462",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -402,16 +410,15 @@
     },
     {
       "aliasColors": {
+        "average discord outbound queue": "dark-blue",
+        "average discord webhook outbound queue": "dark-orange",
+        "average telegram outbound queue": "dark-green",
         "average webhook outbound queue": "dark-yellow"
       },
       "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PORACLE}",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -438,7 +445,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.6",
+      "pluginVersion": "8.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -494,6 +501,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:461",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -502,6 +510,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:462",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -518,16 +527,12 @@
     {
       "aliasColors": {
         "Total errors": "dark-red",
-        "Total warnings": "dark-blue"
+        "Total warnings": "dark-orange"
       },
       "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PORACLE}",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -554,7 +559,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.6",
+      "pluginVersion": "8.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -610,14 +615,16 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:1185",
           "format": "short",
           "label": null,
           "logBase": 1,
-          "max": null,
+          "max": "50",
           "min": null,
           "show": true
         },
         {
+          "$$hashKey": "object:1186",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -640,10 +647,6 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PORACLE}",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -670,7 +673,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.6",
+      "pluginVersion": "8.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -726,6 +729,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:1349",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -734,6 +738,122 @@
           "show": true
         },
         {
+          "$$hashKey": "object:1350",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {
+        "#failure to post staticmap": "dark-red",
+        "#failures to post staticmap": "dark-red",
+        "Poracle restarts": "dark-blue"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PORACLE}",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 24
+      },
+      "hiddenSeries": false,
+      "id": 12,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time',\n  poracleRes as 'Poracle restarts'\nFROM general\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Poracle restarts",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1349",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1350",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -748,7 +868,7 @@
       }
     }
   ],
-  "schemaVersion": 27,
+  "schemaVersion": 30,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -772,7 +892,6 @@
         "skipUrlSync": false,
         "sort": 3,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -780,12 +899,12 @@
     ]
   },
   "time": {
-    "from": "now-7d",
+    "from": "now-14d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "40. Overview",
   "uid": "7A45ctjMz",
-  "version": 19
+  "version": 23
 }
