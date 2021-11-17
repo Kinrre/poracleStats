@@ -105,12 +105,12 @@ if (( $checkLength > 0 ))
 fi
 
 # Add data for PR575, dts processing time
-checkLength="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep verbose: | grep 'ms)' | wc -l)"
+checkLength="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep verbose: | grep 'ms processing dts' | wc -l)"
 if (( $checkLength > 0 ))
   then
-    minMsgDtsT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep verbose: | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s min)"
-    maxMsgDtsT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep verbose: | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s max)"
-    avgMsgDtsT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep verbose: | grep 'ms)' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s add/length)"
+    minMsgDtsT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep verbose: | grep 'ms processing dts' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s min)"
+    maxMsgDtsT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep verbose: | grep 'ms processing dts' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s max)"
+    avgMsgDtsT="$(grep -v '0 humans cared' $folder/tmp/controller.log | grep verbose: | grep 'ms processing dts' | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s add/length)"
   else
     minMsgDtsT=0
     maxMsgDtsT=0
