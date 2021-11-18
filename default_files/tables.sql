@@ -66,6 +66,12 @@ CREATE TABLE IF NOT EXISTS `controller` (
   `maxPvpT0` decimal(10,2) DEFAULT NULL,
   `avgPvpT0` decimal(10,2) DEFAULT NULL,
   `noSend` smallint(10) DEFAULT NULL,
+  `minNomT` decimal(10,2) DEFAULT NULL,
+  `maxNomT` decimal(10,2) DEFAULT NULL,
+  `avgNomT` decimal(10,2) DEFAULT NULL,
+  `minTileT` decimal(10,2) DEFAULT NULL,
+  `maxTileT` decimal(10,2) DEFAULT NULL,
+  `avgTileT` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (Datetime,RPL)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -235,7 +241,13 @@ ADD COLUMN IF NOT EXISTS `maxPvpT` decimal(10,2) DEFAULT NULL AFTER minPvpT,
 ADD COLUMN IF NOT EXISTS `avgPvpT` decimal(10,2) DEFAULT NULL AFTER maxPvpT,
 ADD COLUMN IF NOT EXISTS `minPvpT0` decimal(10,2) DEFAULT NULL AFTER avgMsgT0,
 ADD COLUMN IF NOT EXISTS `maxPvpT0` decimal(10,2) DEFAULT NULL AFTER minPvpT0,
-ADD COLUMN IF NOT EXISTS `avgPvpT0` decimal(10,2) DEFAULT NULL AFTER maxPvpT0
+ADD COLUMN IF NOT EXISTS `avgPvpT0` decimal(10,2) DEFAULT NULL AFTER maxPvpT0,
+ADD COLUMN IF NOT EXISTS `minNomT` decimal(10,2) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `maxNomT` decimal(10,2) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `avgNomT` decimal(10,2) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `minTileT` decimal(10,2) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `maxTileT` decimal(10,2) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `avgTileT` decimal(10,2) DEFAULT NULL
 ;
 
 
@@ -273,4 +285,4 @@ ADD COLUMN IF NOT EXISTS `gym` smallint(10) DEFAULT NULL AFTER `nest`
 
 -- update version
 INSERT IGNORE INTO version values ('poraclestats',1);
-UPDATE version set version = 16 where version.key = 'poraclestats';
+UPDATE version set version = 17 where version.key = 'poraclestats';
