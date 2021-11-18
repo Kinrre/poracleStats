@@ -148,6 +148,30 @@ rateLimit="$(grep 'Rate limit' $folder/tmp/controller.log | wc -l)"
 
 noSend="$(grep 'already disappeared or is about to go away' $folder/tmp/controller.log | wc -l)"
 
+checkLength="$(grep 'Geocode' $folder/tmp/controller.log | grep verbose: | wc -l)"
+if (( $checkLength > 0 ))
+  then
+    minNomT="$(grep 'Geocode' $folder/tmp/controller.log | grep verbose: | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s min)"
+    maxNomT="$(grep 'Geocode' $folder/tmp/controller.log | grep verbose: | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s max)"
+    avgNomT="$(grep 'Geocode' $folder/tmp/controller.log | grep verbose: | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s add/length)"
+  else
+    minNomT=0
+    maxNomT=0
+    avgNomT=0
+fi
+
+checkLength="$(grep 'Tile generated' $folder/tmp/controller.log | grep verbose: | wc -l)"
+if (( $checkLength > 0 ))
+  then
+    minTileT="$(grep 'Tile generated' $folder/tmp/controller.log | grep verbose: | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s min)"
+    maxTileT="$(grep 'Tile generated' $folder/tmp/controller.log | grep verbose: | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s max)"
+    avgTileT="$(grep 'Tile generated' $folder/tmp/controller.log | grep verbose: | awk '{print substr($(NF-1),2)}' | awk -F'/' 'NF>1 {print $1} $1==$0' | jq -s add/length)"
+  else
+    minTileT=0
+    maxTileT=0
+    avgTileT=0
+fi
+
 echo "Insert controller log data into DB"
 echo ""
 if [ -z "$SQL_password" ]
