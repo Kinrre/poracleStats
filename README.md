@@ -7,6 +7,7 @@ Hourly process PoracleJS logs and store into database.<BR>
 ## Requirements
 - PoracleJS logger settings in ``local.json`` for both ``consoleLogLevel`` and ``logLevel`` to be set to ``verbose``.<BR>
 - Make sure ``jq`` is installed (sudo apt-get install jq).<BR>
+- To have all logging available enable ``"timingStats": true,`` in Poracle local.json section Logger.<BR>
 
 ## Setting up
 
