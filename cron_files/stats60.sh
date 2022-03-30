@@ -218,9 +218,9 @@ WmsgSend="$(grep 'WEBHOOK Sending discord message' $folder/tmp/discord.log | gre
 checkLength="$(grep 'MAIN verbose' $folder/tmp/discord.log | grep 'ms)' | grep 'CHANNEL' | wc -l)"
 if (( $checkLength > 0 ))
 then
-  minCmesT="$(grep 'MAIN verbose' $folder/tmp/discord.log | grep 'ms)' | grep 'CHANNEL' | awk '{print substr($(NF-1),2)}' | jq is min)"
-  maxCmesT="$(grep 'MAIN verbose' $folder/tmp/discord.log | grep 'ms)' | grep 'CHANNEL' | awk '{print substr($(NF-1),2)}' | jq is max)"
-  avgCmesT="$(grep 'MAIN verbose' $folder/tmp/discord.log | grep 'ms)' | grep 'CHANNEL' | awk '{print substr($(NF-1),2)}' | jq is add/length)"
+  minCmesT="$(grep 'MAIN verbose' $folder/tmp/discord.log | grep 'ms)' | grep 'CHANNEL' | awk '{print substr($(NF-1),2)}' | jq -s min)"
+  maxCmesT="$(grep 'MAIN verbose' $folder/tmp/discord.log | grep 'ms)' | grep 'CHANNEL' | awk '{print substr($(NF-1),2)}' | jq -s max)"
+  avgCmesT="$(grep 'MAIN verbose' $folder/tmp/discord.log | grep 'ms)' | grep 'CHANNEL' | awk '{print substr($(NF-1),2)}' | jq -s add/length)"
 else
   minCmesT=0
   maxCmesT=0
@@ -230,9 +230,9 @@ fi
 checkLength="$(grep 'MAIN verbose' $folder/tmp/discord.log | grep 'ms)' | grep 'USER' | wc -l)"
 if (( $checkLength > 0 ))
 then
-  minUmesT="$(grep 'MAIN verbose' $folder/tmp/discord.log | grep 'ms)' | grep 'USER' | awk '{print substr($(NF-1),2)}' | jq is min)"
-  maxUmesT="$(grep 'MAIN verbose' $folder/tmp/discord.log | grep 'ms)' | grep 'USER' | awk '{print substr($(NF-1),2)}' | jq is max)"
-  avgUmesT="$(grep 'MAIN verbose' $folder/tmp/discord.log | grep 'ms)' | grep 'USER' | awk '{print substr($(NF-1),2)}' | jq is add/length)"
+  minUmesT="$(grep 'MAIN verbose' $folder/tmp/discord.log | grep 'ms)' | grep 'USER' | awk '{print substr($(NF-1),2)}' | jq -s min)"
+  maxUmesT="$(grep 'MAIN verbose' $folder/tmp/discord.log | grep 'ms)' | grep 'USER' | awk '{print substr($(NF-1),2)}' | jq -s max)"
+  avgUmesT="$(grep 'MAIN verbose' $folder/tmp/discord.log | grep 'ms)' | grep 'USER' | awk '{print substr($(NF-1),2)}' | jq -s add/length)"
 else
   minUmesT=0
   maxUmesT=0
