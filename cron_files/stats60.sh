@@ -215,13 +215,37 @@ UmsgSend="$(grep 'USER Sending discord message' $folder/tmp/discord.log | grep -
 CmsgSend="$(grep 'CHANNEL Sending discord message' $folder/tmp/discord.log | grep -v 'clean' | wc -l)"
 WmsgSend="$(grep 'WEBHOOK Sending discord message' $folder/tmp/discord.log | grep -v 'clean' | wc -l)"
 
+checkLength="$(grep 'MAIN verbose' $folder/tmp/discord.log | grep 'ms)' | grep 'CHANNEL' | wc -l)"
+if (( $checkLength > 0 ))
+then
+  minCmesT="$(grep 'MAIN verbose' $folder/tmp/discord.log | grep 'ms)' | grep 'CHANNEL' | awk '{print substr($(NF-1),2)}' | jq is min)"
+  maxCmesT="$(grep 'MAIN verbose' $folder/tmp/discord.log | grep 'ms)' | grep 'CHANNEL' | awk '{print substr($(NF-1),2)}' | jq is max)"
+  avgCmesT="$(grep 'MAIN verbose' $folder/tmp/discord.log | grep 'ms)' | grep 'CHANNEL' | awk '{print substr($(NF-1),2)}' | jq is add/length)"
+else
+  minCmesT=0
+  maxCmesT=0
+  avgCmesT=0
+fi
+
+checkLength="$(grep 'MAIN verbose' $folder/tmp/discord.log | grep 'ms)' | grep 'USER' | wc -l)"
+if (( $checkLength > 0 ))
+then
+  minUmesT="$(grep 'MAIN verbose' $folder/tmp/discord.log | grep 'ms)' | grep 'USER' | awk '{print substr($(NF-1),2)}' | jq is min)"
+  maxUmesT="$(grep 'MAIN verbose' $folder/tmp/discord.log | grep 'ms)' | grep 'USER' | awk '{print substr($(NF-1),2)}' | jq is max)"
+  avgUmesT="$(grep 'MAIN verbose' $folder/tmp/discord.log | grep 'ms)' | grep 'USER' | awk '{print substr($(NF-1),2)}' | jq is add/length)"
+else
+  minUmesT=0
+  maxUmesT=0
+  avgUmesT=0
+fi
+
 echo "Insert discord log data into DB"
 echo ""
 if [ -z "$SQL_password" ]
 then
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO discord (Datetime,RPL,warn,error,errorBG,errorUA,errorCantSend,errorNoPerm,errorNoAccess,msgClean,msgSend,UmsgSend,CmsgSend,WmsgSend) VALUES ('$process_hour','60','$warn2','$error2','$errorBG','$errorUA','$errorCantSend','$errorNoPerm','$errorNoAccess','$msgClean','$msgSend','$UmsgSend','$CmsgSend','$WmsgSend');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO discord (Datetime,RPL,warn,error,errorBG,errorUA,errorCantSend,errorNoPerm,errorNoAccess,msgClean,msgSend,UmsgSend,CmsgSend,WmsgSend,minCmesT,maxCmesT,avgCmesT,minUmesT,maxUmesT,avgUmesT) VALUES ('$process_hour','60','$warn2','$error2','$errorBG','$errorUA','$errorCantSend','$errorNoPerm','$errorNoAccess','$msgClean','$msgSend','$UmsgSend','$CmsgSend','$WmsgSend','$minCmesT','$maxCmesT','$avgCmesT','$minUmesT','$maxUmesT','$avgUmesT');"
 else
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO discord (Datetime,RPL,warn,error,errorBG,errorUA,errorCantSend,errorNoPerm,errorNoAccess,msgClean,msgSend,UmsgSend,CmsgSend,WmsgSend) VALUES ('$process_hour','60','$warn2','$error2','$errorBG','$errorUA','$errorCantSend','$errorNoPerm','$errorNoAccess','$msgClean','$msgSend','$UmsgSend','$CmsgSend','$WmsgSend');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO discord (Datetime,RPL,warn,error,errorBG,errorUA,errorCantSend,errorNoPerm,errorNoAccess,msgClean,msgSend,UmsgSend,CmsgSend,WmsgSend,minCmesT,maxCmesT,avgCmesT,minUmesT,maxUmesT,avgUmesT) VALUES ('$process_hour','60','$warn2','$error2','$errorBG','$errorUA','$errorCantSend','$errorNoPerm','$errorNoAccess','$msgClean','$msgSend','$UmsgSend','$CmsgSend','$WmsgSend','$minCmesT','$maxCmesT','$avgCmesT','$minUmesT','$maxUmesT','$avgUmesT');"
 fi
 
 ## Get telegram log data
