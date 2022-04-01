@@ -79,7 +79,7 @@ from poracleStats.controller
 where Datetime like concat(left(@Datetime,10),'%') and RPL = 60
 ;
 
-INSERT IGNORE INTO poracleStats.discord (Datetime,RPL,warn,error,errorBG,errorUA,errorCantSend,errorNoPerm,errorNoAccess,msgClean,msgSend,UmsgSend,CmsgSend,WmsgSend)
+INSERT IGNORE INTO poracleStats.discord (Datetime,RPL,warn,error,errorBG,errorUA,errorCantSend,errorNoPerm,errorNoAccess,msgClean,msgSend,UmsgSend,CmsgSend,WmsgSend,minCmsgT,maxCmsgT,avgCmsgT,minUmsgT,maxUmsgT,avgUmsgT)
 select
 @Datetime,
 '1440',
@@ -94,7 +94,13 @@ sum(msgClean),
 sum(msgSend),
 sum(UmsgSend),
 sum(CmsgSend),
-sum(WmsgSend)
+sum(WmsgSend),
+min(minCmsgT),
+max(maxCmsgT),
+avg(avgCmsgT),
+min(minUmsgT),
+max(maxUmsgT),
+avg(avgUmsgT)
 from poracleStats.discord
 where Datetime like concat(left(@Datetime,10),'%') and RPL = 60
 ;

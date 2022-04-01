@@ -128,6 +128,12 @@ CREATE TABLE IF NOT EXISTS `discord` (
   `UmsgSend` INT DEFAULT NULL,
   `CmsgSend` INT DEFAULT NULL,
   `WmsgSend` INT DEFAULT NULL,
+  `minCmsgT` decimal(10,2) DEFAULT NULL,
+  `maxCmsgT` decimal(10,2) DEFAULT NULL,
+  `avgCmsgT` decimal(10,2) DEFAULT NULL,
+  `minUmsgT` decimal(10,2) DEFAULT NULL,
+  `maxUmsgT` decimal(10,2) DEFAULT NULL,
+  `avgUmsgT` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (Datetime,RPL)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -257,7 +263,13 @@ ADD COLUMN IF NOT EXISTS `errorNoPerm` smallint(10) DEFAULT NULL AFTER `errorCan
 ADD COLUMN IF NOT EXISTS `errorNoAccess` smallint(10) DEFAULT NULL AFTER `errorNoPerm`,
 ADD COLUMN IF NOT EXISTS `UmsgSend` smallint(10) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS `CmsgSend` smallint(10) DEFAULT NULL,
-ADD COLUMN IF NOT EXISTS `WmsgSend` smallint(10) DEFAULT NULL
+ADD COLUMN IF NOT EXISTS `WmsgSend` smallint(10) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `minCmsgT` decimal(10,2) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `maxCmsgT` decimal(10,2) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `avgCmsgT` decimal(10,2) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `minUmsgT` decimal(10,2) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `maxUmsgT` decimal(10,2) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `avgUmsgT` decimal(10,2) DEFAULT NULL
 ;
 
 ALTER TABLE `general`
@@ -285,4 +297,4 @@ ADD COLUMN IF NOT EXISTS `gym` smallint(10) DEFAULT NULL AFTER `nest`
 
 -- update version
 INSERT IGNORE INTO version values ('poraclestats',1);
-UPDATE version set version = 17 where version.key = 'poraclestats';
+UPDATE version set version = 18 where version.key = 'poraclestats';
