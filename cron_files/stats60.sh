@@ -257,13 +257,49 @@ UmsgSend="$(grep 'USER Sending telegram message' $folder/tmp/telegram.log | grep
 CmsgSend="$(grep 'CHANNEL Sending telegram message' $folder/tmp/telegram.log | grep -v 'clean' | wc -l)"
 GmsgSend="$(grep 'GROUP Sending telegram message' $folder/tmp/telegram.log | grep -v 'clean' | wc -l)"
 
+checkLength="$(grep 'MAIN verbose' $folder/tmp/telegram.log | grep 'ms)' | grep 'CHANNEL' | wc -l)"
+if (( $checkLength > 0 ))
+then
+  minCmsgT="$(grep 'MAIN verbose' $folder/tmp/telegram.log | grep 'ms)' | grep 'CHANNEL' | awk '{print substr($(NF-1),2)}' | jq -s min)"
+  maxCmsgT="$(grep 'MAIN verbose' $folder/tmp/telegram.log | grep 'ms)' | grep 'CHANNEL' | awk '{print substr($(NF-1),2)}' | jq -s max)"
+  avgCmsgT="$(grep 'MAIN verbose' $folder/tmp/telegram.log | grep 'ms)' | grep 'CHANNEL' | awk '{print substr($(NF-1),2)}' | jq -s add/length)"
+else
+  minCmsgT=0
+  maxCmsgT=0
+  avgCmsgT=0
+fi
+
+checkLength="$(grep 'MAIN verbose' $folder/tmp/telegram.log | grep 'ms)' | grep 'GROUP' | wc -l)"
+if (( $checkLength > 0 ))
+then
+  minGmsgT="$(grep 'MAIN verbose' $folder/tmp/telegram.log | grep 'ms)' | grep 'GROUP' | awk '{print substr($(NF-1),2)}' | jq -s min)"
+  maxGmsgT="$(grep 'MAIN verbose' $folder/tmp/telegram.log | grep 'ms)' | grep 'GROUP' | awk '{print substr($(NF-1),2)}' | jq -s max)"
+  avgGmsgT="$(grep 'MAIN verbose' $folder/tmp/telegram.log | grep 'ms)' | grep 'GROUP' | awk '{print substr($(NF-1),2)}' | jq -s add/length)"
+else
+  minGmsgT=0
+  maxGmsgT=0
+  avgGmsgT=0
+fi
+
+checkLength="$(grep 'MAIN verbose' $folder/tmp/telegram.log | grep 'ms)' | grep 'USER' | wc -l)"
+if (( $checkLength > 0 ))
+then
+  minUmsgT="$(grep 'MAIN verbose' $folder/tmp/telegram.log | grep 'ms)' | grep 'USER' | awk '{print substr($(NF-1),2)}' | jq -s min)"
+  maxUmsgT="$(grep 'MAIN verbose' $folder/tmp/telegram.log | grep 'ms)' | grep 'USER' | awk '{print substr($(NF-1),2)}' | jq -s max)"
+  avgUmsgT="$(grep 'MAIN verbose' $folder/tmp/telegram.log | grep 'ms)' | grep 'USER' | awk '{print substr($(NF-1),2)}' | jq -s add/length)"
+else
+  minUmsgT=0
+  maxUmsgT=0
+  avgUmsgT=0
+fi
+
 echo "Insert telegram log data into DB"
 echo ""
 if [ -z "$SQL_password" ]
 then
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO telegram (Datetime,RPL,stickerFail,msgClean,msgSend,UmsgSend,CmsgSend,GmsgSend) ('$process_hour','60','$stickerFail','$msgClean','$msgSend','$UmsgSend','$CmsgSend','$GmsgSend');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user $STATS_DB -e "INSERT IGNORE INTO telegram (Datetime,RPL,stickerFail,msgClean,msgSend,UmsgSend,CmsgSend,GmsgSend,minCmsgT,maxCmsgT,avgCmsgT,minGmsgT,maxGmsgT,avgGmsgT,minUmsgT,maxUmsgT,avgUmsgT) VALUES ('$process_hour','60','$stickerFail','$msgClean','$msgSend','$UmsgSend','$CmsgSend','$GmsgSend','$minCmsgT','$maxCmsgT','$avgCmsgT','$minGmsgT','$maxGmsgT','$avgGmsgT','$minUmsgT','$maxUmsgT','$avgUmsgT');"
 else
-  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO telegram (Datetime,RPL,stickerFail,msgClean,msgSend,UmsgSend,CmsgSend,GmsgSend) VALUES ('$process_hour','60','$stickerFail','$msgClean','$msgSend','$UmsgSend','$CmsgSend','$GmsgSend');"
+  mysql -h$DB_IP -P$DB_PORT -u$SQL_user -p$SQL_password $STATS_DB -e "INSERT IGNORE INTO telegram (Datetime,RPL,stickerFail,msgClean,msgSend,UmsgSend,CmsgSend,GmsgSend,minCmsgT,maxCmsgT,avgCmsgT,minGmsgT,maxGmsgT,avgGmsgT,minUmsgT,maxUmsgT,avgUmsgT) VALUES ('$process_hour','60','$stickerFail','$msgClean','$msgSend','$UmsgSend','$CmsgSend','$GmsgSend','$minCmsgT','$maxCmsgT','$avgCmsgT','$minGmsgT','$maxGmsgT','$avgGmsgT','$minUmsgT','$maxUmsgT','$avgUmsgT');"
 fi
 
 ## Get general log data

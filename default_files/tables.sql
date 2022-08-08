@@ -146,6 +146,15 @@ CREATE TABLE IF NOT EXISTS `telegram` (
   `UmsgSend` INT DEFAULT NULL,
   `CmsgSend` INT DEFAULT NULL,
   `GmsgSend` INT DEFAULT NULL,
+  `minCmsgT` decimal(10,2) DEFAULT NULL,
+  `maxCmsgT` decimal(10,2) DEFAULT NULL,
+  `avgCmsgT` decimal(10,2) DEFAULT NULL,
+  `minGmsgT` decimal(10,2) DEFAULT NULL,
+  `maxGmsgT` decimal(10,2) DEFAULT NULL,
+  `avgGmsgT` decimal(10,2) DEFAULT NULL,
+  `minUmsgT` decimal(10,2) DEFAULT NULL,
+  `maxUmsgT` decimal(10,2) DEFAULT NULL,
+  `avgUmsgT` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (Datetime,RPL)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -256,7 +265,6 @@ ADD COLUMN IF NOT EXISTS `maxTileT` decimal(10,2) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS `avgTileT` decimal(10,2) DEFAULT NULL
 ;
 
-
 ALTER TABLE `discord`
 ADD COLUMN IF NOT EXISTS `errorCantSend` smallint(10) DEFAULT NULL AFTER `errorUA`,
 ADD COLUMN IF NOT EXISTS `errorNoPerm` smallint(10) DEFAULT NULL AFTER `errorCantSend`,
@@ -267,6 +275,18 @@ ADD COLUMN IF NOT EXISTS `WmsgSend` smallint(10) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS `minCmsgT` decimal(10,2) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS `maxCmsgT` decimal(10,2) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS `avgCmsgT` decimal(10,2) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `minUmsgT` decimal(10,2) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `maxUmsgT` decimal(10,2) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `avgUmsgT` decimal(10,2) DEFAULT NULL
+;
+
+ALTER TABLE `telegram`
+ADD COLUMN IF NOT EXISTS `minCmsgT` decimal(10,2) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `maxCmsgT` decimal(10,2) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `avgCmsgT` decimal(10,2) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `minGmsgT` decimal(10,2) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `maxGmsgT` decimal(10,2) DEFAULT NULL,
+ADD COLUMN IF NOT EXISTS `avgGmsgT` decimal(10,2) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS `minUmsgT` decimal(10,2) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS `maxUmsgT` decimal(10,2) DEFAULT NULL,
 ADD COLUMN IF NOT EXISTS `avgUmsgT` decimal(10,2) DEFAULT NULL
@@ -297,4 +317,4 @@ ADD COLUMN IF NOT EXISTS `gym` smallint(10) DEFAULT NULL AFTER `nest`
 
 -- update version
 INSERT IGNORE INTO version values ('poraclestats',1);
-UPDATE version set version = 18 where version.key = 'poraclestats';
+UPDATE version set version = 19 where version.key = 'poraclestats';

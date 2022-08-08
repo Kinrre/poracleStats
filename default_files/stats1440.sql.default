@@ -105,7 +105,7 @@ from poracleStats.discord
 where Datetime like concat(left(@Datetime,10),'%') and RPL = 60
 ;
 
-INSERT IGNORE INTO poracleStats.telegram (Datetime,RPL,stickerFail,msgClean,msgSend,UmsgSend,CmsgSend,GmsgSend)
+INSERT IGNORE INTO poracleStats.telegram (Datetime,RPL,stickerFail,msgClean,msgSend,UmsgSend,CmsgSend,GmsgSend,minCmsgT,maxCmsgT,avgCmsgT,minGmsgT,maxGmsgT,avgGmsgT,minUmsgT,maxUmsgT,avgUmsgT)
 select
 @Datetime,
 '1440',
@@ -114,7 +114,16 @@ sum(msgClean),
 sum(msgSend),
 sum(UmsgSend),
 sum(CmsgSend),
-sum(GmsgSend)
+sum(GmsgSend),
+min(minCmsgT),
+max(maxCmsgT),
+avg(avgCmsgT),
+min(minGmsgT),
+max(maxGmsgT),
+avg(avgGmsgT),
+min(minUmsgT),
+max(maxUmsgT),
+avg(avgUmsgT)
 from poracleStats.telegram
 where Datetime like concat(left(@Datetime,10),'%') and RPL = 60
 ;

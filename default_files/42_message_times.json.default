@@ -9,13 +9,13 @@
       "pluginName": "MySQL"
     }
   ],
-  "__elements": [],
+  "__elements": {},
   "__requires": [
     {
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "8.4.3"
+      "version": "9.0.3"
     },
     {
       "type": "datasource",
@@ -34,7 +34,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -53,7 +56,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1648809476504,
+  "iteration": 1659984059172,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -382,7 +385,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  $__timeGroup(Datetime,$__interval) as 'time'\nFROM telegram\nWHERE\n  $__timeFilter(datetime) and\n  RPL = '$RPL'\nGROUP BY 1\nORDER BY $__timeGroup(Datetime,$__interval)\n",
+          "rawSql": "SELECT\r\n  $__timeGroup(Datetime,$__interval) as 'time',\r\n  avgUmsgT as 'avg telegram user message delivery time',\r\n  avgGmsgT as 'avg telegram group message delivery time',\r\n  avgCmsgT as 'avg telegram channel message delivery time'\r\nFROM telegram\r\nWHERE\r\n  $__timeFilter(datetime) and\r\n  RPL = '$RPL'\r\nGROUP BY 1\r\nORDER BY $__timeGroup(Datetime,$__interval)",
           "refId": "A",
           "select": [
             [
@@ -534,6 +537,10 @@
       "pluginVersion": "8.4.3",
       "targets": [
         {
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_PORACLE}"
+          },
           "format": "time_series",
           "group": [],
           "metricColumn": "none",
@@ -701,6 +708,10 @@
       "pluginVersion": "8.4.3",
       "targets": [
         {
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_PORACLE}"
+          },
           "format": "time_series",
           "group": [],
           "metricColumn": "none",
@@ -857,6 +868,10 @@
       "pluginVersion": "8.4.3",
       "targets": [
         {
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_PORACLE}"
+          },
           "format": "time_series",
           "group": [],
           "metricColumn": "none",
@@ -1024,6 +1039,10 @@
       "pluginVersion": "8.4.3",
       "targets": [
         {
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_PORACLE}"
+          },
           "format": "time_series",
           "group": [],
           "metricColumn": "none",
@@ -1176,6 +1195,10 @@
       "pluginVersion": "8.4.3",
       "targets": [
         {
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_PORACLE}"
+          },
           "format": "time_series",
           "group": [],
           "metricColumn": "none",
@@ -1343,6 +1366,10 @@
       "pluginVersion": "8.4.3",
       "targets": [
         {
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_PORACLE}"
+          },
           "format": "time_series",
           "group": [],
           "metricColumn": "none",
@@ -1540,6 +1567,10 @@
       "pluginVersion": "8.4.3",
       "targets": [
         {
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_PORACLE}"
+          },
           "format": "time_series",
           "group": [],
           "metricColumn": "none",
@@ -1737,6 +1768,10 @@
       "pluginVersion": "8.4.3",
       "targets": [
         {
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_PORACLE}"
+          },
           "format": "time_series",
           "group": [],
           "metricColumn": "none",
@@ -1859,6 +1894,10 @@
       "pluginVersion": "8.4.3",
       "targets": [
         {
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_PORACLE}"
+          },
           "format": "time_series",
           "group": [],
           "metricColumn": "none",
@@ -1981,6 +2020,10 @@
       "pluginVersion": "8.4.3",
       "targets": [
         {
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_PORACLE}"
+          },
           "format": "time_series",
           "group": [],
           "metricColumn": "none",
@@ -2103,6 +2146,10 @@
       "pluginVersion": "8.4.3",
       "targets": [
         {
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_PORACLE}"
+          },
           "format": "time_series",
           "group": [],
           "metricColumn": "none",
@@ -2225,6 +2272,10 @@
       "pluginVersion": "8.4.3",
       "targets": [
         {
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_PORACLE}"
+          },
           "format": "time_series",
           "group": [],
           "metricColumn": "none",
@@ -2255,7 +2306,7 @@
       "type": "timeseries"
     }
   ],
-  "schemaVersion": 35,
+  "schemaVersion": 36,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -2285,13 +2336,13 @@
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-14d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "42. Message time",
   "uid": "16Pe04jGz",
-  "version": 5,
+  "version": 7,
   "weekStart": ""
 }
